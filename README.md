@@ -1,2 +1,8 @@
 # LoyaltyPlatformIDS
-Project for IDS exam
+Project for Software Engeenering exam.
+
+
+### Contributors:
+- Carmine Marchesani
+- Patryk Bialowas
+- Marco Cocilova
