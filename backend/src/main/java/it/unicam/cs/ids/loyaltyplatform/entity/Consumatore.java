@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 public class Consumatore
 {
     @Id
-    private Integer id;
+    private Integer idConsumatore;
     private String nickname;
     private String dataDiNascita;
 
@@ -21,7 +21,7 @@ public class Consumatore
     }
 
     public Consumatore(Integer id, String nickname, String dataDiNascita, boolean sesso, String email, String password) {
-        this.id = id;
+        this.idConsumatore = id;
         this.nickname = nickname;
         this.dataDiNascita = dataDiNascita;
         this.sesso = sesso;
@@ -31,11 +31,11 @@ public class Consumatore
 
     //getters and setters
     public void setId(Integer id) {
-        this.id = id;
+        this.idConsumatore = id;
     }
 
     public Integer getId() {
-        return id;
+        return idConsumatore;
     }
 
     public String getNickname() {

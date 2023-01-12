@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 public class Coalizione
 {
     @Id
-    private Integer id;
+    private Integer idCoalizione;
 
     //buoni spesa ogni tot euro
     private boolean condivisionePunti;
@@ -22,7 +22,7 @@ public class Coalizione
     public Coalizione() {
     }
     public Coalizione(Integer id, boolean condivisionePunti, float penalitaCondivisione, Integer percentualeRitiroPremi) {
-        this.id = id;
+        this.idCoalizione = id;
         this.condivisionePunti = condivisionePunti;
         this.penalitaCondivisione = penalitaCondivisione;
         this.percentualeRitiroPremi = percentualeRitiroPremi;
@@ -32,11 +32,11 @@ public class Coalizione
 
     //getters and setters
     public Integer getId() {
-        return id;
+        return idCoalizione;
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        this.idCoalizione = id;
     }
 
     public boolean isCondivisionePunti() {

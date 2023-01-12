@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 public class Azienda
 {
     @Id
-    private Integer id;
+    private Integer idAdesione;
 
     //TODO chiave secondaria da settare
     private Integer qualeCoalizione ;
@@ -29,7 +29,7 @@ public class Azienda
     }
 
     public Azienda(Integer id, String nomeAzienda, String email, String password, String pIVA, String sede, String referral, String moltSistemaLivelli, float divisoreCashback, float moltiplicatoreVip) {
-        this.id = id;
+        this.idAdesione = id;
         this.qualeCoalizione = -1;
         this.nomeAzienda = nomeAzienda;
         this.email = email;
@@ -45,11 +45,11 @@ public class Azienda
 
     //getters and setters
     public Integer getId() {
-        return id;
+        return idAdesione;
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        this.idAdesione = id;
     }
 
     public Integer getQualeCoalizione() {
