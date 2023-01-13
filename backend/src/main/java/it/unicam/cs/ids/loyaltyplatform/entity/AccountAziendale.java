@@ -1,20 +1,21 @@
 package it.unicam.cs.ids.loyaltyplatform.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import primaryKeys.PKAccountAziendale;
 
 @Entity
 @Table(name = "AccountAziendali")
-public class AccountAziendale
-{
+@IdClass(PKAccountAziendale.class)
+public class AccountAziendale {     //TODO aggingere foreight keys
     @Id
-    private Integer seriale;
-    private Integer qualeAzienda;//TODO chiave composta
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private final Integer seriale;
+    @Id
+    private final Integer qualeAzienda;
 
-    public AccountAziendale()
-    {
-
+    public AccountAziendale() {
+        seriale = 0;
+        qualeAzienda = 0;
     }
 
     public AccountAziendale(Integer seriale, Integer qualeAzienda) {
@@ -26,15 +27,7 @@ public class AccountAziendale
         return seriale;
     }
 
-    public void setSeriale(Integer seriale) {
-        this.seriale = seriale;
-    }
-
     public Integer getQualeAzienda() {
         return qualeAzienda;
-    }
-
-    public void setQualeAzienda(Integer qualeAzienda) {
-        this.qualeAzienda = qualeAzienda;
     }
 }

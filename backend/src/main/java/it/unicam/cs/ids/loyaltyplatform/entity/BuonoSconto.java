@@ -1,27 +1,30 @@
 package it.unicam.cs.ids.loyaltyplatform.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Date;
 @Entity
 @Table (name = "BuoniSconto")
-public class BuonoSconto{
+public class BuonoSconto {      //TODO aggingere foreight keys
     @Id
-    private Integer idBuoni;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private final Integer idBuono;
+    @Column(nullable = false)
     private Integer qualeConsumatore;
+    @Column(nullable = false)
     private Integer qualeAzienda;
+    @Column(nullable = false)
     private Date dataCreazione;
+    @Column(nullable = false)
     private Date dataScadenza;
+    @Column(nullable = false)
     private float valore;
 
-    public BuonoSconto()
-    {
-
+    public BuonoSconto() {
+        idBuono = 0;
     }
-    public BuonoSconto(Integer idBuoni, Integer qualeConsumatore, Integer qualeAzienda, Date dataCreazione, Date dataScadenza, float valore) {
-        this.idBuoni = idBuoni;
+    public BuonoSconto(Integer idBuono, Integer qualeConsumatore, Integer qualeAzienda, Date dataCreazione, Date dataScadenza, float valore) {
+        this.idBuono = idBuono;
         this.qualeConsumatore = qualeConsumatore;
         this.qualeAzienda = qualeAzienda;
         this.dataCreazione = dataCreazione;
@@ -29,12 +32,8 @@ public class BuonoSconto{
         this.valore = valore;
     }
 
-    public Integer getIdBuoni() {
-        return idBuoni;
-    }
-
-    public void setIdBuoni(Integer idBuoni) {
-        this.idBuoni = idBuoni;
+    public Integer getIdBuono() {
+        return idBuono;
     }
 
     public Integer getQualeConsumatore() {

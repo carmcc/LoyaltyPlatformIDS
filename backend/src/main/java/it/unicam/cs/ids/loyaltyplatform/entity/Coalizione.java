@@ -1,25 +1,24 @@
 package it.unicam.cs.ids.loyaltyplatform.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Coalizioni")
 public class Coalizione
 {
     @Id
-    private Integer idCoalizione;
-
-    //buoni spesa ogni tot euro
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private final Integer idCoalizione;
+    @Column(nullable = false)
+    private float parametroBuoniSpesa;//buoni spesa ogni tot euro
+    @Column(nullable = false)
     private boolean condivisionePunti;
-
     private float penalitaCondivisione;
-
-    //percentuale minima
-    private Integer percentualeRitiroPremi;
+    private Integer percentualeRitiroPremi; //Si possono usare i punti ottenuti da altre aziende,
+                                            // ma per ritirare il premio da una di queste devi avere guadagnato da essa almeno la percentuale indicata.
 
     public Coalizione() {
+        idCoalizione = 0;
     }
     public Coalizione(Integer id, boolean condivisionePunti, float penalitaCondivisione, Integer percentualeRitiroPremi) {
         this.idCoalizione = id;
@@ -35,8 +34,12 @@ public class Coalizione
         return idCoalizione;
     }
 
-    public void setId(Integer id) {
-        this.idCoalizione = id;
+    public float getParametroBuoniSpesa() {
+        return parametroBuoniSpesa;
+    }
+
+    public void setParametroBuoniSpesa(float parametroBuoniSpesa) {
+        this.parametroBuoniSpesa = parametroBuoniSpesa;
     }
 
     public boolean isCondivisionePunti() {

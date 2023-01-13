@@ -1,17 +1,19 @@
 package it.unicam.cs.ids.loyaltyplatform.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import primaryKeys.PKRuolo;
 
 @Entity
 @Table(name = "Ruoli")
-public class Ruolo
-{
+@IdClass(PKRuolo.class)
+public class Ruolo {        //TODO aggingere foreight keys
     @Id
-    private Integer qualeAccountAziendale;//TODO chiavi secondarie
+    private Integer qualeAccountAziendale;
+    @Id
     private Integer qualeSeriale;
+    @Id
     private String qualePermesso;
+    @Column(nullable = false)
     private String nome;
 
     public Ruolo()

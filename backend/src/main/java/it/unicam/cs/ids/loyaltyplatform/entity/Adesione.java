@@ -1,31 +1,33 @@
 package it.unicam.cs.ids.loyaltyplatform.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import primaryKeys.PKAdesione;
 
 import java.util.Date;
 
-
 @Entity
 @Table(name = "Adesioni")
-public class Adesione
-{
+@IdClass(PKAdesione.class)
+public class Adesione {     //TODO aggingere foreight keys
     @Id
-    //TODO settare le chiavi composte
-    private Integer qualeAzienda;
-    private Integer qualeConsumatore;
-
+    private final Integer qualeAzienda;
+    @Id
+    private final Integer qualeConsumatore;
+    @Column(nullable = false)
     private Integer esperienzaConsumatore;
+    @Column(nullable = false)
     private boolean isVip;
-
+    @Column(nullable = false)
     private Integer livelloConsumatore;
-
+    @Column(nullable = false)
     private Integer puntiConsumatore;
+    @Column(nullable = false)
     private float salvadanaio;
     private Date ultimaSpesa;
 
     public Adesione() {
+        qualeAzienda = 0;
+        qualeConsumatore = 0;
     }
 
     public Adesione(Integer qualeAzienda, Integer qualeConsumatore, Integer esperienzaConsumatore, boolean isVip, Integer livelloConsumatore, Integer puntiConsumatore, float salvadanaio, Date ultimaSpesa) {
@@ -44,16 +46,8 @@ public class Adesione
         return qualeAzienda;
     }
 
-    public void setQualeAzienda(Integer qualeAzienda) {
-        this.qualeAzienda = qualeAzienda;
-    }
-
     public Integer getQualeConsumatore() {
         return qualeConsumatore;
-    }
-
-    public void setQualeConsumatore(Integer qualeConsumatore) {
-        this.qualeConsumatore = qualeConsumatore;
     }
 
     public Integer getEsperienzaConsumatore() {

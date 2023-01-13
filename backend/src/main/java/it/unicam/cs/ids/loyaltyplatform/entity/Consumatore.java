@@ -1,23 +1,25 @@
 package it.unicam.cs.ids.loyaltyplatform.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Consumatori")
 public class Consumatore
 {
     @Id
-    private Integer idConsumatore;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private final Integer idConsumatore;
+    @Column(unique = true, nullable = false)
     private String nickname;
     private String dataDiNascita;
-
     private boolean sesso;
+    @Column(nullable = false)
     private String email;
+    @Column(nullable = false)
     private String password;
 
     public Consumatore() {
+        idConsumatore = 0;
     }
 
     public Consumatore(Integer id, String nickname, String dataDiNascita, boolean sesso, String email, String password) {
@@ -27,11 +29,6 @@ public class Consumatore
         this.sesso = sesso;
         this.email = email;
         this.password = password;
-    }
-
-    //getters and setters
-    public void setId(Integer id) {
-        this.idConsumatore = id;
     }
 
     public Integer getId() {

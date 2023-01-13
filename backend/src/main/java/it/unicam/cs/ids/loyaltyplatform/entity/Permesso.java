@@ -8,7 +8,7 @@ import jakarta.persistence.Table;
 @Table(name = "Permessi")
 public class Permesso
 {
-    @Id
+    @Id //questa primary key può essere modificata
     private String nomePermesso;//TODO impostare lunghezza a 30
 
     public Permesso(String nomePermesso) {
@@ -24,7 +24,7 @@ public class Permesso
         return nomePermesso;
     }
 
-    public void setNomePermesso(String nomePermesso) {
+    public void setNomePermesso(String nomePermesso) {  //TODO controllo nomi uguali
         this.nomePermesso = nomePermesso;
     }
 

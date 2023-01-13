@@ -1,40 +1,44 @@
 package it.unicam.cs.ids.loyaltyplatform.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Aziende")
 public class Azienda
 {
     @Id
-    private Integer idAdesione;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private final Integer idAdesione;
 
     //TODO chiave secondaria da settare
     private Integer qualeCoalizione ;
+    @Column(unique = true,nullable = false)
     private String nomeAzienda;
     private String email;
+    @Column(nullable = false)
     private String password;
-    private String pIVA;
+    @Column(nullable = false)
+    private String IVA;
+    @Column(nullable = false)
     private String sede;
+    @Column(nullable = false)
     private String referral;
-
     private String moltSistemaLivelli;
     private float divisoreCashback;
 
     private float moltiplicatoreVip;
 
     public Azienda() {
+        idAdesione = 0;
     }
 
-    public Azienda(Integer id, String nomeAzienda, String email, String password, String pIVA, String sede, String referral, String moltSistemaLivelli, float divisoreCashback, float moltiplicatoreVip) {
+    public Azienda(Integer id, String nomeAzienda, String email, String password, String IVA, String sede, String referral, String moltSistemaLivelli, float divisoreCashback, float moltiplicatoreVip) {
         this.idAdesione = id;
         this.qualeCoalizione = -1;
         this.nomeAzienda = nomeAzienda;
         this.email = email;
         this.password = password;
-        this.pIVA = pIVA;
+        this.IVA = IVA;
         this.sede = sede;
         this.referral = referral;
         this.moltSistemaLivelli = moltSistemaLivelli;
@@ -46,10 +50,6 @@ public class Azienda
     //getters and setters
     public Integer getId() {
         return idAdesione;
-    }
-
-    public void setId(Integer id) {
-        this.idAdesione = id;
     }
 
     public Integer getQualeCoalizione() {
@@ -85,11 +85,11 @@ public class Azienda
     }
 
     public String getpIVA() {
-        return pIVA;
+        return IVA;
     }
 
     public void setpIVA(String pIVA) {
-        this.pIVA = pIVA;
+        this.IVA = pIVA;
     }
 
     public String getSede() {
