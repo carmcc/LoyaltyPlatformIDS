@@ -1,7 +1,7 @@
 package it.unicam.cs.ids.loyaltyplatform.entity;
 
 import jakarta.persistence.*;
-import primaryKeys.PKAdesione;
+import it.unicam.cs.ids.loyaltyplatform.primaryKeys.PKAdesione;
 
 import java.util.Date;
 

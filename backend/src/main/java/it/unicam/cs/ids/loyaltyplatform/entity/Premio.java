@@ -1,7 +1,7 @@
 package it.unicam.cs.ids.loyaltyplatform.entity;
 
 import jakarta.persistence.*;
-import primaryKeys.PKPremio;
+import it.unicam.cs.ids.loyaltyplatform.primaryKeys.PKPremio;
 
 @Entity
 @Table(name = "Premi")
