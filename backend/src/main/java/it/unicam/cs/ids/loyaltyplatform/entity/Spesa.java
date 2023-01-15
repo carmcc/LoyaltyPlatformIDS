@@ -13,10 +13,10 @@ public class Spesa {
     private final Integer qualeProdotto;
     @Column(nullable = false)
     private Integer quantita;
-    @ManyToOne
+    @ManyToOne(targetEntity = Pagamento.class)
     @JoinColumn(name = "qualePagamento", referencedColumnName = "idPagamento")
     private Pagamento pagamento;
-    @ManyToOne
+    @ManyToOne(targetEntity = Prodotto.class)
     @JoinColumn(name = "qualeProdotto", referencedColumnName = "idProdotto")
     private Prodotto prodotto;
 

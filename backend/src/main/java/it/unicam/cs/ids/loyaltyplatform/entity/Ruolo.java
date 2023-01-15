@@ -15,13 +15,13 @@ public class Ruolo {
     private String qualePermesso;
     @Column(nullable = false)
     private String nome;
-    @ManyToOne
+    @ManyToOne(targetEntity = AccountAziendale.class)
     @JoinColumns({
             @JoinColumn(name = "qualeAccountAziendale", referencedColumnName = "qualeAzienda"),
             @JoinColumn(name = "qualeSeriale", referencedColumnName = "seriale")
                 })
     private AccountAziendale accountAziendale;
-    @ManyToOne
+    @ManyToOne(targetEntity = Permesso.class)
     @JoinColumn(name = "qualePermesso", referencedColumnName = "nomePermesso")
     private Permesso permesso;
 

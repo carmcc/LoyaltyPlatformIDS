@@ -20,7 +20,7 @@ public class Sede {
     private String citta;
     @Column(nullable = false)
     private String civico;
-    @ManyToOne
+    @ManyToOne(targetEntity = Azienda.class)
     @JoinColumn(name = "qualeAzienda", referencedColumnName = "idAzienda")
     private Azienda azienda;
 

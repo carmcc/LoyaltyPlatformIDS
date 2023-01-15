@@ -26,28 +26,28 @@ public class Azienda
     private String moltSistemaLivelli;
     private Float divisoreCashback;
     private Float moltiplicatoreVip;
-    @ManyToOne
+    @ManyToOne(targetEntity = Coalizione.class)
     @JoinColumn(name = "qualeCoalizione", referencedColumnName = "idCoalizione")
     private Coalizione coalizione;
-    @OneToMany
+    @OneToMany(targetEntity = Adesione.class)
     @JoinColumn(name = "idAzienda", referencedColumnName = "qualeAzienda")
     private List<Adesione> adesioni;
-    @OneToMany
+    @OneToMany(targetEntity = BuonoSconto.class)
     @JoinColumn(name = "idAzienda", referencedColumnName = "qualeAzienda")
     private List<BuonoSconto> buoniSconto;
-    @OneToMany
+    @OneToMany(targetEntity = AccountAziendale.class)
     @JoinColumn(name = "idAzienda", referencedColumnName = "qualeAzienda")
     List<AccountAziendale> accountAziendali;
-    @OneToMany
+    @OneToMany(targetEntity = Sede.class)
     @JoinColumn(name = "idAzienda", referencedColumnName = "qualeAzienda")
     private List<Sede> sedi;
-    @OneToMany
+    @OneToMany(targetEntity = Recensione.class)
     @JoinColumn(name = "idAzienda", referencedColumnName = "qualeAzienda")
     private List<Recensione> recensioni;
-    @OneToMany
+    @OneToMany(targetEntity = Premio.class)
     @JoinColumn(name = "idAzienda", referencedColumnName = "qualeAzienda")
     private List<Premio> premi;
-    @OneToMany
+    @OneToMany(targetEntity = Sconto.class)
     @JoinColumn(name = "idAzienda", referencedColumnName = "qualeAzienda")
     private List<Sconto> sconti;
 

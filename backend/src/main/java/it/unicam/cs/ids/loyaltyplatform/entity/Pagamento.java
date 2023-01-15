@@ -17,10 +17,10 @@ public class Pagamento {
     private Date dataPagamento;
     @Column(nullable = false)
     private Float costoTotale;
-    @ManyToOne
+    @ManyToOne(targetEntity = Consumatore.class)
     @JoinColumn(name = "qualeConsumatore", referencedColumnName = "idConsumatore")
     private Consumatore consumatore;
-    @OneToMany
+    @OneToMany(targetEntity = Spesa.class)
     @JoinColumn(name = "idPagamento", referencedColumnName = "quelePagamento")
     List<Spesa> spese;
 

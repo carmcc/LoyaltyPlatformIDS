@@ -19,10 +19,10 @@ public class BuonoSconto {
     private Date dataScadenza;
     @Column(nullable = false)
     private Float valore;
-    @ManyToOne
+    @ManyToOne(targetEntity = Azienda.class)
     @JoinColumn(name = "qualeAzienda", referencedColumnName = "idAzienda")
     private Azienda azienda;
-    @ManyToOne
+    @ManyToOne(targetEntity = Consumatore.class)
     @JoinColumn(name = "qualeConsumatore", referencedColumnName = "idConsumatore")
     private Consumatore consumatore;
 

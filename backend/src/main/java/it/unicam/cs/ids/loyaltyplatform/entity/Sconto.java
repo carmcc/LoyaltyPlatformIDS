@@ -15,10 +15,10 @@ public class Sconto {
     private Float sconto;
     @Column(nullable = false)
     private Boolean esclusivoVip;
-    @ManyToOne
+    @ManyToOne(targetEntity = Azienda.class)
     @JoinColumn(name = "qualeAzienda", referencedColumnName = "idAzienda")
     private Azienda azienda;
-    @ManyToOne
+    @ManyToOne(targetEntity = Prodotto.class)
     @JoinColumn(name = "qualeProdotto", referencedColumnName = "idProdotto")
     private Prodotto prodotto;
 

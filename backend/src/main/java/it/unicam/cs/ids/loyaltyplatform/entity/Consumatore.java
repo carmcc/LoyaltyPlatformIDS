@@ -19,16 +19,16 @@ public class Consumatore
     private String email;
     @Column(nullable = false)
     private String password;
-    @OneToMany
+    @OneToMany(targetEntity = Adesione.class)
     @JoinColumn(name = "idConsumatore", referencedColumnName = "qualeConsumatore")
     private List<Adesione> adesioni;
-    @OneToMany
+    @OneToMany(targetEntity = BuonoSconto.class)
     @JoinColumn(name = "idConsumatore", referencedColumnName = "qualeConsumatore")
     private List<BuonoSconto> buoniSconto;
-    @OneToMany
+    @OneToMany(targetEntity = Recensione.class)
     @JoinColumn(name = "idConsumatore", referencedColumnName = "qualeConsumatore")
     private List<Recensione> recensioni;
-    @OneToMany
+    @OneToMany(targetEntity = Pagamento.class)
     @JoinColumn(name = "idConsumatore", referencedColumnName = "qualeConsumatore")
     private List<Pagamento> pagamenti;
 

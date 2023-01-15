@@ -18,7 +18,7 @@ public class Coalizione
     private Float penalitaCondivisione;
     private Integer percentualeRitiroPremi; //Si possono usare i punti ottenuti da altre aziende,
                                             // ma per ritirare il premio da una di queste devi avere guadagnato da essa almeno la percentuale indicata.
-    @OneToMany
+    @OneToMany(targetEntity = Azienda.class)
     @JoinColumn(name = "idCoalizione", referencedColumnName = "qualeCoalizione")
     private List<Azienda> aziende;
 

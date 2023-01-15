@@ -24,10 +24,10 @@ public class Adesione {
     @Column(nullable = false)
     private Float salvadanaio;
     private Date ultimaSpesa;
-    @ManyToOne
+    @ManyToOne(targetEntity = Azienda.class)
     @JoinColumn(name = "qualeAzienda", referencedColumnName = "idAzienda")
     private Azienda azienda;
-    @ManyToOne
+    @ManyToOne(targetEntity = Consumatore.class)
     @JoinColumn(name = "qualeConsumatore", referencedColumnName = "idConsumatore")
     private Consumatore consumatore;
 

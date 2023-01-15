@@ -15,10 +15,10 @@ public class Recensione {
     @Column(nullable = false)
     private Integer valutazione;
     private String commento;
-    @ManyToOne
+    @ManyToOne(targetEntity = Consumatore.class)
     @JoinColumn(name = "qualeConsumatore", referencedColumnName = "idConsumatore")
     private Consumatore consumatore;
-    @ManyToOne
+    @ManyToOne(targetEntity = Azienda.class)
     @JoinColumn(name = "qualeAzienda", referencedColumnName = "idAzienda")
     private Azienda azienda;
 
