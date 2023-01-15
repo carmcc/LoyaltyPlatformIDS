@@ -6,13 +6,19 @@ import it.unicam.cs.ids.loyaltyplatform.primaryKeys.PKSpesa;
 @Entity
 @Table(name = "Spese")
 @IdClass(PKSpesa.class)
-public class Spesa {        //TODO aggiungere foreight keys
+public class Spesa {
     @Id
     private final Integer qualePagamento;
     @Id
     private final Integer qualeProdotto;
     @Column(nullable = false)
     private Integer quantita;
+    @ManyToOne
+    @JoinColumn(name = "qualePagamento", referencedColumnName = "idPagamento")
+    private Pagamento pagamento;
+    @ManyToOne
+    @JoinColumn(name = "qualeProdotto", referencedColumnName = "idProdotto")
+    private Prodotto prodotto;
 
     public Spesa() {
         qualePagamento = 0;

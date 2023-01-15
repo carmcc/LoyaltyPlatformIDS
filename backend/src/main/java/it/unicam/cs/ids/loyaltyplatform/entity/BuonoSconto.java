@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.Date;
 @Entity
 @Table (name = "BuoniSconto")
-public class BuonoSconto {      //TODO aggingere foreight keys
+public class BuonoSconto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final Integer idBuono;
@@ -18,7 +18,13 @@ public class BuonoSconto {      //TODO aggingere foreight keys
     @Column(nullable = false)
     private Date dataScadenza;
     @Column(nullable = false)
-    private float valore;
+    private Float valore;
+    @ManyToOne
+    @JoinColumn(name = "qualeAzienda", referencedColumnName = "idAzienda")
+    private Azienda azienda;
+    @ManyToOne
+    @JoinColumn(name = "qualeConsumatore", referencedColumnName = "idConsumatore")
+    private Consumatore consumatore;
 
     public BuonoSconto() {
         idBuono = 0;

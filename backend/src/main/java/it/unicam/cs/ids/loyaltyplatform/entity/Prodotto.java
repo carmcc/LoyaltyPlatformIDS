@@ -2,6 +2,8 @@ package it.unicam.cs.ids.loyaltyplatform.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "Prodotti")
 public class Prodotto {
@@ -11,6 +13,15 @@ public class Prodotto {
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String nome;
+    @OneToMany
+    @JoinColumn(name = "idProdotto", referencedColumnName = "qualeProdotto")
+    private List<Premio> premi;
+    @OneToMany
+    @JoinColumn(name = "idProdotto", referencedColumnName = "qualeProdotto")
+    private List<Sconto> sconti;
+    @OneToMany
+    @JoinColumn(name = "idProdotto", referencedColumnName = "qualeProdotto")
+    private List<Spesa> spese;
 
     public Prodotto() {
         idProdotto = 0;

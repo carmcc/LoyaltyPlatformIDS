@@ -6,7 +6,7 @@ import it.unicam.cs.ids.loyaltyplatform.primaryKeys.PKRuolo;
 @Entity
 @Table(name = "Ruoli")
 @IdClass(PKRuolo.class)
-public class Ruolo {        //TODO aggingere foreight keys
+public class Ruolo {
     @Id
     private Integer qualeAccountAziendale;
     @Id
@@ -15,6 +15,15 @@ public class Ruolo {        //TODO aggingere foreight keys
     private String qualePermesso;
     @Column(nullable = false)
     private String nome;
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name = "qualeAccountAziendale", referencedColumnName = "qualeAzienda"),
+            @JoinColumn(name = "qualeSeriale", referencedColumnName = "seriale")
+                })
+    private AccountAziendale accountAziendale;
+    @ManyToOne
+    @JoinColumn(name = "qualePermesso", referencedColumnName = "nomePermesso")
+    private Permesso permesso;
 
     public Ruolo()
     {

@@ -2,16 +2,16 @@ package it.unicam.cs.ids.loyaltyplatform.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "Aziende")
 public class Azienda
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private final Integer idAdesione;
-
-    //TODO chiave secondaria da settare
-    private Integer qualeCoalizione ;
+    private final Integer idAzienda;
+    private Integer qualeCoalizione;
     @Column(unique = true,nullable = false)
     private String nomeAzienda;
     private String email;
@@ -24,16 +24,39 @@ public class Azienda
     @Column(nullable = false)
     private String referral;
     private String moltSistemaLivelli;
-    private float divisoreCashback;
-
-    private float moltiplicatoreVip;
+    private Float divisoreCashback;
+    private Float moltiplicatoreVip;
+    @ManyToOne
+    @JoinColumn(name = "qualeCoalizione", referencedColumnName = "idCoalizione")
+    private Coalizione coalizione;
+    @OneToMany
+    @JoinColumn(name = "idAzienda", referencedColumnName = "qualeAzienda")
+    private List<Adesione> adesioni;
+    @OneToMany
+    @JoinColumn(name = "idAzienda", referencedColumnName = "qualeAzienda")
+    private List<BuonoSconto> buoniSconto;
+    @OneToMany
+    @JoinColumn(name = "idAzienda", referencedColumnName = "qualeAzienda")
+    List<AccountAziendale> accountAziendali;
+    @OneToMany
+    @JoinColumn(name = "idAzienda", referencedColumnName = "qualeAzienda")
+    private List<Sede> sedi;
+    @OneToMany
+    @JoinColumn(name = "idAzienda", referencedColumnName = "qualeAzienda")
+    private List<Recensione> recensioni;
+    @OneToMany
+    @JoinColumn(name = "idAzienda", referencedColumnName = "qualeAzienda")
+    private List<Premio> premi;
+    @OneToMany
+    @JoinColumn(name = "idAzienda", referencedColumnName = "qualeAzienda")
+    private List<Sconto> sconti;
 
     public Azienda() {
-        idAdesione = 0;
+        idAzienda = 0;
     }
 
     public Azienda(Integer id, String nomeAzienda, String email, String password, String IVA, String sede, String referral, String moltSistemaLivelli, float divisoreCashback, float moltiplicatoreVip) {
-        this.idAdesione = id;
+        this.idAzienda = id;
         this.qualeCoalizione = -1;
         this.nomeAzienda = nomeAzienda;
         this.email = email;
@@ -49,7 +72,7 @@ public class Azienda
 
     //getters and setters
     public Integer getId() {
-        return idAdesione;
+        return idAzienda;
     }
 
     public Integer getQualeCoalizione() {
@@ -80,29 +103,17 @@ public class Azienda
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    public void setPassword(String password) { this.password = password; }
 
-    public String getpIVA() {
-        return IVA;
-    }
+    public String getpIVA() { return IVA; }
 
-    public void setpIVA(String pIVA) {
-        this.IVA = pIVA;
-    }
+    public void setpIVA(String pIVA) { this.IVA = pIVA; }
 
-    public String getSede() {
-        return sede;
-    }
+    public String getSede() { return sede; }
 
-    public void setSede(String sede) {
-        this.sede = sede;
-    }
+    public void setSede(String sede) { this.sede = sede; }
 
-    public String getReferral() {
-        return referral;
-    }
+    public String getReferral() { return referral; }
 
     public void setReferral(String referral) {
         this.referral = referral;

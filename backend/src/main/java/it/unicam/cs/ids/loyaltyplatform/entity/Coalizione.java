@@ -2,6 +2,8 @@ package it.unicam.cs.ids.loyaltyplatform.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "Coalizioni")
 public class Coalizione
@@ -10,12 +12,15 @@ public class Coalizione
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final Integer idCoalizione;
     @Column(nullable = false)
-    private float parametroBuoniSpesa;//buoni spesa ogni tot euro
+    private Float parametroBuoniSpesa;//buoni spesa ogni tot euro
     @Column(nullable = false)
-    private boolean condivisionePunti;
-    private float penalitaCondivisione;
+    private Boolean condivisionePunti;
+    private Float penalitaCondivisione;
     private Integer percentualeRitiroPremi; //Si possono usare i punti ottenuti da altre aziende,
                                             // ma per ritirare il premio da una di queste devi avere guadagnato da essa almeno la percentuale indicata.
+    @OneToMany
+    @JoinColumn(name = "idCoalizione", referencedColumnName = "qualeCoalizione")
+    private List<Azienda> aziende;
 
     public Coalizione() {
         idCoalizione = 0;

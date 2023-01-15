@@ -2,6 +2,8 @@ package it.unicam.cs.ids.loyaltyplatform.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "Consumatori")
 public class Consumatore
@@ -17,6 +19,18 @@ public class Consumatore
     private String email;
     @Column(nullable = false)
     private String password;
+    @OneToMany
+    @JoinColumn(name = "idConsumatore", referencedColumnName = "qualeConsumatore")
+    private List<Adesione> adesioni;
+    @OneToMany
+    @JoinColumn(name = "idConsumatore", referencedColumnName = "qualeConsumatore")
+    private List<BuonoSconto> buoniSconto;
+    @OneToMany
+    @JoinColumn(name = "idConsumatore", referencedColumnName = "qualeConsumatore")
+    private List<Recensione> recensioni;
+    @OneToMany
+    @JoinColumn(name = "idConsumatore", referencedColumnName = "qualeConsumatore")
+    private List<Pagamento> pagamenti;
 
     public Consumatore() {
         idConsumatore = 0;

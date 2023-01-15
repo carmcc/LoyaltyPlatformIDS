@@ -1,31 +1,37 @@
 package it.unicam.cs.ids.loyaltyplatform.entity;
 
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "Pagamenti")
-public class Pagamento {        //TODO aggiungere foreight keys
+public class Pagamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final Integer idPagamento;
     @Column(nullable = false)
     private Integer qualeConsumatore;
     @Column(nullable = false)
-    private Date data_pagamento;
+    private Date dataPagamento;
     @Column(nullable = false)
-    private float costoTotale;
+    private Float costoTotale;
+    @ManyToOne
+    @JoinColumn(name = "qualeConsumatore", referencedColumnName = "idConsumatore")
+    private Consumatore consumatore;
+    @OneToMany
+    @JoinColumn(name = "idPagamento", referencedColumnName = "quelePagamento")
+    List<Spesa> spese;
 
     public Pagamento() {
         idPagamento = 0;
     }
 
-    public Pagamento(Integer idPagamento, Integer qualeConsumatore, Date data_pagamento, float costoTotale) {
+    public Pagamento(Integer idPagamento, Integer qualeConsumatore, Date dataPagamento, float costoTotale) {
         this.idPagamento = idPagamento;
         this.qualeConsumatore = qualeConsumatore;
-        this.data_pagamento = data_pagamento;
+        this.dataPagamento = dataPagamento;
         this.costoTotale = costoTotale;
     }
 
@@ -41,12 +47,12 @@ public class Pagamento {        //TODO aggiungere foreight keys
         this.qualeConsumatore = qualeConsumatore;
     }
 
-    public Date getData_pagamento() {
-        return data_pagamento;
+    public Date getDataPagamento() {
+        return dataPagamento;
     }
 
-    public void setData_pagamento(Date data_pagamento) {
-        this.data_pagamento = data_pagamento;
+    public void setDataPagamento(Date data_pagamento) {
+        this.dataPagamento = data_pagamento;
     }
 
     public float getCostoTotale() {

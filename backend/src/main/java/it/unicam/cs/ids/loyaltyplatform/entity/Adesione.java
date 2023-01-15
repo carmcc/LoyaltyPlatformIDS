@@ -8,7 +8,7 @@ import java.util.Date;
 @Entity
 @Table(name = "Adesioni")
 @IdClass(PKAdesione.class)
-public class Adesione {     //TODO aggingere foreight keys
+public class Adesione {
     @Id
     private final Integer qualeAzienda;
     @Id
@@ -16,14 +16,20 @@ public class Adesione {     //TODO aggingere foreight keys
     @Column(nullable = false)
     private Integer esperienzaConsumatore;
     @Column(nullable = false)
-    private boolean isVip;
+    private Boolean isVip;
     @Column(nullable = false)
     private Integer livelloConsumatore;
     @Column(nullable = false)
     private Integer puntiConsumatore;
     @Column(nullable = false)
-    private float salvadanaio;
+    private Float salvadanaio;
     private Date ultimaSpesa;
+    @ManyToOne
+    @JoinColumn(name = "qualeAzienda", referencedColumnName = "idAzienda")
+    private Azienda azienda;
+    @ManyToOne
+    @JoinColumn(name = "qualeConsumatore", referencedColumnName = "idConsumatore")
+    private Consumatore consumatore;
 
     public Adesione() {
         qualeAzienda = 0;

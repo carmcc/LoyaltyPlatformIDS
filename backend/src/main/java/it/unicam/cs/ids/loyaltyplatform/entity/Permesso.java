@@ -1,8 +1,8 @@
 package it.unicam.cs.ids.loyaltyplatform.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "Permessi")
@@ -10,6 +10,9 @@ public class Permesso
 {
     @Id //questa primary key può essere modificata
     private String nomePermesso;//TODO impostare lunghezza a 30
+    @OneToMany
+    @JoinColumn(name = "nomePermesso", referencedColumnName = "qualePermesso")
+    private List<Ruolo> ruoli;
 
     public Permesso(String nomePermesso) {
         this.nomePermesso = nomePermesso;

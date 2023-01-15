@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Sedi")
-public class Sede {     //TODO aggingere foreight keys
+public class Sede {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idSede;
@@ -20,6 +20,9 @@ public class Sede {     //TODO aggingere foreight keys
     private String citta;
     @Column(nullable = false)
     private String civico;
+    @ManyToOne
+    @JoinColumn(name = "qualeAzienda", referencedColumnName = "idAzienda")
+    private Azienda azienda;
 
     public Sede() {
         this.idSede = 0;

@@ -6,14 +6,19 @@ import it.unicam.cs.ids.loyaltyplatform.primaryKeys.PKPremio;
 @Entity
 @Table(name = "Premi")
 @IdClass(PKPremio.class)
-public class Premio {   //TODO aggiungere foreight keys
-                        // foreign key (quale_azienda) references aziende (id_azienda), foreign key (quale_prodotto) references prodotti (id_prodotto));
+public class Premio {
     @Id
     private final Integer qualeAzienda;
     @Id
     private final Integer qualeProdotto;
     @Column(nullable = false)
     private Integer costo;
+    @ManyToOne
+    @JoinColumn(name = "qualeAzienda", referencedColumnName = "idAzienda")
+    private Azienda azienda;
+    @ManyToOne
+    @JoinColumn(name = "qualeProdotto", referencedColumnName = "idProdotto")
+    private Prodotto prodotto;
 
     public Premio() {
         qualeAzienda = 0;

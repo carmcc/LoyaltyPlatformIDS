@@ -6,7 +6,7 @@ import it.unicam.cs.ids.loyaltyplatform.primaryKeys.PKRecensione;
 @Entity
 @Table(name = "Recensioni")
 @IdClass(PKRecensione.class)
-public class Recensione {      //TODO aggiungere foreight keys
+public class Recensione {
 
     @Id
     private final Integer qualeConsumatore;
@@ -15,9 +15,14 @@ public class Recensione {      //TODO aggiungere foreight keys
     @Column(nullable = false)
     private Integer valutazione;
     private String commento;
+    @ManyToOne
+    @JoinColumn(name = "qualeConsumatore", referencedColumnName = "idConsumatore")
+    private Consumatore consumatore;
+    @ManyToOne
+    @JoinColumn(name = "qualeAzienda", referencedColumnName = "idAzienda")
+    private Azienda azienda;
 
     public Recensione() {
-
         this.qualeConsumatore = 0;
         this.qualeAzienda = 0;
     }
