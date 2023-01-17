@@ -3,7 +3,6 @@ import it.unicam.cs.ids.loyaltyplatform.entity.Azienda;
 import it.unicam.cs.ids.loyaltyplatform.repository.AziendaRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AziendaService {
@@ -14,8 +13,7 @@ public class AziendaService {
             this.aziendaRepository = aziendaRepository;
         }
         public Azienda getAziendaById(Integer id) {
-            Optional<Azienda> azienda = this.aziendaRepository.findById(id);
-            return azienda.orElse(null);
+            return this.aziendaRepository.findById(id).orElse(null);
         }
         public List<Azienda> getAllAziende() {
             return this.aziendaRepository.findAll();
