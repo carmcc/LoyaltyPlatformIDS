@@ -18,7 +18,7 @@ public class AziendaController
     }
 
     @RequestMapping(value = "/getAziendaById/{id}", method = RequestMethod.GET)
-    public Azienda getAziendaById(@PathVariable Integer id) {
+    public Azienda getAziendaById(@PathVariable("id") Integer id) {
         return this.aziendaService.getAziendaById(id);
     }
 
@@ -27,16 +27,18 @@ public class AziendaController
         return this.aziendaService.getAllAziende();
     }
 
+    //crea un azienda con metodo POST
     @RequestMapping(value = "/addAzienda", method = RequestMethod.POST)
     public Azienda addAzienda(Azienda azienda) {
         return this.aziendaService.addAzienda(azienda);
     }
 
     @RequestMapping(value = "/deleteAziendaById/{id}", method = RequestMethod.DELETE)
-    public void deleteAziendaById(@PathVariable Integer id) {
+    public void deleteAziendaById(@PathVariable("id") Integer id) {
         this.aziendaService.deleteAziendaById(id);
     }
 
+    //aggiorna un azienda con metodo PUT
     @RequestMapping(value = "/updateAzienda", method = RequestMethod.PUT)
     public void updateAzienda(Azienda azienda) {
         this.aziendaService.updateAzienda(azienda);
