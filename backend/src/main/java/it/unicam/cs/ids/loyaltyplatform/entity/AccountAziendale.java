@@ -14,15 +14,6 @@ public class AccountAziendale {
     private final Integer seriale;
     @Id
     private final Integer qualeAzienda;
-    @ManyToOne(targetEntity = Azienda.class)
-    @JoinColumn(name = "qualeAzienda", referencedColumnName = "idAzienda")
-    private Azienda azienda;
-    @OneToMany(targetEntity = Ruolo.class)
-    @JoinColumns({
-            @JoinColumn(name = "qualeAzienda", referencedColumnName = "qualeAccountAziendale"),
-            @JoinColumn(name = "seriale", referencedColumnName = "qualeSeriale")
-                })
-    private List<Ruolo> ruoli;
 
     public AccountAziendale() {
         seriale = 0;

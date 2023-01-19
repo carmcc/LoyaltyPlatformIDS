@@ -24,12 +24,6 @@ public class Adesione {
     @Column(nullable = false)
     private Float salvadanaio;
     private Date ultimaSpesa;
-    @ManyToOne(targetEntity = Azienda.class)
-    @JoinColumn(name = "qualeAzienda", referencedColumnName = "idAzienda")
-    private Azienda azienda;
-    @ManyToOne(targetEntity = Consumatore.class)
-    @JoinColumn(name = "qualeConsumatore", referencedColumnName = "idConsumatore")
-    private Consumatore consumatore;
 
     public Adesione() {
         qualeAzienda = 0;

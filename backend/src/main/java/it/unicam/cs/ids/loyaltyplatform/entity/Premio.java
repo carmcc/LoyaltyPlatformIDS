@@ -13,12 +13,6 @@ public class Premio {
     private final Integer qualeProdotto;
     @Column(nullable = false)
     private Integer costo;
-    @ManyToOne(targetEntity = Azienda.class)
-    @JoinColumn(name = "qualeAzienda", referencedColumnName = "idAzienda")
-    private Azienda azienda;
-    @ManyToOne(targetEntity = Prodotto.class)
-    @JoinColumn(name = "qualeProdotto", referencedColumnName = "idProdotto")
-    private Prodotto prodotto;
 
     public Premio() {
         qualeAzienda = 0;
