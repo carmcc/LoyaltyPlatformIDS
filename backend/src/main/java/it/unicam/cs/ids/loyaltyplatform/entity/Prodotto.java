@@ -13,15 +13,6 @@ public class Prodotto {
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String nome;
-    @OneToMany(targetEntity = Premio.class)
-    @JoinColumn(name = "idProdotto", referencedColumnName = "qualeProdotto")
-    private List<Premio> premi;
-    @OneToMany(targetEntity = Sconto.class)
-    @JoinColumn(name = "idProdotto", referencedColumnName = "qualeProdotto")
-    private List<Sconto> sconti;
-    @OneToMany(targetEntity = Spesa.class)
-    @JoinColumn(name = "idProdotto", referencedColumnName = "qualeProdotto")
-    private List<Spesa> spese;
 
     public Prodotto() {
         idProdotto = 0;

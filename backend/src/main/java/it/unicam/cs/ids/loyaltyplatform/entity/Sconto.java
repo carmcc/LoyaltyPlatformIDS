@@ -15,12 +15,6 @@ public class Sconto {
     private Float sconto;
     @Column(nullable = false)
     private Boolean esclusivoVip;
-    @ManyToOne(targetEntity = Azienda.class)
-    @JoinColumn(name = "qualeAzienda", referencedColumnName = "idAzienda")
-    private Azienda azienda;
-    @ManyToOne(targetEntity = Prodotto.class)
-    @JoinColumn(name = "qualeProdotto", referencedColumnName = "idProdotto")
-    private Prodotto prodotto;
 
     public Sconto() {
         qualeAzienda = 0;

@@ -10,9 +10,7 @@ public class Permesso
 {
     @Id //questa primary key può essere modificata
     private String nomePermesso;//TODO impostare lunghezza a 30
-    @OneToMany(targetEntity = Ruolo.class)
-    @JoinColumn(name = "nomePermesso", referencedColumnName = "qualePermesso")
-    private List<Ruolo> ruoli;
+
 
     public Permesso(String nomePermesso) {
         this.nomePermesso = nomePermesso;

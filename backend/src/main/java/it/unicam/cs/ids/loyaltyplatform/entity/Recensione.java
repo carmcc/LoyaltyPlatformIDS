@@ -15,12 +15,6 @@ public class Recensione {
     @Column(nullable = false)
     private Integer valutazione;
     private String commento;
-    @ManyToOne(targetEntity = Consumatore.class)
-    @JoinColumn(name = "qualeConsumatore", referencedColumnName = "idConsumatore")
-    private Consumatore consumatore;
-    @ManyToOne(targetEntity = Azienda.class)
-    @JoinColumn(name = "qualeAzienda", referencedColumnName = "idAzienda")
-    private Azienda azienda;
 
     public Recensione() {
         this.qualeConsumatore = 0;

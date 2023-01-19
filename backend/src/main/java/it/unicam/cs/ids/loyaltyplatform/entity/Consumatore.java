@@ -19,18 +19,6 @@ public class Consumatore
     private String email;
     @Column(nullable = false)
     private String password;
-    @OneToMany(targetEntity = Adesione.class)
-    @JoinColumn(name = "idConsumatore", referencedColumnName = "qualeConsumatore")
-    private List<Adesione> adesioni;
-    @OneToMany(targetEntity = BuonoSconto.class)
-    @JoinColumn(name = "idConsumatore", referencedColumnName = "qualeConsumatore")
-    private List<BuonoSconto> buoniSconto;
-    @OneToMany(targetEntity = Recensione.class)
-    @JoinColumn(name = "idConsumatore", referencedColumnName = "qualeConsumatore")
-    private List<Recensione> recensioni;
-    @OneToMany(targetEntity = Pagamento.class)
-    @JoinColumn(name = "idConsumatore", referencedColumnName = "qualeConsumatore")
-    private List<Pagamento> pagamenti;
 
     public Consumatore() {
         idConsumatore = 0;
