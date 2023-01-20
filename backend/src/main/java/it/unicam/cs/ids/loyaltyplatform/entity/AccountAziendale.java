@@ -3,7 +3,6 @@ package it.unicam.cs.ids.loyaltyplatform.entity;
 import jakarta.persistence.*;
 import it.unicam.cs.ids.loyaltyplatform.primaryKeys.PKAccountAziendale;
 
-import java.util.List;
 
 @Entity
 @Table(name = "AccountAziendali")
