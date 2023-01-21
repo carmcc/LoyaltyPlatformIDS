@@ -19,8 +19,6 @@ public class Azienda
     @Column(nullable = false)
     private String IVA;
     @Column(nullable = false)
-    private String sede;
-    @Column(nullable = false)
     private String referral;
     private String moltSistemaLivelli;
     private Float divisoreCashback;
@@ -38,7 +36,6 @@ public class Azienda
         this.email = email;
         this.password = password;
         this.IVA = IVA;
-        this.sede = sede;
         this.referral = referral;
         this.moltSistemaLivelli = moltSistemaLivelli;
         this.divisoreCashback = divisoreCashback;
@@ -84,10 +81,6 @@ public class Azienda
     public String getpIVA() { return IVA; }
 
     public void setpIVA(String pIVA) { this.IVA = pIVA; }
-
-    public String getSede() { return sede; }
-
-    public void setSede(String sede) { this.sede = sede; }
 
     public String getReferral() { return referral; }
 
