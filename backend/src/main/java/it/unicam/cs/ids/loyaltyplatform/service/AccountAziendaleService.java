@@ -11,8 +11,12 @@ public class AccountAziendaleService {
     private final AccountAziendaleRepository accountAziendaleRepository;
 
     public AccountAziendaleService (AccountAziendaleRepository accountAziendaleRepository) {this.accountAziendaleRepository = accountAziendaleRepository;}
-    public List<AccountAziendale> getAllAccountAziendaliById(List<Integer> id) {return this.accountAziendaleRepository.findAllById(id);}
-    public AccountAziendale getAccountAziendaleBySeriale(List<AccountAziendale> listaAccountAziendali, Integer seriale) {return listaAccountAziendali.stream().filter(x -> x.getSeriale() == seriale.intValue()).toList().get(0);}
+    public List<AccountAziendale> getAllAccountAziendaliById(Integer id) {
+        return this.accountAziendaleRepository.findAll().stream().filter(x->x.getQualeAzienda()==id.intValue()).toList();
+    }
+    public AccountAziendale getAccountAziendaleBySeriale(List<AccountAziendale> listaAccountAziendali, Integer seriale) {
+        return listaAccountAziendali.stream().filter(x -> x.getSeriale() == seriale.intValue()).toList().get(0);
+    }
     public List<AccountAziendale> getAllAccountAziendali() {return this.accountAziendaleRepository.findAll();}
     public AccountAziendale addAccountAziendale(AccountAziendale accountAziendale) {return this.accountAziendaleRepository.save(accountAziendale);}
     public void deleteAccountAziendale(Integer id) {this.accountAziendaleRepository.deleteById(id);}

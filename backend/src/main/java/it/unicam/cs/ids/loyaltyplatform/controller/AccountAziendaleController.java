@@ -15,9 +15,13 @@ public class AccountAziendaleController {
     private final AccountAziendaleService accountAziendaleService;
     public AccountAziendaleController(AccountAziendaleService accountAziendaleService) {this.accountAziendaleService = accountAziendaleService;}
     @RequestMapping(value = "/getAllAccountAziendaliById/{id}", method = RequestMethod.GET)
-    public List<AccountAziendale> getAllAccountAziendaliById(@PathVariable("id") List<Integer> id) {return this.accountAziendaleService.getAllAccountAziendaliById(id);}
+    public List<AccountAziendale> getAllAccountAziendaliById(@PathVariable("id") Integer id) {
+        return this.accountAziendaleService.getAllAccountAziendaliById(id);
+    }
     @RequestMapping(value = "/getAccountAziendaleByIdAndSeriale/{id}&{seriale}", method = RequestMethod.GET)
-    public AccountAziendale getAccountAziendaleByIdAndSeriale(@PathVariable("id") List<Integer> id,@PathVariable("seriale") Integer seriale) {return this.accountAziendaleService.getAccountAziendaleBySeriale(getAllAccountAziendaliById(id), seriale);}
+    public AccountAziendale getAccountAziendaleByIdAndSeriale(@PathVariable("id") Integer id,@PathVariable("seriale") Integer seriale) {
+        return this.accountAziendaleService.getAccountAziendaleBySeriale(getAllAccountAziendaliById(id), seriale);
+    }
     @RequestMapping(value = "/getAllAccountAziendali", method = RequestMethod.GET)
     public List<AccountAziendale> getAllAccountAziendali() {return this.accountAziendaleService.getAllAccountAziendali();}
     @RequestMapping(value = "/addAccountAziendale", method = RequestMethod.PUT)
