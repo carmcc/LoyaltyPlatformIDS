@@ -13,11 +13,11 @@ public class AccountAziendaleService {
     public AccountAziendaleService (AccountAziendaleRepository accountAziendaleRepository) {
         this.accountAziendaleRepository = accountAziendaleRepository;
     }
-    public List<AccountAziendale> getAllAccountAziendaliById(Integer id) {
+    public List<AccountAziendale> getAccountAziendaliById(Integer id) {
         return this.accountAziendaleRepository.findAll().stream().filter(x->x.getQualeAzienda()==id.intValue()).toList();
     }
-    public AccountAziendale getAccountAziendaleBySeriale(List<AccountAziendale> listaAccountAziendali, Integer seriale) {
-        return listaAccountAziendali.stream().filter(x -> x.getSeriale() == seriale.intValue()).toList().get(0);
+    public AccountAziendale getAccountAziendaleByIdAndSeriale(Integer idAzienda, Integer seriale) {
+        return getAccountAziendaliById(idAzienda).stream().filter(x -> x.getSeriale() == seriale.intValue()).toList().get(0);
     }
     public List<AccountAziendale> getAllAccountAziendali() {
         return this.accountAziendaleRepository.findAll();

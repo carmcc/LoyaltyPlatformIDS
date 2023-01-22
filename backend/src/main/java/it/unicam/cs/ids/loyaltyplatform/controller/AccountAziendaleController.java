@@ -15,11 +15,11 @@ public class AccountAziendaleController {
     }
     @GetMapping(value = "/getAllAccountAziendaliById/{id}")
     public List<AccountAziendale> getAllAccountAziendaliById(@PathVariable("id") Integer id) {
-        return this.accountAziendaleService.getAllAccountAziendaliById(id);
+        return this.accountAziendaleService.getAccountAziendaliById(id);
     }
     @GetMapping(value = "/getAccountAziendaleByIdAndSeriale/{id}&{seriale}")
     public AccountAziendale getAccountAziendaleByIdAndSeriale(@PathVariable("id") Integer id,@PathVariable("seriale") Integer seriale) {
-        return this.accountAziendaleService.getAccountAziendaleBySeriale(getAllAccountAziendaliById(id), seriale);
+        return this.accountAziendaleService.getAccountAziendaleByIdAndSeriale(id, seriale);
     }
     @GetMapping(value = "/getAllAccountAziendali")
     public List<AccountAziendale> getAllAccountAziendali() {
