@@ -14,12 +14,12 @@ import java.util.List;
 public class AccountAziendaleController {
     private final AccountAziendaleService accountAziendaleService;
     public AccountAziendaleController(AccountAziendaleService accountAziendaleService) {this.accountAziendaleService = accountAziendaleService;}
-    @RequestMapping(value = "/GetAllAccountAziendaliById/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/getAllAccountAziendaliById/{id}", method = RequestMethod.GET)
     public List<AccountAziendale> getAllAccountAziendaliById(@PathVariable("id") List<Integer> id) {return this.accountAziendaleService.getAllAccountAziendaliById(id);}
     @RequestMapping(value = "/getAccountAziendaleByIdAndSeriale/{id}&{seriale}", method = RequestMethod.GET)
     public AccountAziendale getAccountAziendaleByIdAndSeriale(@PathVariable("id") List<Integer> id,@PathVariable("seriale") Integer seriale) {return this.accountAziendaleService.getAccountAziendaleBySeriale(getAllAccountAziendaliById(id), seriale);}
-    @RequestMapping(value = "/getAllAccountAliendali", method = RequestMethod.GET)
-    public List<AccountAziendale> getAllAccountAliendali() {return this.accountAziendaleService.getAllAccountAziendali();}
+    @RequestMapping(value = "/getAllAccountAziendali", method = RequestMethod.GET)
+    public List<AccountAziendale> getAllAccountAziendali() {return this.accountAziendaleService.getAllAccountAziendali();}
     @RequestMapping(value = "/addAccountAziendale", method = RequestMethod.PUT)
     public AccountAziendale addAccountAziendale(AccountAziendale accountAziendale) {return this.accountAziendaleService.addAccountAziendale(accountAziendale);}
     @RequestMapping(value = "/deleteAccountAziendale", method = RequestMethod.DELETE)
