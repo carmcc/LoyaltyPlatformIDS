@@ -1,10 +1,7 @@
 package it.unicam.cs.ids.loyaltyplatform.controller;
 import it.unicam.cs.ids.loyaltyplatform.entity.Azienda;
 import it.unicam.cs.ids.loyaltyplatform.service.AziendaService;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,12 +14,12 @@ public class AziendaController
         this.aziendaService = aziendaService;
     }
 
-    @RequestMapping(value = "/getAziendaById/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/getAziendaById/{id}")
     public Azienda getAziendaById(@PathVariable("id") Integer id) {
         return this.aziendaService.getAziendaById(id);
     }
 
-    @RequestMapping(value = "/getAllAziende", method = RequestMethod.GET)
+    @GetMapping(value = "/getAllAziende")
     public List<Azienda> getAllAziende() {
         return this.aziendaService.getAllAziende();
     }
@@ -33,13 +30,13 @@ public class AziendaController
         return this.aziendaService.addAzienda(azienda);
     }
 
-    @RequestMapping(value = "/deleteAziendaById/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/deleteAziendaById/{id}")
     public void deleteAziendaById(@PathVariable("id") Integer id) {
         this.aziendaService.deleteAziendaById(id);
     }
 
     //aggiorna un azienda con metodo PUT
-    @RequestMapping(value = "/updateAzienda", method = RequestMethod.PUT)
+    @PutMapping(value = "/updateAzienda")
     public void updateAzienda(Azienda azienda) {
         this.aziendaService.updateAzienda(azienda);
     }

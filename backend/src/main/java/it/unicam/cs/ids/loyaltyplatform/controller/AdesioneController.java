@@ -1,10 +1,8 @@
 package it.unicam.cs.ids.loyaltyplatform.controller;
 import it.unicam.cs.ids.loyaltyplatform.entity.Adesione;
 import it.unicam.cs.ids.loyaltyplatform.service.AdesioneService;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -17,27 +15,27 @@ public class AdesioneController
         this.adesioneService = adesioneService;
     }
 
-    @RequestMapping(value = "/getAdesioneById/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/getAdesioneById/{id}")
     public Adesione getAdesioneById(@PathVariable("id") Integer id) {
         return this.adesioneService.getAdesioneById(id);
     }
 
-    @RequestMapping(value = "/getAllAdesioni",method = RequestMethod.GET)
+    @GetMapping(value = "/getAllAdesioni")
     public List<Adesione> getAllAdesioni() {
         return this.adesioneService.getAllAdesioni();
     }
 
-    @RequestMapping(value = "/addAdesione", method = RequestMethod.POST)
+    @PostMapping(value = "/addAdesione")
     public Adesione addAdesione(Adesione adesione) {
         return this.adesioneService.addAdesione(adesione);
     }
 
-    @RequestMapping(value = "/deleteAdesioneById/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/deleteAdesioneById/{id}")
     public void deleteAdesioneById(@PathVariable("id") Integer id) {
         this.adesioneService.deleteAdesioneById(id);
     }
 
-    @RequestMapping(value = "/updateAdesione", method = RequestMethod.PUT)
+    @PutMapping(value = "/updateAdesione")
     public void updateAdesione(Adesione adesione) {
         this.adesioneService.updateAdesione(adesione);
     }
