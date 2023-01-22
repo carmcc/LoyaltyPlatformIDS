@@ -26,7 +26,7 @@ public class BuonoScontoController {
 
     //crea un azienda con metodo POST
     @PostMapping(value = "/addBuonoSconto")
-    public BuonoSconto addAzienda(BuonoSconto buonoSconto) {
+    public BuonoSconto addBuonoSconto(BuonoSconto buonoSconto) {
         return this.buonoScontoService.addBuonoSconto(buonoSconto);
     }
 
