@@ -15,7 +15,7 @@ public class CoalizioneController {
     public CoalizioneController(CoalizioneService coalizioneService) {
         this.coalizioneService = coalizioneService;
     }
-    @GetMapping("/getCoalisioneById/{id}")
+    @GetMapping("/getCoalizioneById/{id}")
     public Coalizione getCoalizioneById(@PathVariable("id") Integer id) {
         return this.coalizioneService.getCoalizioneById(id);
     }
@@ -26,7 +26,7 @@ public class CoalizioneController {
     }
 
     @PostMapping("/addCoalizione")
-    public Coalizione addCoalizione(Coalizione coalizione) {
+    public Coalizione addCoalizione(@RequestBody Coalizione coalizione) {
         return this.coalizioneService.addCoalizione(coalizione);
     }
 
@@ -36,7 +36,7 @@ public class CoalizioneController {
     }
 
     @PutMapping("/updateCoalizione")
-    public void updateCoalizione(Coalizione coalizione) {
+    public void updateCoalizione(@RequestBody Coalizione coalizione) {
         this.coalizioneService.updateCoalizione(coalizione);
     }
 }

@@ -26,7 +26,7 @@ public class BuonoScontoController {
 
     //crea un azienda con metodo POST
     @PostMapping(value = "/addBuonoSconto")
-    public BuonoSconto addBuonoSconto(BuonoSconto buonoSconto) {
+    public BuonoSconto addBuonoSconto(@RequestBody BuonoSconto buonoSconto) {
         return this.buonoScontoService.addBuonoSconto(buonoSconto);
     }
 
@@ -37,7 +37,7 @@ public class BuonoScontoController {
 
     //aggiorna un azienda con metodo PUT
     @PutMapping(value = "/updateBuonoSconto")
-    public void updateBuonoSconto(BuonoSconto buonoSconto) {
+    public void updateBuonoSconto(@RequestBody BuonoSconto buonoSconto) {
         this.buonoScontoService.updateBuonoSconto(buonoSconto);
     }
 }
