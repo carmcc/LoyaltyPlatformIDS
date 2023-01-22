@@ -26,7 +26,7 @@ public class AziendaController
 
     //crea un azienda con metodo POST
     @RequestMapping(value = "/addAzienda", method = RequestMethod.POST)
-    public Azienda addAzienda(Azienda azienda) {
+    public Azienda addAzienda(@RequestBody Azienda azienda) {
         return this.aziendaService.addAzienda(azienda);
     }
 
@@ -37,7 +37,7 @@ public class AziendaController
 
     //aggiorna un azienda con metodo PUT
     @PutMapping(value = "/updateAzienda")
-    public void updateAzienda(Azienda azienda) {
+    public void updateAzienda(@RequestBody Azienda azienda) {
         this.aziendaService.updateAzienda(azienda);
     }
 

@@ -26,15 +26,15 @@ public class AccountAziendaleController {
         return this.accountAziendaleService.getAllAccountAziendali();
     }
     @PutMapping(value = "/addAccountAziendale")
-    public AccountAziendale addAccountAziendale(AccountAziendale accountAziendale) {
+    public AccountAziendale addAccountAziendale(@RequestBody AccountAziendale accountAziendale) {
         return this.accountAziendaleService.addAccountAziendale(accountAziendale);
     }
     @DeleteMapping(value = "/deleteAccountAziendale")
-    public void deleteAccountAziendale(Integer id) {
-        this.accountAziendaleService.deleteAccountAziendale(id);
+    public void deleteAccountAziendale(@RequestBody AccountAziendale accountAziendale) {
+        this.accountAziendaleService.deleteAccountAziendale(accountAziendale);
     }
     @PostMapping(value = "/updateAccountAziendale")
-    public void updateAccountAziendale(AccountAziendale accountAziendale) {
+    public void updateAccountAziendale(@RequestBody AccountAziendale accountAziendale) {
         this.accountAziendaleService.updateAccountAziendale(accountAziendale);
     }
 }

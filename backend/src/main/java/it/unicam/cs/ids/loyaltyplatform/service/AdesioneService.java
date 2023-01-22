@@ -26,8 +26,8 @@ public class AdesioneService
     public Adesione addAdesione(Adesione adesione) {
         return this.adesioneRepository.save(adesione);
     }
-    public void deleteAdesioneById(Integer id) {
-        this.adesioneRepository.deleteById(id);
+    public void deleteAdesione(Adesione adesione) {
+        this.adesioneRepository.delete(adesione);
     }
     public void updateAdesione(Adesione adesione) {
         this.adesioneRepository.saveAndFlush(adesione);

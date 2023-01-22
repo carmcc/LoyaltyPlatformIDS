@@ -34,17 +34,17 @@ public class AdesioneController
     }
 
     @PostMapping(value = "/addAdesione")
-    public Adesione addAdesione(Adesione adesione) {
+    public Adesione addAdesione(@RequestBody Adesione adesione) {
         return this.adesioneService.addAdesione(adesione);
     }
 
-    @DeleteMapping(value = "/deleteAdesioneById/{id}")
-    public void deleteAdesioneById(@PathVariable("id") Integer id) {
-        this.adesioneService.deleteAdesioneById(id);
+    @DeleteMapping(value = "/deleteAdesione")
+    public void deleteAdesioneById(@RequestBody Adesione adesione) {
+        this.adesioneService.deleteAdesione(adesione);
     }
 
     @PutMapping(value = "/updateAdesione")
-    public void updateAdesione(Adesione adesione) {
+    public void updateAdesione(@RequestBody Adesione adesione) {
         this.adesioneService.updateAdesione(adesione);
     }
 }

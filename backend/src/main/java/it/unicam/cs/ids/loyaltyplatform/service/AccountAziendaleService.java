@@ -25,8 +25,8 @@ public class AccountAziendaleService {
     public AccountAziendale addAccountAziendale(AccountAziendale accountAziendale) {
         return this.accountAziendaleRepository.save(accountAziendale);
     }
-    public void deleteAccountAziendale(Integer id) {
-        this.accountAziendaleRepository.deleteById(id);
+    public void deleteAccountAziendale(AccountAziendale accountAziendale) {
+        this.accountAziendaleRepository.delete(accountAziendale);
     }
     public void updateAccountAziendale(AccountAziendale accountAziendale) {
         this.accountAziendaleRepository.saveAndFlush(accountAziendale);
