@@ -16,11 +16,15 @@ public class AdesioneController
     }
 
     @GetMapping(value = "/getAdesioniByIdConsumatore/{id}")
-    public List<Adesione> getAdesioniByIdConsumatore(@PathVariable("id") List<Integer> id) {
+    public List<Adesione> getAdesioniByIdConsumatore(@PathVariable("id") Integer id) {
         return this.adesioneService.getAdesioniByIdConsumatore(id);
     }
+    @GetMapping(value = "/getAdesioniByIdAzienda/{id}")
+    public List<Adesione> getAdesioniByIdAzienda(@PathVariable("id") Integer id) {
+        return this.adesioneService.getAdesioniByIdAzienda(id);
+    }
     @GetMapping(value = "/getAdesioneByIdConsumatoreAndByIdAzienda/{idAzienda}&{idConsumatore}")
-    public Adesione getAdesioneByIdConsumatoreAndByIdAzienda(@PathVariable("idAzienda") List<Integer> idAzienda, @PathVariable("idConsumatore") Integer idConsumatore) {
+    public Adesione getAdesioneByIdConsumatoreAndByIdAzienda(@PathVariable("idAzienda") Integer idAzienda, @PathVariable("idConsumatore") Integer idConsumatore) {
         return this.adesioneService.getAdesioneByIdAzienda(getAdesioniByIdConsumatore(idAzienda), idConsumatore);
     }
 
