@@ -11,9 +11,8 @@ public class AdesioneService
     public AdesioneService(AdesioneRepository adesioneRepository) {
         this.adesioneRepository = adesioneRepository;
     }
-    public Adesione getAdesioneById(Integer id) {
-        return this.adesioneRepository.findById(id).orElse(null);
-    }
+    public List<Adesione> getAdesioniByIdConsumatore(List<Integer> id) {return this.adesioneRepository.findAllById(id);}
+    public Adesione getAdesioneByIdAzienda(List<Adesione> listaAdesioni, Integer id) {return listaAdesioni.stream().filter(x -> x.getQualeAzienda() == id.intValue()).toList().get(0);}
     public List<Adesione> getAllAdesioni() {
         return this.adesioneRepository.findAll();
     }
