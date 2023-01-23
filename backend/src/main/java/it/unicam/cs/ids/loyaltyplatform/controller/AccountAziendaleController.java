@@ -14,8 +14,8 @@ public class AccountAziendaleController {
     public AccountAziendaleController(AccountAziendaleService accountAziendaleService) {
         this.accountAziendaleService = accountAziendaleService;
     }
-    @GetMapping(value = "/getAllAccountAziendaliById/{id}")
-    public List<AccountAziendale> getAllAccountAziendaliById(@PathVariable("id") Integer id) {
+    @GetMapping(value = "/getAccountAziendaliById/{id}")
+    public List<AccountAziendale> getAccountAziendaliById(@PathVariable("id") Integer id) {
         return this.accountAziendaleService.getAccountAziendaliById(id);
     }
     @GetMapping(value = "/getAccountAziendaleByIdAndSeriale/{id}&{seriale}")
