@@ -25,8 +25,9 @@ public class AdesioneController
         return this.adesioneService.getAdesioniByIdAzienda(id);
     }
     @GetMapping(value = "/getAdesioneByIdConsumatoreAndByIdAzienda/{idAzienda}&{idConsumatore}")
-    public Optional<Adesione> getAdesioneByIdConsumatoreAndByIdAzienda(@PathVariable("idAzienda") Integer idAzienda, @PathVariable("idConsumatore") Integer idConsumatore) {
-        return this.adesioneService.getAdesioneByIdAzienda(getAdesioniByIdConsumatore(idAzienda), idConsumatore);
+    public Optional<Adesione> getAdesioneByIdConsumatoreAndByIdAzienda(@PathVariable("idConsumatore") Integer idConsumatore,
+                                                                       @PathVariable("idAzienda") Integer idAzienda) {
+        return this.adesioneService.getAdesioneByConsumatoreAndAzienda(idConsumatore, idAzienda);
     }
 
     @GetMapping(value = "/getAllAdesioni")

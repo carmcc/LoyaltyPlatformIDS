@@ -18,7 +18,9 @@ public class RuoloService {
         return getRuoliByIdAzienda(id).stream().filter(x->x.getPermesso().equals(permesso)).toList();
     }
     public Optional<Ruolo> getRuoliByAziendaAndSeriale(Integer id, Integer seriale) {
-        return getRuoliByIdAzienda(id).stream().filter(x->x.getQualeSeriale()==seriale.intValue()).findAny();
+        return this.ruoloRepository.findAll().stream()
+                .filter(x-> x.getQualeAccountAziendale()==id.intValue() && x.getQualeSeriale()==seriale.intValue())
+                .findAny();
     }
     public List<Ruolo> getAllRuoli() {return this.ruoloRepository.findAll();}
     public Ruolo AddRecensione(Ruolo ruolo) {return this.ruoloRepository.save(ruolo);}

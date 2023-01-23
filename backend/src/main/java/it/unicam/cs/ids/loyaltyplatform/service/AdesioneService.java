@@ -18,8 +18,10 @@ public class AdesioneService
     public List<Adesione> getAdesioniByIdAzienda(Integer id) {
         return this.adesioneRepository.findAll().stream().filter(x->x.getQualeAzienda()==id.intValue()).toList();
     }
-    public Optional<Adesione> getAdesioneByIdAzienda(List<Adesione> listaAdesioni, Integer id) {
-        return listaAdesioni.stream().filter(x -> x.getQualeAzienda() == id.intValue()).findAny();
+    public Optional<Adesione> getAdesioneByConsumatoreAndAzienda(Integer idConsumatore, Integer idAzienda) {
+        return this.adesioneRepository.findAll().stream()
+                .filter(x -> x.getQualeConsumatore()==idConsumatore.intValue() && x.getQualeAzienda() == idAzienda.intValue())
+                .findAny();
     }
     public List<Adesione> getAllAdesioni() {
         return this.adesioneRepository.findAll();

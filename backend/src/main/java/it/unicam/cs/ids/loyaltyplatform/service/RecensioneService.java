@@ -18,7 +18,9 @@ public class RecensioneService {
         return this.recensioneRepository.findAll().stream().filter(x->x.getQualeAzienda()==id.intValue()).toList();
     }
     public Optional<Recensione> getRecensioneByConsumatoreAndAzienda(Integer idConsumatore, Integer idAzienda) {
-        return getRecensioniByIdConsumatore(idConsumatore).stream().filter(x->x.getQualeAzienda()==idAzienda.intValue()).findAny();
+        return this.recensioneRepository.findAll().stream()
+                .filter(x-> x.getQualeConsumatore()==idConsumatore.intValue() && x.getQualeAzienda()==idAzienda.intValue())
+                .findAny();
     }
     public List<Recensione> getAllRecensioni() {return this.recensioneRepository.findAll();}
     public Recensione AddRecensione(Recensione recensione) {return this.recensioneRepository.save(recensione);}
