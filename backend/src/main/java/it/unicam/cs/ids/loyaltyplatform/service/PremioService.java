@@ -5,6 +5,7 @@ import it.unicam.cs.ids.loyaltyplatform.repository.PremioRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PremioService {
@@ -17,10 +18,10 @@ public class PremioService {
     public List<Premio> getPremiByIdProdotto(Integer id) {
         return this.premioRepository.findAll().stream().filter(x -> x.getQualeProdotto() == id.intValue()).toList();
     }
-    public Premio getPremioByAziendaAndProdotto(Integer idAzienda, Integer idProdotto) {
+    public Optional<Premio> getPremioByAziendaAndProdotto(Integer idAzienda, Integer idProdotto) {
         return this.premioRepository.findAll().stream()
                 .filter(x->x.getQualeAzienda()==idAzienda.intValue() && x.getQualeProdotto()==idProdotto.intValue())
-                .toList().get(0);
+                .findAny();
     }
     public List<Premio> getAllPremi() {return this.premioRepository.findAll();}
     public Premio addPremio(Premio premio) {return this.premioRepository.save(premio);}

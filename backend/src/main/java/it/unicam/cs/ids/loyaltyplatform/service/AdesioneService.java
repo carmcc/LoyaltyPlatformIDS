@@ -3,6 +3,7 @@ import it.unicam.cs.ids.loyaltyplatform.entity.Adesione;
 import it.unicam.cs.ids.loyaltyplatform.repository.AdesioneRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AdesioneService
@@ -17,8 +18,8 @@ public class AdesioneService
     public List<Adesione> getAdesioniByIdAzienda(Integer id) {
         return this.adesioneRepository.findAll().stream().filter(x->x.getQualeAzienda()==id.intValue()).toList();
     }
-    public Adesione getAdesioneByIdAzienda(List<Adesione> listaAdesioni, Integer id) {
-        return listaAdesioni.stream().filter(x -> x.getQualeAzienda() == id.intValue()).toList().get(0);
+    public Optional<Adesione> getAdesioneByIdAzienda(List<Adesione> listaAdesioni, Integer id) {
+        return listaAdesioni.stream().filter(x -> x.getQualeAzienda() == id.intValue()).findAny();
     }
     public List<Adesione> getAllAdesioni() {
         return this.adesioneRepository.findAll();

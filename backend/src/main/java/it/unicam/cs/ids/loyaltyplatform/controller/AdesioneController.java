@@ -4,6 +4,7 @@ import it.unicam.cs.ids.loyaltyplatform.service.AdesioneService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/adesione")
@@ -24,7 +25,7 @@ public class AdesioneController
         return this.adesioneService.getAdesioniByIdAzienda(id);
     }
     @GetMapping(value = "/getAdesioneByIdConsumatoreAndByIdAzienda/{idAzienda}&{idConsumatore}")
-    public Adesione getAdesioneByIdConsumatoreAndByIdAzienda(@PathVariable("idAzienda") Integer idAzienda, @PathVariable("idConsumatore") Integer idConsumatore) {
+    public Optional<Adesione> getAdesioneByIdConsumatoreAndByIdAzienda(@PathVariable("idAzienda") Integer idAzienda, @PathVariable("idConsumatore") Integer idConsumatore) {
         return this.adesioneService.getAdesioneByIdAzienda(getAdesioniByIdConsumatore(idAzienda), idConsumatore);
     }
 

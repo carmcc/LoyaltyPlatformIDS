@@ -5,6 +5,7 @@ import it.unicam.cs.ids.loyaltyplatform.repository.AccountAziendaleRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AccountAziendaleService {
@@ -16,8 +17,8 @@ public class AccountAziendaleService {
     public List<AccountAziendale> getAccountAziendaliById(Integer id) {
         return this.accountAziendaleRepository.findAll().stream().filter(x->x.getQualeAzienda()==id.intValue()).toList();
     }
-    public AccountAziendale getAccountAziendaleByIdAndSeriale(Integer idAzienda, Integer seriale) {
-        return getAccountAziendaliById(idAzienda).stream().filter(x -> x.getSeriale() == seriale.intValue()).toList().get(0);
+    public Optional<AccountAziendale> getAccountAziendaleByIdAndSeriale(Integer idAzienda, Integer seriale) {
+        return getAccountAziendaliById(idAzienda).stream().filter(x -> x.getSeriale() == seriale.intValue()).findAny();
     }
     public List<AccountAziendale> getAllAccountAziendali() {
         return this.accountAziendaleRepository.findAll();

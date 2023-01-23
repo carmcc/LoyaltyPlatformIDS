@@ -5,6 +5,7 @@ import it.unicam.cs.ids.loyaltyplatform.service.PremioService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/premio")
@@ -16,7 +17,7 @@ public class PremioController {
     @GetMapping("/getPremiByIdProdotto/{id}")
     public List<Premio> getPremiByIdProdotto(@PathVariable("id") Integer id) {return this.premioService.getPremiByIdProdotto(id);}
     @GetMapping("/getPremioByAziendaAndProdotto/{idAzienda}&{idProdotto}")
-    public Premio getPremioByAziendaAndProdotto(@PathVariable("idAzienda") Integer idAzienda,@PathVariable("idProdotto") Integer idProdotto) {
+    public Optional<Premio> getPremioByAziendaAndProdotto(@PathVariable("idAzienda") Integer idAzienda, @PathVariable("idProdotto") Integer idProdotto) {
         return this.premioService.getPremioByAziendaAndProdotto(idAzienda,idProdotto);
     }
     @GetMapping("/getAllPremi")

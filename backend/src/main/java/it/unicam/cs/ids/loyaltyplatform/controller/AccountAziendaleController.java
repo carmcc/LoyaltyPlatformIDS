@@ -5,6 +5,7 @@ import it.unicam.cs.ids.loyaltyplatform.service.AccountAziendaleService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/accountAziendale")
@@ -18,7 +19,7 @@ public class AccountAziendaleController {
         return this.accountAziendaleService.getAccountAziendaliById(id);
     }
     @GetMapping(value = "/getAccountAziendaleByIdAndSeriale/{id}&{seriale}")
-    public AccountAziendale getAccountAziendaleByIdAndSeriale(@PathVariable("id") Integer id,@PathVariable("seriale") Integer seriale) {
+    public Optional<AccountAziendale> getAccountAziendaleByIdAndSeriale(@PathVariable("id") Integer id, @PathVariable("seriale") Integer seriale) {
         return this.accountAziendaleService.getAccountAziendaleByIdAndSeriale(id, seriale);
     }
     @GetMapping(value = "/getAllAccountAziendali")
