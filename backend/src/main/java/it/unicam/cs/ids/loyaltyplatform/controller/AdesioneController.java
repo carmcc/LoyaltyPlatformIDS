@@ -41,7 +41,7 @@ public class AdesioneController
     }
 
     @DeleteMapping(value = "/deleteAdesione")
-    public void deleteAdesioneById(@RequestBody Adesione adesione) {
+    public void deleteAdesione(@RequestBody Adesione adesione) {
         this.adesioneService.deleteAdesione(adesione);
     }
 

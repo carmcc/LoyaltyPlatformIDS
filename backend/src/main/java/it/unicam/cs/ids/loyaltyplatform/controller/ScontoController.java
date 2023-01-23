@@ -26,8 +26,8 @@ public class ScontoController {
     }
     @GetMapping("/getAllSconti")
     public List<Sconto> getAllSconti() {return this.scontoService.getAllSconti();}
-    @PostMapping("/AddSconto")
-    public Sconto AddSconto(@RequestBody Sconto sconto) {return this.scontoService.AddSconto(sconto);}
+    @PostMapping("/addSconto")
+    public Sconto addSconto(@RequestBody Sconto sconto) {return this.scontoService.AddSconto(sconto);}
     @DeleteMapping("/deleteSconto")
     public void deleteSconto(@RequestBody Sconto sconto) {this.scontoService.deleteSconto(sconto);}
     @PutMapping("/updateSconto")

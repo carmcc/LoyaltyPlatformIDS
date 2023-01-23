@@ -26,8 +26,8 @@ public class RuoloController {
     }
     @GetMapping("/getAllRuoli")
     public List<Ruolo> getAllRuoli() {return this.ruoloService.getAllRuoli();}
-    @PostMapping("/AddRecensione")
-    public Ruolo AddRecensione(@RequestBody Ruolo ruolo) {return this.ruoloService.AddRecensione(ruolo);}
+    @PostMapping("/addRecensione")
+    public Ruolo addRecensione(@RequestBody Ruolo ruolo) {return this.ruoloService.AddRecensione(ruolo);}
     @DeleteMapping("/deleteRecensione")
     public void deleteRecensione(@RequestBody Ruolo ruolo) {this.ruoloService.deleteRecensione(ruolo);}
     @PutMapping("/updateRecensione")

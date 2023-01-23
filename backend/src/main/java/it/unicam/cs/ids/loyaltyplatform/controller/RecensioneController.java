@@ -22,8 +22,8 @@ public class RecensioneController {
     }
     @GetMapping("/getAllRecensioni")
     public List<Recensione> getAllRecensioni() {return this.recensioneService.getAllRecensioni();}
-    @PostMapping("/AddRecensione")
-    public Recensione AddRecensione(@RequestBody Recensione recensione) {return this.recensioneService.AddRecensione(recensione);}
+    @PostMapping("/addRecensione")
+    public Recensione addRecensione(@RequestBody Recensione recensione) {return this.recensioneService.AddRecensione(recensione);}
     @DeleteMapping("/deleteRecensione")
     public void deleteRecensione(@RequestBody Recensione recensione) {this.recensioneService.deleteRecensione(recensione);}
     @PutMapping("/updateRecensione")
