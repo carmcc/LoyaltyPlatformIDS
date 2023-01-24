@@ -10,7 +10,6 @@ public class Prodotto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final Integer idProdotto;
     @Column(nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String nome;
 
     public Prodotto() {
