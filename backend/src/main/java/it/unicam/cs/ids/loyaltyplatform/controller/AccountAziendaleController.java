@@ -26,7 +26,7 @@ public class AccountAziendaleController {
     public List<AccountAziendale> getAllAccountAziendali() {
         return this.accountAziendaleService.getAllAccountAziendali();
     }
-    @PutMapping(value = "/addAccountAziendale")
+    @PostMapping(value = "/addAccountAziendale")
     public AccountAziendale addAccountAziendale(@RequestBody AccountAziendale accountAziendale) {
         return this.accountAziendaleService.addAccountAziendale(accountAziendale);
     }
@@ -34,7 +34,7 @@ public class AccountAziendaleController {
     public void deleteAccountAziendale(@RequestBody AccountAziendale accountAziendale) {
         this.accountAziendaleService.deleteAccountAziendale(accountAziendale);
     }
-    @PostMapping(value = "/updateAccountAziendale")
+    @PutMapping(value = "/updateAccountAziendale")
     public void updateAccountAziendale(@RequestBody AccountAziendale accountAziendale) {
         this.accountAziendaleService.updateAccountAziendale(accountAziendale);
     }
