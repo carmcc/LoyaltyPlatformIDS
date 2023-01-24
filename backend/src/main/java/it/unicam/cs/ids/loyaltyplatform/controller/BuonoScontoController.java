@@ -35,7 +35,6 @@ public class BuonoScontoController {
         this.buonoScontoService.deleteBuonoScontoById(id);
     }
 
-    //aggiorna un azienda con metodo PUT
     @PutMapping(value = "/updateBuonoSconto")
     public void updateBuonoSconto(@RequestBody BuonoSconto buonoSconto) {
         this.buonoScontoService.updateBuonoSconto(buonoSconto);

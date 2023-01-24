@@ -21,7 +21,8 @@ public class SpesaController {
         return this.spesaService.getSpeseByIdProdotto(id);
     }
     @GetMapping("/getSpesaByPagamentoAndProdotto/{idPagamento}&{idProdotto}")
-    public Optional<Spesa> getSpesaByPagamentoAndProdotto(@PathVariable("idPagamento") Integer idPagamento, @PathVariable("idProdotto") Integer idProdotto) {
+    public Optional<Spesa> getSpesaByPagamentoAndProdotto(@PathVariable("idPagamento") Integer idPagamento,
+                                                          @PathVariable("idProdotto") Integer idProdotto) {
         return this.spesaService.getSpesaByPagamentoAndProdotto(idPagamento, idProdotto);
     }
     @GetMapping("/getAllSpese")

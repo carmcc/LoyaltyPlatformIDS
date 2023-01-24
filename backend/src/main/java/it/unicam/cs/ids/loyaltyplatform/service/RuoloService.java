@@ -5,7 +5,6 @@ import it.unicam.cs.ids.loyaltyplatform.repository.RuoloRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class RuoloService {
@@ -17,13 +16,13 @@ public class RuoloService {
     public List<Ruolo> getRuoliByAziendaAndPermesso(Integer id, String permesso) {
         return getRuoliByIdAzienda(id).stream().filter(x->x.getPermesso().equals(permesso)).toList();
     }
-    public Optional<Ruolo> getRuoliByAziendaAndSeriale(Integer id, Integer seriale) {
+    public List<Ruolo> getRuoliByAziendaAndSeriale(Integer id, Integer seriale) {
         return this.ruoloRepository.findAll().stream()
                 .filter(x-> x.getQualeAccountAziendale()==id.intValue() && x.getQualeSeriale()==seriale.intValue())
-                .findAny();
+                .toList();
     }
     public List<Ruolo> getAllRuoli() {return this.ruoloRepository.findAll();}
-    public Ruolo AddRecensione(Ruolo ruolo) {return this.ruoloRepository.save(ruolo);}
-    public void deleteRecensione(Ruolo ruolo) {this.ruoloRepository.delete(ruolo);}
-    public void updateRecensione(Ruolo ruolo) {this.ruoloRepository.saveAndFlush(ruolo);}
+    public Ruolo addRuolo(Ruolo ruolo) {return this.ruoloRepository.save(ruolo);}
+    public void deleteRuolo(Ruolo ruolo) {this.ruoloRepository.delete(ruolo);}
+    public void updateRuolo(Ruolo ruolo) {this.ruoloRepository.saveAndFlush(ruolo);}
 }

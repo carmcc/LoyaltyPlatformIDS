@@ -13,11 +13,16 @@ public class RecensioneController {
     final RecensioneService recensioneService;
     public RecensioneController(RecensioneService recensioneService) {this.recensioneService = recensioneService;}
     @GetMapping("/getRecensioniByIdConsumatore/{id}")
-    public List<Recensione> getRecensioniByIdConsumatore(@PathVariable("id") Integer id) {return this.recensioneService.getRecensioniByIdConsumatore(id);}
+    public List<Recensione> getRecensioniByIdConsumatore(@PathVariable("id") Integer id) {
+        return this.recensioneService.getRecensioniByIdConsumatore(id);
+    }
     @GetMapping("/getRecensioniByIdAzienda/{id}")
-    public List<Recensione> getRecensioniByIdAzienda(@PathVariable("id") Integer id) {return this.recensioneService.getRecensioniByIdAzienda(id);}
+    public List<Recensione> getRecensioniByIdAzienda(@PathVariable("id") Integer id) {
+        return this.recensioneService.getRecensioniByIdAzienda(id);
+    }
     @GetMapping("/getRecensioneByConsumatoreAndAzienda/{idConsumatore}&{idAzienda}")
-    public Optional<Recensione> getRecensioneByConsumatoreAndAzienda(@PathVariable("idConsumatore") Integer idConsumatore, @PathVariable("idAzienda") Integer idAzienda) {
+    public Optional<Recensione> getRecensioneByConsumatoreAndAzienda(@PathVariable("idConsumatore") Integer idConsumatore,
+                                                                     @PathVariable("idAzienda") Integer idAzienda) {
         return this.recensioneService.getRecensioneByConsumatoreAndAzienda(idConsumatore,idAzienda);
     }
     @GetMapping("/getAllRecensioni")

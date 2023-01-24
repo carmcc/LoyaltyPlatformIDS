@@ -23,7 +23,7 @@ public class ScontoService {
                 .findAny();
     }
     public List<Sconto> getAllSconti() {return this.scontoRepository.findAll();}
-    public Sconto AddSconto(Sconto sconto) {return this.scontoRepository.save(sconto);}
+    public Sconto addSconto(Sconto sconto) {return this.scontoRepository.save(sconto);}
     public void deleteSconto(Sconto sconto) {this.scontoRepository.delete(sconto);}
     public void updateSconto(Sconto sconto) {this.scontoRepository.saveAndFlush(sconto);}
 }

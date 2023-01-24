@@ -18,7 +18,8 @@ public class AccountAziendaleService {
         return this.accountAziendaleRepository.findAll().stream().filter(x->x.getQualeAzienda()==id.intValue()).toList();
     }
     public Optional<AccountAziendale> getAccountAziendaleByIdAndSeriale(Integer idAzienda, Integer seriale) {
-        return getAccountAziendaliById(idAzienda).stream().filter(x -> x.getSeriale() == seriale.intValue()).findAny();
+        return this.accountAziendaleRepository.findAll().stream()
+                .filter(x -> x.getQualeAzienda()==idAzienda.intValue() && x.getSeriale() == seriale.intValue()).findAny();
     }
     public List<AccountAziendale> getAllAccountAziendali() {
         return this.accountAziendaleRepository.findAll();

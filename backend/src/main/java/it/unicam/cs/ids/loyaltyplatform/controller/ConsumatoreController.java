@@ -24,7 +24,7 @@ public class ConsumatoreController {
         return this.consumatoreService.getAllConsumatori();
     }
 
-    @RequestMapping(value = "/addConsumatore", method = RequestMethod.POST)
+    @PostMapping(value = "/addConsumatore")
     public Consumatore addConsumatore(@RequestBody Consumatore consumatore) {
         return this.consumatoreService.addConsumatore(consumatore);
     }
@@ -34,7 +34,7 @@ public class ConsumatoreController {
         this.consumatoreService.deleteConsumatoreById(id);
     }
 
-//TODO da rivedere
+//TODO da rivedere (non funziona)
 
 //    @PutMapping(value = "/updateConsumatore")
 //    public void updateConsumatore(@RequestBody Consumatore consumatore) {

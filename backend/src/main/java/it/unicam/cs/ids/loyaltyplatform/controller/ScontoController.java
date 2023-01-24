@@ -21,13 +21,14 @@ public class ScontoController {
         return this.scontoService.getScontiByIdProdotto(id);
     }
     @GetMapping("/getScontoByAziendaAndProdotto/{idAzienda}&{idProdotto}")
-    public Optional<Sconto> getScontoByAziendaAndProdotto(@PathVariable("idAzienda") Integer idAzienda,@PathVariable("idProdotto") Integer idProdotto) {
+    public Optional<Sconto> getScontoByAziendaAndProdotto(@PathVariable("idAzienda") Integer idAzienda,
+                                                          @PathVariable("idProdotto") Integer idProdotto) {
         return this.scontoService.getScontoByAziendaAndProdotto(idAzienda, idProdotto);
     }
     @GetMapping("/getAllSconti")
     public List<Sconto> getAllSconti() {return this.scontoService.getAllSconti();}
     @PostMapping("/addSconto")
-    public Sconto addSconto(@RequestBody Sconto sconto) {return this.scontoService.AddSconto(sconto);}
+    public Sconto addSconto(@RequestBody Sconto sconto) {return this.scontoService.addSconto(sconto);}
     @DeleteMapping("/deleteSconto")
     public void deleteSconto(@RequestBody Sconto sconto) {this.scontoService.deleteSconto(sconto);}
     @PutMapping("/updateSconto")
