@@ -14,7 +14,7 @@ public class RuoloService {
         return this.ruoloRepository.findAll().stream().filter(x->x.getQualeAccountAziendale()==id.intValue()).toList();
     }
     public List<Ruolo> getRuoliByAziendaAndPermesso(Integer id, String permesso) {
-        return getRuoliByIdAzienda(id).stream().filter(x->x.getPermesso().equals(permesso)).toList();
+        return getRuoliByIdAzienda(id).stream().filter(x->x.getQualePermesso().equals(permesso)).toList();
     }
     public List<Ruolo> getRuoliByAziendaAndSeriale(Integer id, Integer seriale) {
         return this.ruoloRepository.findAll().stream()
