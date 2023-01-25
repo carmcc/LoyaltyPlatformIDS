@@ -34,11 +34,9 @@ public class ConsumatoreController {
         this.consumatoreService.deleteConsumatoreById(id);
     }
 
-//TODO da rivedere (non funziona)
-
-//    @PutMapping(value = "/updateConsumatore")
-//    public void updateConsumatore(@RequestBody Consumatore consumatore) {
-//        this.consumatoreService.updateConsumatore(consumatore);
-//    }
+    @PutMapping(value = "/updateConsumatore")
+    public void updateConsumatore(@RequestBody Consumatore consumatore) {
+        this.consumatoreService.updateConsumatore(consumatore);
+    }
 
 }
