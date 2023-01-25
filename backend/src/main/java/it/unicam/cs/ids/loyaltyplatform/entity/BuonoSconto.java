@@ -1,15 +1,15 @@
 package it.unicam.cs.ids.loyaltyplatform.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 @Entity
 @Table (name = "BuoniSconto")
 @Getter(value = AccessLevel.PUBLIC)
 @Setter(value = AccessLevel.PUBLIC)
+@NoArgsConstructor
+@AllArgsConstructor
 public class BuonoSconto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,15 +24,4 @@ public class BuonoSconto {
     private Date dataScadenza;
     @Column(nullable = false)
     private Float valore;
-
-    public BuonoSconto(Integer idBuono, Integer qualeConsumatore, Integer qualeAzienda, Date dataCreazione, Date dataScadenza, float valore) {
-        this.idBuono = idBuono;
-        this.qualeConsumatore = qualeConsumatore;
-        this.qualeAzienda = qualeAzienda;
-        this.dataCreazione = dataCreazione;
-        this.dataScadenza = dataScadenza;
-        this.valore = valore;
-    }
-
-    public BuonoSconto() {}
 }
