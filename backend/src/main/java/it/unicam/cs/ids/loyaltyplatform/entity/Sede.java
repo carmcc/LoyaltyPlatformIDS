@@ -35,6 +35,14 @@ public class Sede {
         this.civico = civico;
     }
 
+    public Integer getIdSede() {
+        return idSede;
+    }
+
+    public void setIdSede(Integer idSede) {
+        this.idSede = idSede;
+    }
+
     public Integer getQualeAzienda() {
         return qualeAzienda;
     }
