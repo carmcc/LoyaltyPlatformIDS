@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Sede {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idSede;
+    private final Integer idSede;
     @Column(nullable = false)
     private Integer qualeAzienda;
     @Column(nullable = false)
@@ -37,10 +37,6 @@ public class Sede {
 
     public Integer getIdSede() {
         return idSede;
-    }
-
-    public void setIdSede(Integer idSede) {
-        this.idSede = idSede;
     }
 
     public Integer getQualeAzienda() {
