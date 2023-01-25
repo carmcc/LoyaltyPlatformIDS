@@ -2,6 +2,7 @@ package it.unicam.cs.ids.loyaltyplatform.controller;
 
 import it.unicam.cs.ids.loyaltyplatform.entity.AccountAziendale;
 import it.unicam.cs.ids.loyaltyplatform.service.AccountAziendaleService;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,11 +10,10 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/accountAziendale")
+@AllArgsConstructor
 public class AccountAziendaleController {
     private final AccountAziendaleService accountAziendaleService;
-    public AccountAziendaleController(AccountAziendaleService accountAziendaleService) {
-        this.accountAziendaleService = accountAziendaleService;
-    }
+
     @GetMapping(value = "/getAccountAziendaliById/{id}")
     public List<AccountAziendale> getAccountAziendaliById(@PathVariable("id") Integer id) {
         return this.accountAziendaleService.getAccountAziendaliById(id);

@@ -2,17 +2,16 @@ package it.unicam.cs.ids.loyaltyplatform.controller;
 
 import it.unicam.cs.ids.loyaltyplatform.entity.Consumatore;
 import it.unicam.cs.ids.loyaltyplatform.service.ConsumatoreService;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/consumatore")
+@AllArgsConstructor
 public class ConsumatoreController {
     private final ConsumatoreService consumatoreService;
-    public ConsumatoreController(ConsumatoreService consumatoreService) {
-        this.consumatoreService = consumatoreService;
-    }
 
     @GetMapping(value = "/getConsumatoreById/{id}")
     public Consumatore getConsumatoreById(@PathVariable("id") Integer id) {

@@ -2,17 +2,15 @@ package it.unicam.cs.ids.loyaltyplatform.service;
 
 import it.unicam.cs.ids.loyaltyplatform.entity.Coalizione;
 import it.unicam.cs.ids.loyaltyplatform.repository.CoalizioneRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class CoalizioneService {
     private final CoalizioneRepository coalizioneRepository;
-
-    public CoalizioneService(CoalizioneRepository coalizioneRepository) {
-        this.coalizioneRepository = coalizioneRepository;
-    }
 
     public Coalizione getCoalizioneById(Integer id) {
         return coalizioneRepository.findById(id).orElse(null);

@@ -2,14 +2,15 @@ package it.unicam.cs.ids.loyaltyplatform.service;
 
 import it.unicam.cs.ids.loyaltyplatform.entity.Ruolo;
 import it.unicam.cs.ids.loyaltyplatform.repository.RuoloRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class RuoloService {
     private final RuoloRepository ruoloRepository;
-    public RuoloService(RuoloRepository ruoloRepository) {this.ruoloRepository = ruoloRepository;}
     public List<Ruolo> getRuoliByIdAzienda(Integer id) {
         return this.ruoloRepository.findAll().stream().filter(x->x.getQualeAccountAziendale()==id.intValue()).toList();
     }

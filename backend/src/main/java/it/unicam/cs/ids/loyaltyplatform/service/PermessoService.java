@@ -2,18 +2,16 @@ package it.unicam.cs.ids.loyaltyplatform.service;
 
 import it.unicam.cs.ids.loyaltyplatform.entity.Permesso;
 import it.unicam.cs.ids.loyaltyplatform.repository.PermessoRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class PermessoService
 {
     private final PermessoRepository permessoRepository;
-    public PermessoService(PermessoRepository permessoRepository) {
-        this.permessoRepository = permessoRepository;
-    }
-
     public Permesso getPermessoById(String id) {
         return this.permessoRepository.findById(id).orElse(null);
     }

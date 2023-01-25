@@ -2,15 +2,16 @@ package it.unicam.cs.ids.loyaltyplatform.controller;
 
 import it.unicam.cs.ids.loyaltyplatform.entity.Ruolo;
 import it.unicam.cs.ids.loyaltyplatform.service.RuoloService;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/ruolo")
+@AllArgsConstructor
 public class RuoloController {
     private final RuoloService ruoloService;
-    public RuoloController(RuoloService ruoloService) {this.ruoloService = ruoloService;}
     @GetMapping("/getRuoliByIdAzienda/{id}")
     public List<Ruolo> getRuoliByIdAzienda(@PathVariable("id") Integer id) {
         return this.ruoloService.getRuoliByIdAzienda(id);

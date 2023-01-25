@@ -2,18 +2,17 @@ package it.unicam.cs.ids.loyaltyplatform.service;
 
 import it.unicam.cs.ids.loyaltyplatform.entity.AccountAziendale;
 import it.unicam.cs.ids.loyaltyplatform.repository.AccountAziendaleRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class AccountAziendaleService {
     private final AccountAziendaleRepository accountAziendaleRepository;
 
-    public AccountAziendaleService (AccountAziendaleRepository accountAziendaleRepository) {
-        this.accountAziendaleRepository = accountAziendaleRepository;
-    }
     public List<AccountAziendale> getAccountAziendaliById(Integer id) {
         return this.accountAziendaleRepository.findAll().stream().filter(x->x.getQualeAzienda()==id.intValue()).toList();
     }

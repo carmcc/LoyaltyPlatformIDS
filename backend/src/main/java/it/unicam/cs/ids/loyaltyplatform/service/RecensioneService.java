@@ -2,15 +2,16 @@ package it.unicam.cs.ids.loyaltyplatform.service;
 
 import it.unicam.cs.ids.loyaltyplatform.entity.Recensione;
 import it.unicam.cs.ids.loyaltyplatform.repository.RecensioneRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class RecensioneService {
     final RecensioneRepository recensioneRepository;
-    public RecensioneService(RecensioneRepository recensioneRepository) {this.recensioneRepository = recensioneRepository;}
     public List<Recensione> getRecensioniByIdConsumatore(Integer id) {
         return this.recensioneRepository.findAll().stream().filter(x->x.getQualeConsumatore()==id.intValue()).toList();
     }

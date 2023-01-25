@@ -2,19 +2,18 @@ package it.unicam.cs.ids.loyaltyplatform.controller;
 
 import it.unicam.cs.ids.loyaltyplatform.entity.Coalizione;
 import it.unicam.cs.ids.loyaltyplatform.service.CoalizioneService;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/coalizione")
+@AllArgsConstructor
 public class CoalizioneController {
 
     private final CoalizioneService coalizioneService;
 
-    public CoalizioneController(CoalizioneService coalizioneService) {
-        this.coalizioneService = coalizioneService;
-    }
     @GetMapping("/getCoalizioneById/{id}")
     public Coalizione getCoalizioneById(@PathVariable("id") Integer id) {
         return this.coalizioneService.getCoalizioneById(id);

@@ -2,19 +2,17 @@ package it.unicam.cs.ids.loyaltyplatform.controller;
 
 import it.unicam.cs.ids.loyaltyplatform.entity.Permesso;
 import it.unicam.cs.ids.loyaltyplatform.service.PermessoService;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/permesso")
+@AllArgsConstructor
 public class PermessoController
 {
     private final PermessoService permessoService;
-
-    public PermessoController(PermessoService permessoService) {
-        this.permessoService = permessoService;
-    }
 
     @GetMapping(value = "/getPermessoById/{id}")
     public Permesso getPermessoById(@PathVariable("id") String id) {

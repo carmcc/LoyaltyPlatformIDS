@@ -2,15 +2,16 @@ package it.unicam.cs.ids.loyaltyplatform.service;
 
 import it.unicam.cs.ids.loyaltyplatform.entity.Sconto;
 import it.unicam.cs.ids.loyaltyplatform.repository.ScontoRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class ScontoService {
     private final ScontoRepository scontoRepository;
-    public ScontoService(ScontoRepository scontoRepository) {this.scontoRepository = scontoRepository;}
     public List<Sconto> getScontiByIdAzienda(Integer id) {
         return this.scontoRepository.findAll().stream().filter(x->x.getQualeAzienda()==id.intValue()).toList();
     }

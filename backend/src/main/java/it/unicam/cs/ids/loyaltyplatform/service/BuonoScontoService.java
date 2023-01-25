@@ -2,17 +2,16 @@ package it.unicam.cs.ids.loyaltyplatform.service;
 
 import it.unicam.cs.ids.loyaltyplatform.entity.BuonoSconto;
 import it.unicam.cs.ids.loyaltyplatform.repository.BuonoScontoRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class BuonoScontoService {
     private final BuonoScontoRepository buonoScontoRepository;
 
-    public BuonoScontoService(BuonoScontoRepository buonoScontoRepository) {
-        this.buonoScontoRepository = buonoScontoRepository;
-    }
     public BuonoSconto getBuonoScontoById(Integer id) {
         return this.buonoScontoRepository.findById(id).orElse(null);
     }

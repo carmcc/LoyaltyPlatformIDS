@@ -1,17 +1,17 @@
 package it.unicam.cs.ids.loyaltyplatform.service;
 import it.unicam.cs.ids.loyaltyplatform.entity.Adesione;
 import it.unicam.cs.ids.loyaltyplatform.repository.AdesioneRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class AdesioneService
 {
     private final AdesioneRepository adesioneRepository;
-    public AdesioneService(AdesioneRepository adesioneRepository) {
-        this.adesioneRepository = adesioneRepository;
-    }
+
     public List<Adesione> getAdesioniByIdConsumatore(Integer id) {
         return this.adesioneRepository.findAll().stream().filter(x->x.getQualeConsumatore()==id.intValue()).toList();
     }

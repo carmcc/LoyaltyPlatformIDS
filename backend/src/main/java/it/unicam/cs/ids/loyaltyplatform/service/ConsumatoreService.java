@@ -3,18 +3,16 @@ package it.unicam.cs.ids.loyaltyplatform.service;
 
 import it.unicam.cs.ids.loyaltyplatform.entity.Consumatore;
 import it.unicam.cs.ids.loyaltyplatform.repository.ConsumatoreRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class ConsumatoreService {
     private final ConsumatoreRepository consumatoreRepository;
 
-    public ConsumatoreService(ConsumatoreRepository consumatoreRepository)
-    {
-        this.consumatoreRepository = consumatoreRepository;
-    }
     public Consumatore getConsumatoreById(Integer id)
     {
         return this.consumatoreRepository.findById(id).orElse(null);

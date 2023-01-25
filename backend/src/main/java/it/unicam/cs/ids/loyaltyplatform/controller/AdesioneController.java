@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.loyaltyplatform.controller;
 import it.unicam.cs.ids.loyaltyplatform.entity.Adesione;
 import it.unicam.cs.ids.loyaltyplatform.service.AdesioneService;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -8,13 +9,10 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/adesione")
+@AllArgsConstructor
 public class AdesioneController
 {
     private final AdesioneService adesioneService;
-
-    public AdesioneController(AdesioneService adesioneService) {
-        this.adesioneService = adesioneService;
-    }
 
     @GetMapping(value = "/getAdesioniByIdConsumatore/{id}")
     public List<Adesione> getAdesioniByIdConsumatore(@PathVariable("id") Integer id) {

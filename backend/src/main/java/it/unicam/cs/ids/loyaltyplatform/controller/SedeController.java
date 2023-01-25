@@ -2,20 +2,17 @@ package it.unicam.cs.ids.loyaltyplatform.controller;
 
 import it.unicam.cs.ids.loyaltyplatform.entity.Sede;
 import it.unicam.cs.ids.loyaltyplatform.service.SedeService;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/sede")
+@AllArgsConstructor
 public class SedeController
 {
     private final SedeService sedeService;
-
-    public SedeController(SedeService sedeService) {
-        this.sedeService = sedeService;
-    }
-
     @GetMapping(value = "/getSedeById/{id}")
     public Sede getSedeById(@PathVariable("id") Integer id) {
         return this.sedeService.getSedeById(id);

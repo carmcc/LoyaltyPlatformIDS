@@ -2,17 +2,16 @@ package it.unicam.cs.ids.loyaltyplatform.controller;
 
 import it.unicam.cs.ids.loyaltyplatform.entity.BuonoSconto;
 import it.unicam.cs.ids.loyaltyplatform.service.BuonoScontoService;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/buonoSconto")
+@AllArgsConstructor
 public class BuonoScontoController {
     private final BuonoScontoService buonoScontoService;
-    public BuonoScontoController(BuonoScontoService buonoScontoService) {
-        this.buonoScontoService = buonoScontoService;
-    }
 
     @GetMapping(value = "/getBuonoScontoById/{id}")
     public BuonoSconto getBuonoScontoById(@PathVariable("id") Integer id) {

@@ -2,15 +2,16 @@ package it.unicam.cs.ids.loyaltyplatform.service;
 
 import it.unicam.cs.ids.loyaltyplatform.entity.Spesa;
 import it.unicam.cs.ids.loyaltyplatform.repository.SpesaRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class SpesaService {
     private final SpesaRepository spesaRepository;
-    public SpesaService(SpesaRepository spesaRepository) {this.spesaRepository = spesaRepository;}
     public List<Spesa> getSpeseByIdPagamento(Integer id) {
         return this.spesaRepository.findAll().stream().filter(x->x.getQualePagamento()==id.intValue()).toList();
     }

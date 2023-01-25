@@ -2,16 +2,16 @@ package it.unicam.cs.ids.loyaltyplatform.service;
 
 import it.unicam.cs.ids.loyaltyplatform.entity.Premio;
 import it.unicam.cs.ids.loyaltyplatform.repository.PremioRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class PremioService {
     private final PremioRepository premioRepository;
-    public PremioService(PremioRepository premioRepository) {this.premioRepository = premioRepository;}
-
     public List<Premio> getPremiByIdAzienda(Integer id) {
         return this.premioRepository.findAll().stream().filter(x->x.getQualeAzienda()==id.intValue()).toList();
     }

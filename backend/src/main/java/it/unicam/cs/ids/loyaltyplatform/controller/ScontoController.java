@@ -2,6 +2,7 @@ package it.unicam.cs.ids.loyaltyplatform.controller;
 
 import it.unicam.cs.ids.loyaltyplatform.entity.Sconto;
 import it.unicam.cs.ids.loyaltyplatform.service.ScontoService;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,9 +10,9 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/sconto")
+@AllArgsConstructor
 public class ScontoController {
     private final ScontoService scontoService;
-    public ScontoController(ScontoService scontoService) {this.scontoService = scontoService;}
     @GetMapping("/getScontiByIdAzienda/{id}")
     public List<Sconto> getScontiByIdAzienda(@PathVariable("id") Integer id) {
         return this.scontoService.getScontiByIdAzienda(id);
