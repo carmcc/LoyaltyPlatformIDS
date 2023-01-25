@@ -2,22 +2,23 @@ package it.unicam.cs.ids.loyaltyplatform.entity;
 
 import jakarta.persistence.*;
 import it.unicam.cs.ids.loyaltyplatform.primaryKeys.PKSpesa;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "Spese")
 @IdClass(PKSpesa.class)
+@Getter(value = AccessLevel.PUBLIC)
+@Setter(value = AccessLevel.PUBLIC)
 public class Spesa {
     @Id
-    private final Integer qualePagamento;
+    private Integer qualePagamento;
     @Id
-    private final Integer qualeProdotto;
+    private Integer qualeProdotto;
     @Column(nullable = false)
     private Integer quantita;
 
-    public Spesa() {
-        qualePagamento = 0;
-        qualeProdotto = 0;
-    }
 
     public Spesa(Integer qualePagamento, Integer qualeProdotto, Integer quantita) {
         this.qualePagamento = qualePagamento;
@@ -25,19 +26,5 @@ public class Spesa {
         this.quantita = quantita;
     }
 
-    public Integer getQualePagamento() {
-        return qualePagamento;
-    }
-
-    public Integer getQualeProdotto() {
-        return qualeProdotto;
-    }
-
-    public Integer getQuantita() {
-        return quantita;
-    }
-
-    public void setQuantita(Integer quantita) {
-        this.quantita = quantita;
-    }
+    public Spesa() {}
 }

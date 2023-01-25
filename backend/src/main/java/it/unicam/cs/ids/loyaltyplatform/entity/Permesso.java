@@ -1,10 +1,15 @@
 package it.unicam.cs.ids.loyaltyplatform.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 
 
 @Entity
 @Table(name = "Permessi")
+@Getter(value = AccessLevel.PUBLIC)
+@Setter(value = AccessLevel.PUBLIC)
 public class Permesso
 {
     @Id //questa primary key può essere modificata
@@ -15,18 +20,5 @@ public class Permesso
         this.nomePermesso = nomePermesso;
     }
 
-    public Permesso() {
-
-    }
-
-
-    public String getNomePermesso() {
-        return nomePermesso;
-    }
-
-    public void setNomePermesso(String nomePermesso) {  //TODO controllo nomi uguali
-        this.nomePermesso = nomePermesso;
-    }
-
-
+    public Permesso() {}
 }
