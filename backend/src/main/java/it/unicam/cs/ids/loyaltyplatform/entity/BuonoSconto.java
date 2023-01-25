@@ -1,14 +1,19 @@
 package it.unicam.cs.ids.loyaltyplatform.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 @Entity
 @Table (name = "BuoniSconto")
+@Getter(value = AccessLevel.PUBLIC)
+@Setter(value = AccessLevel.PUBLIC)
 public class BuonoSconto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private final Integer idBuono;
+    private Integer idBuono;
     @Column(nullable = false)
     private Integer qualeConsumatore;
     @Column(nullable = false)
@@ -20,9 +25,6 @@ public class BuonoSconto {
     @Column(nullable = false)
     private Float valore;
 
-    public BuonoSconto() {
-        idBuono = 0;
-    }
     public BuonoSconto(Integer idBuono, Integer qualeConsumatore, Integer qualeAzienda, Date dataCreazione, Date dataScadenza, float valore) {
         this.idBuono = idBuono;
         this.qualeConsumatore = qualeConsumatore;
@@ -32,47 +34,5 @@ public class BuonoSconto {
         this.valore = valore;
     }
 
-    public Integer getIdBuono() {
-        return idBuono;
-    }
-
-    public Integer getQualeConsumatore() {
-        return qualeConsumatore;
-    }
-
-    public void setQualeConsumatore(Integer qualeConsumatore) {
-        this.qualeConsumatore = qualeConsumatore;
-    }
-
-    public Integer getQualeAzienda() {
-        return qualeAzienda;
-    }
-
-    public void setQualeAzienda(Integer qualeAzienda) {
-        this.qualeAzienda = qualeAzienda;
-    }
-
-    public Date getDataCreazione() {
-        return dataCreazione;
-    }
-
-    public void setDataCreazione(Date dataCreazione) {
-        this.dataCreazione = dataCreazione;
-    }
-
-    public Date getDataScadenza() {
-        return dataScadenza;
-    }
-
-    public void setDataScadenza(Date dataScadenza) {
-        this.dataScadenza = dataScadenza;
-    }
-
-    public float getValore() {
-        return valore;
-    }
-
-    public void setValore(float valore) {
-        this.valore = valore;
-    }
+    public BuonoSconto() {}
 }

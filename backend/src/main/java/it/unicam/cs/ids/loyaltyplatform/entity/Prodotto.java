@@ -1,35 +1,26 @@
 package it.unicam.cs.ids.loyaltyplatform.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 
 
 @Entity
 @Table(name = "Prodotti")
+@Getter(value = AccessLevel.PUBLIC)
+@Setter(value = AccessLevel.PUBLIC)
 public class Prodotto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private final Integer idProdotto;
+    private Integer idProdotto;
     @Column(nullable = false)
     private String nome;
-
-    public Prodotto() {
-        idProdotto = 0;
-    }
 
     public Prodotto(Integer idProdotto, String nome) {
         this.idProdotto = idProdotto;
         this.nome = nome;
     }
 
-    public Integer getIdProdotto() {
-        return idProdotto;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+    public Prodotto() {}
 }
