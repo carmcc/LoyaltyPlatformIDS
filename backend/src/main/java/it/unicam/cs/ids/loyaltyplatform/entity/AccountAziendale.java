@@ -11,10 +11,11 @@ import lombok.*;
 @Getter(value = AccessLevel.PUBLIC)
 @Setter(value = AccessLevel.PUBLIC)
 @NoArgsConstructor
+@AllArgsConstructor
 public class AccountAziendale {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)//TODO com il postaman non funge, funziona solo se tolgo autoincrement
     private Integer seriale;
     @Id
     private Integer qualeAzienda;
+
 }
