@@ -1,15 +1,15 @@
 package it.unicam.cs.ids.loyaltyplatform.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 
 @Entity
 @Table(name = "Aziende")
 @Getter(value = AccessLevel.PUBLIC)
 @Setter(value = AccessLevel.PUBLIC)
+@NoArgsConstructor
+@AllArgsConstructor
 public class Azienda
 {
     @Id
@@ -28,20 +28,4 @@ public class Azienda
     private String moltSistemaLivelli;
     private Float divisoreCashback;
     private Float moltiplicatoreVip;
-
-
-    public Azienda(Integer id, String nomeAzienda, String email, String password, String IVA, String sede, String referral, String moltSistemaLivelli, float divisoreCashback, float moltiplicatoreVip) {
-        this.idAzienda = id;
-        this.qualeCoalizione = -1;
-        this.nomeAzienda = nomeAzienda;
-        this.email = email;
-        this.password = password;
-        this.IVA = IVA;
-        this.referral = referral;
-        this.moltSistemaLivelli = moltSistemaLivelli;
-        this.divisoreCashback = divisoreCashback;
-        this.moltiplicatoreVip = moltiplicatoreVip;
-    }
-
-    public Azienda() {}
 }

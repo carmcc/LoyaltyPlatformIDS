@@ -1,9 +1,7 @@
 package it.unicam.cs.ids.loyaltyplatform.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
@@ -11,6 +9,8 @@ import java.util.Date;
 @Table(name = "Pagamenti")
 @Getter(value = AccessLevel.PUBLIC)
 @Setter(value = AccessLevel.PUBLIC)
+@NoArgsConstructor
+@AllArgsConstructor
 public class Pagamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,13 +21,4 @@ public class Pagamento {
     private Date dataPagamento;
     @Column(nullable = false)
     private Float costoTotale;
-
-    public Pagamento(Integer idPagamento, Integer qualeConsumatore, Date dataPagamento, float costoTotale) {
-        this.idPagamento = idPagamento;
-        this.qualeConsumatore = qualeConsumatore;
-        this.dataPagamento = dataPagamento;
-        this.costoTotale = costoTotale;
-    }
-
-    public Pagamento() {}
 }

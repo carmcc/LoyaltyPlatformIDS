@@ -1,15 +1,15 @@
 package it.unicam.cs.ids.loyaltyplatform.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 
 @Entity
 @Table(name = "Consumatori")
 @Getter(value = AccessLevel.PUBLIC)
 @Setter(value = AccessLevel.PUBLIC)
+@NoArgsConstructor
+@AllArgsConstructor
 public class Consumatore
 {
     @Id
@@ -23,14 +23,4 @@ public class Consumatore
     private String email;
     @Column(nullable = false)
     private String password;
-
-    public Consumatore(Integer id, String nickname, String dataDiNascita, boolean sesso, String email, String password) {
-        this.idConsumatore = id;
-        this.nickname = nickname;
-        this.dataDiNascita = dataDiNascita;
-        this.sesso = sesso;
-        this.email = email;
-        this.password = password;
-    }
-    public Consumatore() {}
 }

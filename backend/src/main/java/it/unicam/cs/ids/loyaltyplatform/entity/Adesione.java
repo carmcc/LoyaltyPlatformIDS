@@ -2,9 +2,7 @@ package it.unicam.cs.ids.loyaltyplatform.entity;
 
 import jakarta.persistence.*;
 import it.unicam.cs.ids.loyaltyplatform.primaryKeys.PKAdesione;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
@@ -13,6 +11,8 @@ import java.util.Date;
 @IdClass(PKAdesione.class)
 @Getter(value = AccessLevel.PUBLIC)
 @Setter(value = AccessLevel.PUBLIC)
+@NoArgsConstructor
+@AllArgsConstructor
 public class Adesione {
     @Id
     private Integer qualeAzienda;
@@ -29,18 +29,4 @@ public class Adesione {
     @Column(nullable = false)
     private Float salvadanaio;
     private Date ultimaSpesa;
-
-
-    public Adesione(Integer qualeAzienda, Integer qualeConsumatore, Integer esperienzaConsumatore, boolean isVip, Integer livelloConsumatore, Integer puntiConsumatore, float salvadanaio, Date ultimaSpesa) {
-        this.qualeAzienda = qualeAzienda;
-        this.qualeConsumatore = qualeConsumatore;
-        this.esperienzaConsumatore = esperienzaConsumatore;
-        this.isVip = isVip;
-        this.livelloConsumatore = livelloConsumatore;
-        this.puntiConsumatore = puntiConsumatore;
-        this.salvadanaio = salvadanaio;
-        this.ultimaSpesa = ultimaSpesa;
-    }
-
-    public Adesione() {}
 }

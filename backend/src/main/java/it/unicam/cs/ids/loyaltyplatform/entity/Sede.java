@@ -1,14 +1,17 @@
 package it.unicam.cs.ids.loyaltyplatform.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "Sedi")
-@Getter(value = AccessLevel.PUBLIC)
-@Setter(value = AccessLevel.PUBLIC)
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Sede {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,16 +28,4 @@ public class Sede {
     private String citta;
     @Column(nullable = false)
     private String civico;
-
-    public Sede(Integer idSede, Integer qualeAzienda, String via, String cap, String regione, String citta, String civico) {
-        this.idSede = idSede;
-        this.qualeAzienda = qualeAzienda;
-        this.via = via;
-        this.cap = cap;
-        this.regione = regione;
-        this.citta = citta;
-        this.civico = civico;
-    }
-
-    public Sede() {}
 }
