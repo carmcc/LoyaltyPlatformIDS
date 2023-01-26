@@ -29,7 +29,4 @@ public class AccountAziendaleService {
     public void deleteAccountAziendale(AccountAziendale accountAziendale) {
         this.accountAziendaleRepository.delete(accountAziendale);
     }
-    public void updateAccountAziendale(AccountAziendale accountAziendale) {
-        this.accountAziendaleRepository.saveAndFlush(accountAziendale);
-    }
 }
