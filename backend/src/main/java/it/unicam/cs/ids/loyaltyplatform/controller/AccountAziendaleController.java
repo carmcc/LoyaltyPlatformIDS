@@ -28,14 +28,18 @@ public class AccountAziendaleController {
     }
     @PostMapping(value = "/addAccountAziendale")
     public AccountAziendale addAccountAziendale(@RequestBody AccountAziendale accountAziendale) {
+        if (accountAziendale == null)
+        {throw new NullPointerException("accountAziendale è vuoto");}
+        if(getAccountAziendaleByIdAndSeriale(accountAziendale.getQualeAzienda(),accountAziendale.getSeriale()).isPresent())
+        {throw new IllegalArgumentException("id del record da aggiungere già presente");}
+
         return this.accountAziendaleService.addAccountAziendale(accountAziendale);
     }
     @DeleteMapping(value = "/deleteAccountAziendale")
     public void deleteAccountAziendale(@RequestBody AccountAziendale accountAziendale) {
+        if (accountAziendale == null)
+        {throw new NullPointerException("accountAziendale è vuoto");}
+
         this.accountAziendaleService.deleteAccountAziendale(accountAziendale);
-    }
-    @PutMapping(value = "/updateAccountAziendale")
-    public void updateAccountAziendale(@RequestBody AccountAziendale accountAziendale) {
-        this.accountAziendaleService.updateAccountAziendale(accountAziendale);
     }
 }
