@@ -35,16 +35,32 @@ public class AdesioneController
 
     @PostMapping(value = "/addAdesione")
     public Adesione addAdesione(@RequestBody Adesione adesione) {
+        controlloValiditaAdesione(adesione);
+        if (getAdesioneByConsumatoreAndAzienda(adesione.getQualeConsumatore(),adesione.getQualeAzienda()).isPresent())
+        {throw new IllegalArgumentException("id del record da aggiungere già presente");}
         return this.adesioneService.addAdesione(adesione);
     }
 
     @DeleteMapping(value = "/deleteAdesione")
     public void deleteAdesione(@RequestBody Adesione adesione) {
+        if(adesione == null) {throw new NullPointerException("adesione è nullo");}
+
         this.adesioneService.deleteAdesione(adesione);
     }
 
     @PutMapping(value = "/updateAdesione")
     public void updateAdesione(@RequestBody Adesione adesione) {
+        controlloValiditaAdesione(adesione);
+        if (getAdesioneByConsumatoreAndAzienda(adesione.getQualeConsumatore(),adesione.getQualeAzienda()).isEmpty())
+        {throw new IllegalArgumentException("id del record da modificare non presente");}
+
         this.adesioneService.updateAdesione(adesione);
+    }
+
+    private void controlloValiditaAdesione(Adesione adesione) throws IllegalArgumentException,NullPointerException {
+        if(adesione == null) {throw new NullPointerException("adesione è nullo");}
+        if ((adesione.getEsperienzaConsumatore() < 0) || (adesione.getLivelloConsumatore() <= 0) || (adesione.getPuntiConsumatore() < 0)
+                || (adesione.getSalvadanaio() < 0) || (adesione.getUltimaSpesa() == null))
+        {throw new IllegalArgumentException("parametri non validi nell'adesione");}
     }
 }
