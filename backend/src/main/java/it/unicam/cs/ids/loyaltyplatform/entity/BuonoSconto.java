@@ -1,8 +1,6 @@
 package it.unicam.cs.ids.loyaltyplatform.entity;
-
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.Date;
 @Entity
 @Table (name = "BuoniSconto")
@@ -12,8 +10,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class BuonoSconto {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idBuono;
+    @GeneratedValue
     @Column(nullable = false)
     private Integer qualeConsumatore;
     @Column(nullable = false)

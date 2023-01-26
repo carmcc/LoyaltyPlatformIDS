@@ -1,9 +1,6 @@
 package it.unicam.cs.ids.loyaltyplatform.entity;
-
 import jakarta.persistence.*;
 import lombok.*;
-
-
 @Entity
 @Table(name = "Consumatori")
 @Getter(value = AccessLevel.PUBLIC)
@@ -13,7 +10,7 @@ import lombok.*;
 public class Consumatore
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Integer idConsumatore;
     @Column(unique = true, nullable = false)
     private String nickname;

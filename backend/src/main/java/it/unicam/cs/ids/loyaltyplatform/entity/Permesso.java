@@ -1,9 +1,6 @@
 package it.unicam.cs.ids.loyaltyplatform.entity;
-
 import jakarta.persistence.*;
 import lombok.*;
-
-
 @Entity
 @Table(name = "Permessi")
 @Getter(value = AccessLevel.PUBLIC)

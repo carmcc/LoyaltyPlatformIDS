@@ -1,9 +1,6 @@
 package it.unicam.cs.ids.loyaltyplatform.entity;
-
 import jakarta.persistence.*;
 import lombok.*;
-
-
 @Entity
 @Table(name = "Coalizioni")
 @Getter(value = AccessLevel.PUBLIC)
@@ -14,7 +11,7 @@ import lombok.*;
 public class Coalizione
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @NonNull
     private Integer idCoalizione;
     @Column(nullable = false)
@@ -27,5 +24,4 @@ public class Coalizione
     @NonNull
     private Integer percentualeRitiroPremi; //Si possono usare i punti ottenuti da altre aziende, ma per
                                             // ritirare il premio da una di queste devi avere guadagnato da essa almeno la percentuale indicata.
-
 }

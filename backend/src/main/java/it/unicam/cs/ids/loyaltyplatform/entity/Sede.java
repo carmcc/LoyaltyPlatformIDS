@@ -1,11 +1,9 @@
 package it.unicam.cs.ids.loyaltyplatform.entity;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 @Entity
 @Table(name = "Sedi")
 @Getter
@@ -14,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Sede {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Integer idSede;
     @Column(nullable = false)
     private Integer qualeAzienda;

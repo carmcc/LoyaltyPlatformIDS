@@ -1,10 +1,7 @@
 package it.unicam.cs.ids.loyaltyplatform.entity;
-
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.Date;
-
 @Entity
 @Table(name = "Pagamenti")
 @Getter(value = AccessLevel.PUBLIC)
@@ -13,7 +10,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class Pagamento {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Integer idPagamento;
     @Column(nullable = false)
     private Integer qualeConsumatore;

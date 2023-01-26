@@ -1,11 +1,8 @@
 package it.unicam.cs.ids.loyaltyplatform.entity;
-
 import jakarta.persistence.*;
 import it.unicam.cs.ids.loyaltyplatform.primaryKeys.PKAdesione;
 import lombok.*;
-
 import java.util.Date;
-
 @Entity
 @Table(name = "Adesioni")
 @IdClass(PKAdesione.class)
