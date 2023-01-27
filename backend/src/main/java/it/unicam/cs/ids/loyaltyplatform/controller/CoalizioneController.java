@@ -35,6 +35,9 @@ public class CoalizioneController {
 
     @DeleteMapping("/deleteCoalizioneById/{id}")
     public void deleteCoalizioneById(@PathVariable("id") Integer id) {
+        if(getCoalizioneById(id) == null)
+            throw new IllegalArgumentException("il record da rimuovere non esiste");
+
         this.coalizioneService.deleteCoalizioneById(id);
     }
 
