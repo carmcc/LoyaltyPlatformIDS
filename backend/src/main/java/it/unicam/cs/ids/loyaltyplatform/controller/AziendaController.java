@@ -25,7 +25,7 @@ public class AziendaController
     }
 
     //crea un azienda con metodo POST
-    @RequestMapping(value = "/addAzienda", method = RequestMethod.POST)
+    @PostMapping(value = "/addAzienda")
     public Azienda addAzienda(@RequestBody Azienda azienda) {
         controlloValiditaAzienda(azienda);
         if(getAziendaById(azienda.getIdAzienda()) != null)
@@ -36,6 +36,8 @@ public class AziendaController
 
     @DeleteMapping(value = "/deleteAziendaById/{id}")
     public void deleteAziendaById(@PathVariable("id") Integer id) {
+        if(getAziendaById(id) == null)
+            throw new NullPointerException("ID non valido per la cancellazione dell'azienda");
         this.aziendaService.deleteAziendaById(id);
     }
 
