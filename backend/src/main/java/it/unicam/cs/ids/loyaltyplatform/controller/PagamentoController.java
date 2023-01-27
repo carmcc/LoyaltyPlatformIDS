@@ -25,7 +25,12 @@ public class PagamentoController {
         return this.pagamentoService.addPagamento(pagamento);
     }
     @DeleteMapping("/deletePagamentoById/{id}")
-    public void deletePagamentoById(@PathVariable("id") Integer id) {this.pagamentoService.removePagamentoById(id);}
+    public void deletePagamentoById(@PathVariable("id") Integer id) {
+        if(getPagamentoById(id) == null)
+            throw new IllegalArgumentException("il record da rimuovere non esiste");
+
+        this.pagamentoService.removePagamentoById(id);
+    }
     @PutMapping("/updatePagamento")
     public void updatePagamento(@RequestBody Pagamento pagamento) {
         controlloPagamento(pagamento);

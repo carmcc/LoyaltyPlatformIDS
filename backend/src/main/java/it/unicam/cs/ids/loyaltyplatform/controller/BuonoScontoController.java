@@ -34,6 +34,8 @@ public class BuonoScontoController {
 
     @DeleteMapping(value = "/deleteBuonoScontoById/{id}")
     public void deleteBuonoScontoById(@PathVariable("id") Integer id) {
+        if(getBuonoScontoById(id) == null)
+            throw new IllegalArgumentException("il record da rimuovere non esiste");
 
         this.buonoScontoService.deleteBuonoScontoById(id);
     }
