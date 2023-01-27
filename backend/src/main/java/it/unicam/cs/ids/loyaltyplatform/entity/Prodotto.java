@@ -9,7 +9,8 @@ import lombok.*;
 @AllArgsConstructor
 public class Prodotto {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "PRODOTTI_SEQ")
+    @SequenceGenerator(name = "PRODOTTI_SEQ", sequenceName = "PRODOTTI_SEQ", allocationSize = 1)
     private Integer idProdotto;
     @Column(nullable = false)
     private String nome;

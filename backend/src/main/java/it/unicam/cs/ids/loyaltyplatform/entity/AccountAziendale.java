@@ -11,7 +11,8 @@ import lombok.*;
 @AllArgsConstructor
 public class AccountAziendale {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "ACCOUNT_AZIENDALI_SEQ")
+    @SequenceGenerator(name = "ACCOUNT_AZIENDALI_SEQ", sequenceName = "ACCOUNT_AZIENDALI_SEQ", allocationSize = 1)
     private Integer seriale;
     @Id
     private Integer qualeAzienda;

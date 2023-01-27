@@ -10,7 +10,8 @@ import java.util.Date;
 @AllArgsConstructor
 public class BuonoSconto {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "BUONI_SCONTO_SEQ")
+    @SequenceGenerator(name = "BUONI_SCONTO_SEQ", sequenceName = "BUONI_SCONTO_SEQ", allocationSize = 1)
     private Integer idBuono;
     @Column(nullable = false)
     private Integer qualeConsumatore;

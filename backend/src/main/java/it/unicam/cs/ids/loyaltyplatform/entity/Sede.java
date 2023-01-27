@@ -12,7 +12,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Sede {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEDI_SEQ")
+    @SequenceGenerator(name = "SEDI_SEQ", sequenceName = "SEDI_SEQ", allocationSize = 1)
     private Integer idSede;
     @Column(nullable = false)
     private Integer qualeAzienda;

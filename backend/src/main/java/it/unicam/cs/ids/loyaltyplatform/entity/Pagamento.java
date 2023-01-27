@@ -10,7 +10,8 @@ import java.util.Date;
 @AllArgsConstructor
 public class Pagamento {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "PAGAMENTI_SEQ")
+    @SequenceGenerator(name = "PAGAMENTI_SEQ", sequenceName = "PAGAMENTI_SEQ", allocationSize = 1)
     private Integer idPagamento;
     @Column(nullable = false)
     private Integer qualeConsumatore;
