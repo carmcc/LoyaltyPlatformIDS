@@ -23,19 +23,32 @@ public class BuonoScontoController {
         return this.buonoScontoService.getAllBuoniSconto();
     }
 
-    //crea un azienda con metodo POST
     @PostMapping(value = "/addBuonoSconto")
     public BuonoSconto addBuonoSconto(@RequestBody BuonoSconto buonoSconto) {
+        controlloValiditaBuonoSconto(buonoSconto);
+
         return this.buonoScontoService.addBuonoSconto(buonoSconto);
     }
 
     @DeleteMapping(value = "/deleteBuonoScontoById/{id}")
     public void deleteBuonoScontoById(@PathVariable("id") Integer id) {
+
         this.buonoScontoService.deleteBuonoScontoById(id);
     }
 
     @PutMapping(value = "/updateBuonoSconto")
     public void updateBuonoSconto(@RequestBody BuonoSconto buonoSconto) {
+        controlloValiditaBuonoSconto(buonoSconto);
+
         this.buonoScontoService.updateBuonoSconto(buonoSconto);
+    }
+
+    private void controlloValiditaBuonoSconto(BuonoSconto buonoSconto) {
+        if (buonoSconto == null)
+            throw new NullPointerException("buono sconto è nullo");
+        if(buonoSconto.getDataCreazione() == null || buonoSconto.getDataScadenza() == null)
+            throw new NullPointerException("Almeno una delle due date assente nel buono sconto");
+        if(buonoSconto.getValore() <= 0)
+            throw new IllegalArgumentException("Valore del buono sconto non valido");
     }
 }
