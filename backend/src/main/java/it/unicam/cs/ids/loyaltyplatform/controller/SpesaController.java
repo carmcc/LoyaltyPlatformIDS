@@ -29,7 +29,8 @@ public class SpesaController {
     @GetMapping("/getAllSpese")
     public List<Spesa> getAllSpese() {return this.spesaService.getAllSpese();}
     @PostMapping("/addSpesa")
-    public Spesa addSpesa(@RequestBody Spesa spesa) {return this.spesaService.AddSpesa(spesa);}
+    public Spesa addSpesa(@RequestBody Spesa spesa) {
+        return this.spesaService.addSpesa(spesa);}
     @DeleteMapping("/deleteSpesa")
     public void deleteSpesa(@RequestBody Spesa spesa) {this.spesaService.deleteSpesa(spesa);}
     @PutMapping("/updateSpesa")

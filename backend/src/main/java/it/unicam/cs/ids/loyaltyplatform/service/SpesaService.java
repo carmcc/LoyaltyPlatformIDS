@@ -24,7 +24,7 @@ public class SpesaService {
                 .findAny();
     }
     public List<Spesa> getAllSpese() {return this.spesaRepository.findAll();}
-    public Spesa AddSpesa(Spesa spesa) {return this.spesaRepository.save(spesa);}
+    public Spesa addSpesa(Spesa spesa) {return this.spesaRepository.save(spesa);}
     public void deleteSpesa(Spesa spesa) {this.spesaRepository.delete(spesa);}
     public void updateSpesa(Spesa spesa) {this.spesaRepository.saveAndFlush(spesa);}
 }
