@@ -10,7 +10,8 @@ import lombok.*;
 public class Consumatore
 {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "CONSUMATORI_SEQ")
+    @SequenceGenerator(name = "CONSUMATORI_SEQ", sequenceName = "CONSUMATORI_SEQ", allocationSize = 1)
     private Integer idConsumatore;
     @Column(unique = true, nullable = false)
     private String nickname;
