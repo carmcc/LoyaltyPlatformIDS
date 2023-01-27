@@ -29,7 +29,7 @@ public class AziendaController
     public Azienda addAzienda(@RequestBody Azienda azienda) {
         controlloValiditaAzienda(azienda);
         if(getAziendaById(azienda.getIdAzienda()) != null)
-        {throw new IllegalArgumentException("il record da aggiungere esiste già");}
+            throw new IllegalArgumentException("il record da aggiungere esiste già");
 
         return this.aziendaService.addAzienda(azienda);
     }
@@ -38,22 +38,25 @@ public class AziendaController
     public void deleteAziendaById(@PathVariable("id") Integer id) {
         this.aziendaService.deleteAziendaById(id);
     }
-
     //aggiorna un azienda con metodo PUT
     @PutMapping(value = "/updateAzienda")
     public void updateAzienda(@RequestBody Azienda azienda) {
         controlloValiditaAzienda(azienda);
         if(getAziendaById(azienda.getIdAzienda()) == null)
-        {throw new IllegalArgumentException("il record da modificare non esiste");}
+            throw new IllegalArgumentException("il record da modificare non esiste");
 
         this.aziendaService.updateAzienda(azienda);
     }
 
     private void controlloValiditaAzienda(Azienda azienda) {    //TODO discutere se sono stati fatti tutti i controlli necesssari
-        if(azienda == null) {throw new NullPointerException("azienda è nulla");}
-        if(azienda.getNomeAzienda().length() < 3 || azienda.getDivisoreCashback() <= 0 ||
-                azienda.getMoltiplicatoreVip() < 1)
-        {throw new IllegalArgumentException("parametri non validi in azienda");}
+        if(azienda == null)
+            throw new NullPointerException("azienda è nulla");
+        if(azienda.getNomeAzienda().length() < 3)
+            throw new IllegalArgumentException("nome azienda troppo corto");
+        if(azienda.getDivisoreCashback() <= 0)
+            throw new IllegalArgumentException("Il divisore cashback è negativo");
+        if(azienda.getMoltiplicatoreVip() < 1)
+            throw new IllegalArgumentException("Moltiplicatore VIP minore di 1");
         controlloMoltSistemaLivelli(azienda);
         controlloPassword(azienda);
     }
@@ -137,12 +140,12 @@ public class AziendaController
         String password = azienda.getPassword();
 
         if(!Pattern.compile(minuscola).matcher(password).find())
-            {throw new IllegalArgumentException("La password deve contenere almeno una lettera minuscola");}
+            throw new IllegalArgumentException("La password deve contenere almeno una lettera minuscola");
         if(!Pattern.compile(maiuscola).matcher(password).find())
-            {throw new IllegalArgumentException("La password deve contenere almeno una lettera maiuscola");}
+            throw new IllegalArgumentException("La password deve contenere almeno una lettera maiuscola");
         if(!Pattern.compile(specialiONumeri).matcher(password).find())
-            {throw new IllegalArgumentException("La password deve contenere almeno un carattere speciale o un numero");}
+            throw new IllegalArgumentException("La password deve contenere almeno un carattere speciale o un numero");
         if(password.length() < lunghezzaMin)
-            {throw new IllegalArgumentException("La password deve contenere almeno 8 caratteri");}
+            throw new IllegalArgumentException("La password deve contenere almeno 8 caratteri");
     }
 }
