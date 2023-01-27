@@ -26,6 +26,8 @@ public class BuonoScontoController {
     @PostMapping(value = "/addBuonoSconto")
     public BuonoSconto addBuonoSconto(@RequestBody BuonoSconto buonoSconto) {
         controlloValiditaBuonoSconto(buonoSconto);
+        if(getBuonoScontoById(buonoSconto.getIdBuono()) != null)
+            throw new IllegalArgumentException("il record da aggiungere esiste già");
 
         return this.buonoScontoService.addBuonoSconto(buonoSconto);
     }
@@ -39,6 +41,8 @@ public class BuonoScontoController {
     @PutMapping(value = "/updateBuonoSconto")
     public void updateBuonoSconto(@RequestBody BuonoSconto buonoSconto) {
         controlloValiditaBuonoSconto(buonoSconto);
+        if(getBuonoScontoById(buonoSconto.getIdBuono()) == null)
+            throw new IllegalArgumentException("il record da aggiornare non esiste");
 
         this.buonoScontoService.updateBuonoSconto(buonoSconto);
     }

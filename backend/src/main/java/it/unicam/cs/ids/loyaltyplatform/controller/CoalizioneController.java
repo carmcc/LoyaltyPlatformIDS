@@ -26,6 +26,10 @@ public class CoalizioneController {
 
     @PostMapping("/addCoalizione")
     public Coalizione addCoalizione(@RequestBody Coalizione coalizione) {
+        controlloCoalizione(coalizione);
+        if(getCoalizioneById(coalizione.getIdCoalizione()) != null)
+            throw new IllegalArgumentException("il record da inserire esiste già");
+
         return this.coalizioneService.addCoalizione(coalizione);
     }
 
@@ -36,6 +40,18 @@ public class CoalizioneController {
 
     @PutMapping("/updateCoalizione")
     public void updateCoalizione(@RequestBody Coalizione coalizione) {
+        controlloCoalizione(coalizione);
+        if(getCoalizioneById(coalizione.getIdCoalizione()) == null)
+            throw new IllegalArgumentException("il record da aggiornare non esiste");
+
         this.coalizioneService.updateCoalizione(coalizione);
+    }
+
+    private void controlloCoalizione(Coalizione coalizione) {
+        if(coalizione == null) throw new NullPointerException("coalizione è nulla");
+        if(coalizione.getParametroBuoniSpesa() <= 0) throw new IllegalArgumentException("parametro buoni spesa negativo o uguale a zero");
+        if (coalizione.getPenalitaCondivisione() < 1) throw new IllegalArgumentException("penalità condivisione minore di 1");
+        if(coalizione.getPercentualeRitiroPremi() < 0 || coalizione.getPercentualeRitiroPremi() >= 100)
+            throw new IllegalArgumentException("percentuale ritiro premi non valida");
     }
 }

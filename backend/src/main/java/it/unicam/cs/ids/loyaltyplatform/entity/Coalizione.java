@@ -15,7 +15,7 @@ public class Coalizione
     @NonNull
     private Integer idCoalizione;
     @Column(nullable = false)
-    private Float parametroBuoniSpesa;//buoni spesa ogni tot euro
+    private Float parametroBuoniSpesa;  //buoni spesa ogni tot euro
     @Column(nullable = false)
     @NonNull
     private Boolean condivisionePunti;
