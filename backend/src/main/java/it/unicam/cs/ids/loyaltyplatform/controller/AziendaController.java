@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/azienda")
@@ -50,9 +51,11 @@ public class AziendaController
 
     private void controlloValiditaAzienda(Azienda azienda) {    //TODO discutere se sono stati fatti tutti i controlli necesssari
         if(azienda == null) {throw new NullPointerException("azienda è nulla");}
-        if(azienda.getNomeAzienda().length() < 3 || !passwordValida(azienda) ||
-           !moltSistemaLivelliValido(azienda) || azienda.getDivisoreCashback() <= 0 || azienda.getMoltiplicatoreVip() < 1)
+        if(azienda.getNomeAzienda().length() < 3 || azienda.getDivisoreCashback() <= 0 ||
+                azienda.getMoltiplicatoreVip() < 1)
         {throw new IllegalArgumentException("parametri non validi in azienda");}
+        controlloMoltSistemaLivelli(azienda);
+        controlloPassword(azienda);
     }
 
     private enum State {
@@ -62,16 +65,16 @@ public class AziendaController
     /**
      * Questo metodo controlla che la stringa inserita rispetto il formato "[X],[X]...",
      *  come illustrato dalle seguenti regole:
-     *      -"X" indica "n" oppure "n.m", dove "n" è un numero tra 1 e 9 ed "m" è un numero tra 0 e 9.
+     *      -"X" indica "n" oppure "n.n", dove "n" è un numero tra 0 e 9
      *      -Le quadre devono essere chiuse contenendo solamente X.
-     *      -ì]" deve essere l'ultimo carattere.
+     *      -"]" deve essere l'ultimo carattere.
      *      -Devono esserci da 1 a 5 "[X]" separati da ",".
      *  Quindi i valori dentro le quadre possono andare da 1 a 9.9.
      *
      * @param azienda   Oggetto da cui estrarre la stringa "moltSistemaLivelli"
-     * @return  True se la stringa rispetta il linguaggio. False altrimenti.
+     * @exception IllegalArgumentException se la stringa non rispetta il linguaggio
      */
-    private boolean moltSistemaLivelliValido(Azienda azienda) {     //TODO discutere sulla dimensione dei numeri e sulla quantità massima di valori
+    private void controlloMoltSistemaLivelli(Azienda azienda) {
         char[] stringa = azienda.getMoltSistemaLivelli().toCharArray();
         State state = State.COMMA;
         short puntiNelNumero = 0;
@@ -82,33 +85,29 @@ public class AziendaController
                 case COMMA -> {
                     if (c == '[')
                         {state = State.OPENSQUARE; break;}
-                    return false;
+                    throw new IllegalArgumentException("Formato del Moltiplicatore Sistema a Livelli non valido");
                 }
                 case NUMBER -> {
                     if (c == '.' && puntiNelNumero == 0)
                         {state = State.DOT; puntiNelNumero++; break;}
                     if (c == ']')
                         {state = State.CLOSESQUARE; puntiNelNumero = 0; break;}
-                    return false;
+                    throw new IllegalArgumentException("Formato del Moltiplicatore Sistema a Livelli non valido");
                 }
-                case DOT -> {
-                    if (testNumber(c) || c == '0')
-                        {state = State.NUMBER; break;}
-                    return false;
-                }
-                case OPENSQUARE -> {
+                case DOT, OPENSQUARE -> {
                     if (testNumber(c))
                         {state = State.NUMBER; break;}
-                    return false;
+                    throw new IllegalArgumentException("Formato del Moltiplicatore Sistema a Livelli non valido");
                 }
                 case CLOSESQUARE -> {
                     if (c == ',' && virgoleIndividuate < 4)
                     {state = State.COMMA; virgoleIndividuate++; break;}
-                    return false;
+                    throw new IllegalArgumentException("Formato del Moltiplicatore Sistema a Livelli non valido");
                 }
             }
         }
-        return (stringa[lunghezza - 1] == ']');
+        if (stringa[lunghezza - 1] != ']')
+        {throw new IllegalArgumentException("Formato del Moltiplicatore Sistema a Livelli non valido");}
     }
 
     /**
@@ -119,7 +118,7 @@ public class AziendaController
      */
     private boolean testNumber(char c) {
         char[] number = {'0','1','2','3','4','5','6','7','8','9'};
-        for (int i=1; i<=9; i++) {
+        for (int i=0; i<=9; i++) {
             if (c == number[i]) {return true;}
         }
         return false;
@@ -129,9 +128,21 @@ public class AziendaController
      * Questo metodo controlla se la password rispetta le regole di linguaggio
      *
      * @param azienda   L'oggetto da cui estrarre "password"
-     * @return  True se la password è abbastanza sicura, False alrimenti.
      */
-    private boolean passwordValida(Azienda azienda) {   //TODO decidere regola password
-        return (azienda.getPassword().length() >= 5);
+    private void controlloPassword(Azienda azienda) {
+        String minuscola = "[a-z]";
+        String maiuscola = "[A-Z]";
+        String specialiONumeri = "[\\W|\\d]";
+        short lunghezzaMin = 8;
+        String password = azienda.getPassword();
+
+        if(!Pattern.compile(minuscola).matcher(password).find())
+            {throw new IllegalArgumentException("La password deve contenere almeno una lettera minuscola");}
+        if(!Pattern.compile(maiuscola).matcher(password).find())
+            {throw new IllegalArgumentException("La password deve contenere almeno una lettera maiuscola");}
+        if(!Pattern.compile(specialiONumeri).matcher(password).find())
+            {throw new IllegalArgumentException("La password deve contenere almeno un carattere speciale o un numero");}
+        if(password.length() < lunghezzaMin)
+            {throw new IllegalArgumentException("La password deve contenere almeno 8 caratteri");}
     }
 }
