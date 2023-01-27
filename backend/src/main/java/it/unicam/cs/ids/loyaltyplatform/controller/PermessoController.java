@@ -26,11 +26,17 @@ public class PermessoController
 
     @PostMapping(value = "/addPermesso")
     public Permesso addPermesso(@RequestBody Permesso permesso) {
+        if(getPermessoById(permesso.getNomePermesso()) != null)
+            throw new IllegalArgumentException("il record da inserire esiste già");
+
         return this.permessoService.addPermesso(permesso);
     }
 
     @DeleteMapping(value = "/deletePermessoById/{id}")
     public void deletePermessoById(@PathVariable("id") String id) {
+        if(getPermessoById(id) == null)
+            throw new IllegalArgumentException("il record da rimuovere non esiste");
+
         this.permessoService.deletePermessoById(id);
     }
 }

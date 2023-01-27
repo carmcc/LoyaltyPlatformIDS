@@ -25,9 +25,31 @@ public class PremioController {
     @GetMapping("/getAllPremi")
     public List<Premio> getAllPremi() {return this.premioService.getAllPremi();}
     @PostMapping("/addPremio")
-    public Premio addPremio(@RequestBody Premio premio) {return this.premioService.addPremio(premio);}
+    public Premio addPremio(@RequestBody Premio premio) {
+        controlloPremio(premio);
+        if(getPremioByAziendaAndProdotto(premio.getQualeAzienda(),premio.getQualeProdotto()).isPresent())
+            throw new IllegalArgumentException("il record da aggiungere esiste già");
+        return this.premioService.addPremio(premio);
+    }
     @DeleteMapping("/deletePremio")
-    public void deletePremio(@RequestBody Premio premio) {this.premioService.deletePremio(premio);}
+    public void deletePremio(@RequestBody Premio premio) {
+        controlloPremio(premio);
+        if(getPremioByAziendaAndProdotto(premio.getQualeAzienda(),premio.getQualeProdotto()).isPresent())
+            throw new IllegalArgumentException("il record da rimuovere esiste già");
+
+        this.premioService.deletePremio(premio);
+    }
     @PutMapping("/updatePremio")
-    public void updatePremio(@RequestBody Premio premio) {this.premioService.updatePremio(premio);}
+    public void updatePremio(@RequestBody Premio premio) {
+        controlloPremio(premio);
+        if(getPremioByAziendaAndProdotto(premio.getQualeAzienda(),premio.getQualeProdotto()).isEmpty())
+            throw new IllegalArgumentException("il record da aggiornare non esiste");
+
+        this.premioService.updatePremio(premio);
+    }
+
+    private void controlloPremio(Premio premio) {
+        if(premio == null) throw new NullPointerException("premio è nullo");
+        if(premio.getCosto() < 0) throw new IllegalArgumentException("il costo del premio è negativo");
+    }
 }
