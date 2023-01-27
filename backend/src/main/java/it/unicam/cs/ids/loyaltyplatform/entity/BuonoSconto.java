@@ -11,6 +11,7 @@ import java.util.Date;
 public class BuonoSconto {
     @Id
     @GeneratedValue
+    private Integer idBuono;
     @Column(nullable = false)
     private Integer qualeConsumatore;
     @Column(nullable = false)
