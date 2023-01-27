@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/consumatore")
 @AllArgsConstructor
-public class ConsumatoreController {
+public class ConsumatoreController {    //TODO controlli
     private final ConsumatoreService consumatoreService;
 
     @GetMapping(value = "/getConsumatoreById/{id}")
