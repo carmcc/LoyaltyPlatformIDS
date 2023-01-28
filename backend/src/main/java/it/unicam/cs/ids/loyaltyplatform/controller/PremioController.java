@@ -35,7 +35,7 @@ public class PremioController {
     public void deletePremio(@RequestBody Premio premio) {
         controlloPremio(premio);
         if(getPremioByAziendaAndProdotto(premio.getQualeAzienda(),premio.getQualeProdotto()).isPresent())
-            throw new IllegalArgumentException("il record da rimuovere esiste già");
+            throw new IllegalArgumentException("il record da rimuovere non esiste");
 
         this.premioService.deletePremio(premio);
     }

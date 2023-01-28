@@ -29,22 +29,34 @@ public class ProdottoController
     @PostMapping("/addProdotto")
     public Prodotto addProdotto(@RequestBody Prodotto prodotto)
     {
+        controlloValiditaProdotto(prodotto);
+        if(prodotto.getIdProdotto() != null && getProdottoById(prodotto.getIdProdotto()) != null)
+            throw new IllegalArgumentException("il record da aggiungere esiste già");
         return this.prodottoService.addProdotto(prodotto);
     }
 
     @DeleteMapping("/deleteProdottoById/{id}")
     public void deleteProdottoById(@PathVariable("id") Integer id)
     {
+        if(getProdottoById(id) == null)
+            throw new IllegalArgumentException("il record da rimuovere non esiste");
        this.prodottoService.deleteProdottoById(id);
     }
 
     @PutMapping("/updateProdotto")
     public void updateProdotto(@RequestBody Prodotto prodotto)
     {
+        controlloValiditaProdotto(prodotto);
+        if(prodotto.getIdProdotto() == null)
+            throw new IllegalArgumentException("id prodotto non deve essere nullo per l'update");
+        if(getProdottoById(prodotto.getIdProdotto()) == null)
+            throw new IllegalArgumentException("il record da aggiornare non esiste");
+
         this.prodottoService.updateProdotto(prodotto);
     }
 
-
-
-
+    private void controlloValiditaProdotto(Prodotto prodotto) {
+        if(prodotto == null) throw new NullPointerException("prodotto è nullo");
+        if(prodotto.getNome() == null) throw new NullPointerException("nome prodotto è nullo");
+    }
 }

@@ -29,9 +29,33 @@ public class RecensioneController {
     @GetMapping("/getAllRecensioni")
     public List<Recensione> getAllRecensioni() {return this.recensioneService.getAllRecensioni();}
     @PostMapping("/addRecensione")
-    public Recensione addRecensione(@RequestBody Recensione recensione) {return this.recensioneService.AddRecensione(recensione);}
+    public Recensione addRecensione(@RequestBody Recensione recensione) {
+        controlloValiditaRecensione(recensione);
+        if(getRecensioneByConsumatoreAndAzienda(recensione.getQualeConsumatore(),recensione.getQualeAzienda()).isPresent())
+            throw new IllegalArgumentException("il record da aggiungere esiste già");
+        return this.recensioneService.AddRecensione(recensione);
+    }
     @DeleteMapping("/deleteRecensione")
-    public void deleteRecensione(@RequestBody Recensione recensione) {this.recensioneService.deleteRecensione(recensione);}
+    public void deleteRecensione(@RequestBody Recensione recensione) {
+        controlloValiditaRecensione(recensione);
+        if(getRecensioneByConsumatoreAndAzienda(recensione.getQualeConsumatore(),recensione.getQualeAzienda()).isEmpty())
+            throw new IllegalArgumentException("il record da rimuovere non esiste");
+
+        this.recensioneService.deleteRecensione(recensione);
+    }
     @PutMapping("/updateRecensione")
-    public void updateRecensione(@RequestBody Recensione recensione) {this.recensioneService.updateRecensione(recensione);}
+    public void updateRecensione(@RequestBody Recensione recensione) {
+        controlloValiditaRecensione(recensione);
+        if(getRecensioneByConsumatoreAndAzienda(recensione.getQualeConsumatore(),recensione.getQualeAzienda()).isEmpty())
+            throw new IllegalArgumentException("il record da aggiornare non esiste");
+
+        this.recensioneService.updateRecensione(recensione);
+    }
+
+    private void controlloValiditaRecensione(Recensione recensione) {
+        if(recensione == null) throw new NullPointerException("recensione è nullo");
+        Integer valutazione = recensione.getValutazione();
+        if(valutazione == null || valutazione < 1 || valutazione > 5)
+            throw new IllegalArgumentException("valore valutazione non compreso tra 1 e 5");
+    }
 }
