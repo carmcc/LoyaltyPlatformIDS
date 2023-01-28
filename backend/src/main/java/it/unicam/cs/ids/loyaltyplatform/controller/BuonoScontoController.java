@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/buonoSconto")
 @AllArgsConstructor
-public class BuonoScontoController {
+public class BuonoScontoController implements ValidateEntity{
     private final BuonoScontoService buonoScontoService;
 
     @GetMapping(value = "/getBuonoScontoById/{id}")
@@ -25,10 +25,9 @@ public class BuonoScontoController {
 
     @PostMapping(value = "/addBuonoSconto")
     public BuonoSconto addBuonoSconto(@RequestBody BuonoSconto buonoSconto) {
-        controlloValiditaBuonoSconto(buonoSconto);
+        validateEntity(buonoSconto);
         if(buonoSconto.getIdBuono() != null && getBuonoScontoById(buonoSconto.getIdBuono()) != null)
             throw new IllegalArgumentException("il record da aggiungere esiste già");
-
         return this.buonoScontoService.addBuonoSconto(buonoSconto);
     }
 
@@ -36,26 +35,29 @@ public class BuonoScontoController {
     public void deleteBuonoScontoById(@PathVariable("id") Integer id) {
         if(getBuonoScontoById(id) == null)
             throw new IllegalArgumentException("il record da rimuovere non esiste");
-
         this.buonoScontoService.deleteBuonoScontoById(id);
     }
 
     @PutMapping(value = "/updateBuonoSconto")
     public void updateBuonoSconto(@RequestBody BuonoSconto buonoSconto) {
-        controlloValiditaBuonoSconto(buonoSconto);
-        if(buonoSconto.getIdBuono() == null) throw new NullPointerException("id buono sconto non deve essere nullo per l'update");
+        validateEntity(buonoSconto);
+        if(buonoSconto.getIdBuono() == null)
+            throw new NullPointerException("id buono sconto non deve essere nullo per l'update");
         if(getBuonoScontoById(buonoSconto.getIdBuono()) == null)
             throw new IllegalArgumentException("il record da aggiornare non esiste");
-
         this.buonoScontoService.updateBuonoSconto(buonoSconto);
     }
-
-    private void controlloValiditaBuonoSconto(BuonoSconto buonoSconto) {
+    @Override
+    public void validateEntity(Object entity) {
+        BuonoSconto buonoSconto = (BuonoSconto) entity;
         if (buonoSconto == null)
             throw new NullPointerException("buono sconto è nullo");
         if(buonoSconto.getDataCreazione() == null || buonoSconto.getDataScadenza() == null)
             throw new NullPointerException("Almeno una delle due date assente nel buono sconto");
         if(buonoSconto.getValore() <= 0)
             throw new IllegalArgumentException("Valore del buono sconto non valido");
+        if(buonoSconto.getQualeAzienda() == null || buonoSconto.getQualeAzienda() <= 0
+                || buonoSconto.getQualeConsumatore() == null || buonoSconto.getQualeConsumatore() <= 0)
+            throw new IllegalArgumentException("Id azienda o consumatore non validi");
     }
 }

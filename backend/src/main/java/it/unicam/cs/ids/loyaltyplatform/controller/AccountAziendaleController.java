@@ -11,7 +11,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/accountAziendale")
 @AllArgsConstructor
-public class AccountAziendaleController {
+public class AccountAziendaleController implements ValidateEntity {
     private final AccountAziendaleService accountAziendaleService;
 
     @GetMapping(value = "/getAccountAziendaliById/{id}")
@@ -28,18 +28,25 @@ public class AccountAziendaleController {
     }
     @PostMapping(value = "/addAccountAziendale")
     public AccountAziendale addAccountAziendale(@RequestBody AccountAziendale accountAziendale) {
-        if (accountAziendale == null)
-            throw new NullPointerException("accountAziendale è vuoto");
+       validateEntity(accountAziendale);
         if(getAccountAziendaleByIdAndSeriale(accountAziendale.getQualeAzienda(),accountAziendale.getSeriale()).isPresent())
-            throw new IllegalArgumentException("id del record da aggiungere già presente");
-
+            throw new IllegalArgumentException("ID del record da aggiungere già presente");
         return this.accountAziendaleService.addAccountAziendale(accountAziendale);
     }
     @DeleteMapping(value = "/deleteAccountAziendale")
     public void deleteAccountAziendale(@RequestBody AccountAziendale accountAziendale) {
+        validateEntity(accountAziendale);
+        if(getAccountAziendaleByIdAndSeriale(accountAziendale.getQualeAzienda(), accountAziendale.getSeriale()).isEmpty())
+            throw new IllegalArgumentException("ID del record da rimuovere non esiste");
+        this.accountAziendaleService.deleteAccountAziendale(accountAziendale);
+    }
+
+    @Override
+    public void validateEntity(Object entity) {
+        AccountAziendale accountAziendale = (AccountAziendale) entity;
         if (accountAziendale == null)
             throw new NullPointerException("accountAziendale è vuoto");
-
-        this.accountAziendaleService.deleteAccountAziendale(accountAziendale);
+        if (accountAziendale.getQualeAzienda() == null || accountAziendale.getQualeAzienda() < 0)
+            throw new IllegalArgumentException("qualeAzienda non valido");
     }
 }

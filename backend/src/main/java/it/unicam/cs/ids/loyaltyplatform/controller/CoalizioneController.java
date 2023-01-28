@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/coalizione")
 @AllArgsConstructor
-public class CoalizioneController {
+public class CoalizioneController implements ValidateEntity{
 
     private final CoalizioneService coalizioneService;
 
@@ -26,7 +26,7 @@ public class CoalizioneController {
 
     @PostMapping("/addCoalizione")
     public Coalizione addCoalizione(@RequestBody Coalizione coalizione) {
-        controlloCoalizione(coalizione);
+        validateEntity(coalizione);
         if(coalizione.getIdCoalizione() != null && getCoalizioneById(coalizione.getIdCoalizione()) != null)
             throw new IllegalArgumentException("il record da inserire esiste già");
 
@@ -43,19 +43,26 @@ public class CoalizioneController {
 
     @PutMapping("/updateCoalizione")
     public void updateCoalizione(@RequestBody Coalizione coalizione) {
-        controlloCoalizione(coalizione);
-        if(coalizione.getIdCoalizione() == null) throw new NullPointerException("id coalizione non deve essere nullo per l'update");
+        validateEntity(coalizione);
+        if(coalizione.getIdCoalizione() == null)
+            throw new NullPointerException("id coalizione non deve essere nullo per l'update");
         if(getCoalizioneById(coalizione.getIdCoalizione()) == null)
             throw new IllegalArgumentException("il record da aggiornare non esiste");
 
         this.coalizioneService.updateCoalizione(coalizione);
     }
 
-    private void controlloCoalizione(Coalizione coalizione) {
-        if(coalizione == null) throw new NullPointerException("coalizione è nulla");
-        if(coalizione.getParametroBuoniSpesa() <= 0) throw new IllegalArgumentException("parametro buoni spesa negativo o uguale a zero");
-        if (coalizione.getPenalitaCondivisione() < 1) throw new IllegalArgumentException("penalità condivisione minore di 1");
+    @Override
+    public void validateEntity(Object entity) {
+        Coalizione coalizione = (Coalizione) entity;
+        if(coalizione == null)
+            throw new NullPointerException("coalizione è nulla");
+        if(coalizione.getParametroBuoniSpesa() <= 0)
+            throw new IllegalArgumentException("parametro buoni spesa negativo o uguale a zero");
+        if (coalizione.getPenalitaCondivisione() < 1)
+            throw new IllegalArgumentException("penalità condivisione minore di 1");
         if(coalizione.getPercentualeRitiroPremi() < 0 || coalizione.getPercentualeRitiroPremi() >= 100)
             throw new IllegalArgumentException("percentuale ritiro premi non valida");
+
     }
 }

@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/permesso")
 @AllArgsConstructor
-public class PermessoController
+public class PermessoController implements ValidateEntity
 {
     private final PermessoService permessoService;
 
@@ -26,6 +26,7 @@ public class PermessoController
 
     @PostMapping(value = "/addPermesso")
     public Permesso addPermesso(@RequestBody Permesso permesso) {
+        validateEntity(permesso);
         if(getPermessoById(permesso.getNomePermesso()) != null)
             throw new IllegalArgumentException("il record da inserire esiste già");
 
@@ -39,4 +40,12 @@ public class PermessoController
 
         this.permessoService.deletePermessoById(id);
     }
+
+    @Override
+    public void validateEntity(Object entity) {
+        Permesso permesso = (Permesso) entity;
+        if(permesso == null)
+            throw new NullPointerException("il record da inserire non può essere nullo");
+    }
+    //TODO controllare regex nomePermesso
 }

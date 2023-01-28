@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 @RestController
 @RequestMapping("/azienda")
 @AllArgsConstructor
-public class AziendaController
+public class AziendaController implements ValidateEntity
 {
     private final AziendaService aziendaService;
 
@@ -27,39 +27,42 @@ public class AziendaController
     //crea un azienda con metodo POST
     @PostMapping(value = "/addAzienda")
     public Azienda addAzienda(@RequestBody Azienda azienda) {
-        controlloValiditaAzienda(azienda);
+        validateEntity(azienda);
         if(azienda.getIdAzienda() != null && getAziendaById(azienda.getIdAzienda()) != null)
-            throw new IllegalArgumentException("il record da aggiungere esiste già");
-
+            throw new IllegalArgumentException("Il record da aggiungere esiste già");
         return this.aziendaService.addAzienda(azienda);
     }
 
     @DeleteMapping(value = "/deleteAziendaById/{id}")
     public void deleteAziendaById(@PathVariable("id") Integer id) {
         if(getAziendaById(id) == null)
-            throw new NullPointerException("ID non valido per la cancellazione dell'azienda");
+            throw new NullPointerException("ID assente per la cancellazione dell'azienda");
         this.aziendaService.deleteAziendaById(id);
     }
     //aggiorna un azienda con metodo PUT
     @PutMapping(value = "/updateAzienda")
     public void updateAzienda(@RequestBody Azienda azienda) {
-        controlloValiditaAzienda(azienda);
-        if(azienda.getIdAzienda() == null) throw new NullPointerException("id azienda non deve essere nullo per l'update");
+        validateEntity(azienda);
+        if(azienda.getIdAzienda() == null)
+            throw new NullPointerException("ID dell' azienda non deve essere nullo per l'update");
         if(getAziendaById(azienda.getIdAzienda()) == null)
-            throw new IllegalArgumentException("il record da modificare non esiste");
-
+            throw new IllegalArgumentException("ID del record da modificare non esiste");
         this.aziendaService.updateAzienda(azienda);
     }
-
-    private void controlloValiditaAzienda(Azienda azienda) {    //TODO discutere se sono stati fatti tutti i controlli necesssari
+    @Override
+    public void validateEntity(Object entity) { //TODO discutere se sono stati fatti tutti i controlli necesssari
+        Azienda azienda = (Azienda) entity;
         if(azienda == null)
-            throw new NullPointerException("azienda è nulla");
+            throw new NullPointerException("L'azienda passata è nulla");
         if(azienda.getNomeAzienda().length() < 3)
-            throw new IllegalArgumentException("nome azienda troppo corto");
+            throw new IllegalArgumentException("Nome dell' azienda troppo corto");
         if(azienda.getDivisoreCashback() <= 0)
             throw new IllegalArgumentException("Il divisore cashback è negativo");
         if(azienda.getMoltiplicatoreVip() < 1)
             throw new IllegalArgumentException("Moltiplicatore VIP minore di 1");
+        if(azienda.getQualeCoalizione() <= 0)
+            throw new IllegalArgumentException("Coalizione non può essere minore di 0");
+        //todo creare regex per email e IVA
         controlloMoltSistemaLivelli(azienda);
         controlloPassword(azienda);
     }
@@ -117,7 +120,7 @@ public class AziendaController
     }
 
     /**
-     * Questo metodo controlla se il carattere passato è un numero compreso tra 1 e 9.
+     * Questo metodo controlla se il carattere passato è un numero compreso tra 0 e 9.
      *
      * @param c carattere da controllare
      * @return True o false

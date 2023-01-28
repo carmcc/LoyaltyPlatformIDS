@@ -11,7 +11,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/spesa")
 @AllArgsConstructor
-public class SpesaController {
+public class SpesaController implements ValidateEntity{
     private final SpesaService spesaService;
     @GetMapping("/getSpeseByIdPagamento/{id}")
     public List<Spesa> getSpeseByIdPagamento(@PathVariable("id") Integer id) {
@@ -30,15 +30,14 @@ public class SpesaController {
     public List<Spesa> getAllSpese() {return this.spesaService.getAllSpese();}
     @PostMapping("/addSpesa")
     public Spesa addSpesa(@RequestBody Spesa spesa) {
-        controlloValiditaSpesa(spesa);
+        validateEntity(spesa);
         if(getSpesaByPagamentoAndProdotto(spesa.getQualePagamento(),spesa.getQualeProdotto()).isPresent())
             throw new IllegalArgumentException("il record da aggiungere esiste già");
-
         return this.spesaService.addSpesa(spesa);
     }
     @DeleteMapping("/deleteSpesa")
     public void deleteSpesa(@RequestBody Spesa spesa) {
-        controlloValiditaSpesa(spesa);
+        validateEntity(spesa);
         if(getSpesaByPagamentoAndProdotto(spesa.getQualePagamento(),spesa.getQualeProdotto()).isEmpty())
             throw new IllegalArgumentException("il record da rimuovere non esiste");
 
@@ -46,16 +45,23 @@ public class SpesaController {
     }
     @PutMapping("/updateSpesa")
     public void updateSpesa(@RequestBody Spesa spesa) {
-        controlloValiditaSpesa(spesa);
+        validateEntity(spesa);
         if(getSpesaByPagamentoAndProdotto(spesa.getQualePagamento(),spesa.getQualeProdotto()).isEmpty())
             throw new IllegalArgumentException("il record da aggiornare non esiste");
 
         this.spesaService.updateSpesa(spesa);
     }
 
-    private void controlloValiditaSpesa(Spesa spesa) {
-        if(spesa == null) throw new NullPointerException("spesa è nulla");
-        if(spesa.getQuantita() == null || spesa.getQuantita() < 1)
+    @Override
+    public void validateEntity(Object entity) {
+        Spesa spesa = (Spesa) entity;
+        if(spesa == null)
+            throw new NullPointerException("spesa è nulla");
+        if(spesa.getQuantita() == null || spesa.getQuantita() <= 0)
             throw new IllegalArgumentException("quantità spesa non valida");
+        if(spesa.getQualePagamento() == null || spesa.getQualePagamento() <= 0)
+            throw new IllegalArgumentException("id pagamento non valido");
+        if(spesa.getQualeProdotto() == null || spesa.getQualeProdotto() <= 0)
+            throw new IllegalArgumentException("id prodotto non valido");
     }
 }
