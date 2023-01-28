@@ -10,7 +10,8 @@ import lombok.*;
 public class Azienda
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "AZIENDE_SEQ")
+    @SequenceGenerator(name = "AZIENDE_SEQ", sequenceName = "AZIENDE_SEQ", allocationSize = 1)
     private Integer idAzienda;
     private Integer qualeCoalizione;
     @Column(unique = true,nullable = false)
