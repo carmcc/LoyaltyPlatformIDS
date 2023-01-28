@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/pagamento")
 @AllArgsConstructor
-public class PagamentoController {
+public class PagamentoController implements ValidateEntity{
     private final PagamentoService pagamentoService;
     @GetMapping("/getPagamentoById/{id}")
     public Pagamento getPagamentoById(@PathVariable("id") Integer id) {return this.pagamentoService.getPagamentoById(id);}
@@ -18,7 +18,7 @@ public class PagamentoController {
     public List<Pagamento> getAllPagamenti() {return this.pagamentoService.getAllPagamenti();}
     @PostMapping("/addPagamento")
     public Pagamento addPagamento(@RequestBody Pagamento pagamento) {
-        controlloPagamento(pagamento);
+        validateEntity(pagamento);
         if(pagamento.getIdPagamento() != null && getPagamentoById(pagamento.getIdPagamento()) != null)
             throw new IllegalArgumentException("il record da aggiungere esiste già");
 
@@ -33,17 +33,25 @@ public class PagamentoController {
     }
     @PutMapping("/updatePagamento")
     public void updatePagamento(@RequestBody Pagamento pagamento) {
-        controlloPagamento(pagamento);
-        if(pagamento.getIdPagamento() == null) throw new NullPointerException("id pagamento non deve essere nullo per l'update");
+        validateEntity(pagamento);
+        if(pagamento.getIdPagamento() == null)
+            throw new NullPointerException("id pagamento non deve essere nullo per l'update");
         if(getPagamentoById(pagamento.getIdPagamento()) == null)
             throw new IllegalArgumentException("il record da aggiornare non esiste");
 
         this.pagamentoService.updatePagamento(pagamento);
     }
 
-    private void controlloPagamento(Pagamento pagamento) {
-        if(pagamento == null) throw new IllegalArgumentException("pagamento è nullo");
-        if(pagamento.getDataPagamento() == null) throw new IllegalArgumentException("data pagamento assente");
-        if(pagamento.getCostoTotale() < 0) throw new IllegalArgumentException("costo minore di zero");
+    @Override
+    public void validateEntity(Object entity) {
+        Pagamento pagamento = (Pagamento) entity;
+        if(pagamento == null)
+            throw new IllegalArgumentException("pagamento è nullo");
+        if(pagamento.getDataPagamento() == null)
+            throw new IllegalArgumentException("data pagamento assente");
+        if(pagamento.getCostoTotale() < 0)
+            throw new IllegalArgumentException("costo minore di zero");
+        if(pagamento.getQualeConsumatore() == null || pagamento.getQualeConsumatore() <= 0)
+            throw new IllegalArgumentException("Id consumatore non valido");
     }
 }

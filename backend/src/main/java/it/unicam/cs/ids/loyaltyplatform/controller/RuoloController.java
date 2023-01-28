@@ -11,7 +11,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/ruolo")
 @AllArgsConstructor
-public class RuoloController {
+public class RuoloController implements ValidateEntity{
     private final RuoloService ruoloService;
     @GetMapping("/getRuoliByIdAzienda/{id}")
     public List<Ruolo> getRuoliByIdAzienda(@PathVariable("id") Integer id) {
@@ -34,31 +34,34 @@ public class RuoloController {
     public List<Ruolo> getAllRuoli() {return this.ruoloService.getAllRuoli();}
     @PostMapping("/addRuolo")
     public Ruolo addRuolo(@RequestBody Ruolo ruolo) {
-        controlloValiditaRuolo(ruolo);
+        validateEntity(ruolo);
         if(getRuoloByAziendaSerialeAndPermesso(ruolo.getQualeAccountAziendale(),ruolo.getQualeSeriale(),ruolo.getQualePermesso()).isPresent())
             throw new IllegalArgumentException("il record da aggiungere esiste già");
-
         return this.ruoloService.addRuolo(ruolo);
     }
     @DeleteMapping("/deleteRuolo")
     public void deleteRuolo(@RequestBody Ruolo ruolo) {
-        controlloValiditaRuolo(ruolo);
+        validateEntity(ruolo);
         if(getRuoloByAziendaSerialeAndPermesso(ruolo.getQualeAccountAziendale(),ruolo.getQualeSeriale(),ruolo.getQualePermesso()).isEmpty())
             throw new IllegalArgumentException("il record da rimuovere non esiste");
-
         this.ruoloService.deleteRuolo(ruolo);
     }
     @PutMapping("/updateRuolo")
     public void updateRuolo(@RequestBody Ruolo ruolo) {
-        controlloValiditaRuolo(ruolo);
+        validateEntity(ruolo);
         if(getRuoloByAziendaSerialeAndPermesso(ruolo.getQualeAccountAziendale(),ruolo.getQualeSeriale(),ruolo.getQualePermesso()).isEmpty())
             throw new IllegalArgumentException("il record da aggiornare non esiste");
-
         this.ruoloService.updateRuolo(ruolo);
     }
 
-    private void controlloValiditaRuolo(Ruolo ruolo) {
-        if(ruolo == null) throw new NullPointerException("ruolo è nullo");
-        if(ruolo.getNome().length() < 2) throw new IllegalArgumentException("nome non valido");
+    @Override
+    public void validateEntity(Object entity) {
+        Ruolo ruolo = (Ruolo) entity;
+        if(ruolo == null)
+            throw new NullPointerException("ruolo è nullo");
+        if(ruolo.getNome().length() < 2)
+            throw new IllegalArgumentException("nome non valido");
+        if(ruolo.getQualeAccountAziendale() <= 0 || ruolo.getQualeSeriale() <= 0 || ruolo.getQualePermesso().isBlank())
+            throw new IllegalArgumentException("Parametri non validi");
     }
 }

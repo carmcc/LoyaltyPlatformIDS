@@ -10,7 +10,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/adesione")
 @AllArgsConstructor
-public class AdesioneController
+public class AdesioneController implements ValidateEntity
 {
     private final AdesioneService adesioneService;
 
@@ -35,32 +35,39 @@ public class AdesioneController
 
     @PostMapping(value = "/addAdesione")
     public Adesione addAdesione(@RequestBody Adesione adesione) {
-        controlloValiditaAdesione(adesione);
+        validateEntity(adesione);
         if (getAdesioneByConsumatoreAndAzienda(adesione.getQualeConsumatore(),adesione.getQualeAzienda()).isPresent())
-            throw new IllegalArgumentException("id del record da aggiungere già presente");
+            throw new IllegalArgumentException("ID del record da aggiungere già presente");
         return this.adesioneService.addAdesione(adesione);
     }
 
     @DeleteMapping(value = "/deleteAdesione")
     public void deleteAdesione(@RequestBody Adesione adesione) {
-        controlloValiditaAdesione(adesione);
-
+        validateEntity(adesione);
+        if(getAdesioneByConsumatoreAndAzienda(adesione.getQualeConsumatore(),adesione.getQualeAzienda()).isEmpty())
+            throw new IllegalArgumentException("ID del record da eliminare non presente");
         this.adesioneService.deleteAdesione(adesione);
     }
 
     @PutMapping(value = "/updateAdesione")
     public void updateAdesione(@RequestBody Adesione adesione) {
-        controlloValiditaAdesione(adesione);
+        validateEntity(adesione);
         if (getAdesioneByConsumatoreAndAzienda(adesione.getQualeConsumatore(),adesione.getQualeAzienda()).isEmpty())
-            throw new IllegalArgumentException("id del record da modificare non presente");
-
+            throw new IllegalArgumentException("ID del record da modificare non presente");
         this.adesioneService.updateAdesione(adesione);
     }
 
-    private void controlloValiditaAdesione(Adesione adesione) throws IllegalArgumentException,NullPointerException {
-        if(adesione == null) throw new NullPointerException("adesione è nullo");
+    @Override
+    public void validateEntity(Object entity) {
+        Adesione adesione = (Adesione) entity;
+        if(adesione == null)
+            throw new NullPointerException("L'adesione passata è nulla");
         if ((adesione.getEsperienzaConsumatore() < 0) || (adesione.getLivelloConsumatore() <= 0) || (adesione.getPuntiConsumatore() < 0)
-                || (adesione.getSalvadanaio() < 0) || (adesione.getUltimaSpesa() == null))
-            throw new IllegalArgumentException("parametri non validi nell'adesione");
+                || (adesione.getSalvadanaio() < 0 || adesione.getIsVip()))
+            throw new IllegalArgumentException("Parametri non validi nell'adesione");
+
+        if(adesione.getQualeAzienda() == null || adesione.getQualeAzienda()<=0
+                || adesione.getQualeConsumatore() == null || adesione.getQualeConsumatore()<=0)
+            throw new IllegalArgumentException("ID dell'adesione non validi");
     }
 }

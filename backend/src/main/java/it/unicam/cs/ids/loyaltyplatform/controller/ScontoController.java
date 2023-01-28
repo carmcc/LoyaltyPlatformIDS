@@ -11,7 +11,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/sconto")
 @AllArgsConstructor
-public class ScontoController {
+public class ScontoController implements ValidateEntity{
     private final ScontoService scontoService;
     @GetMapping("/getScontiByIdAzienda/{id}")
     public List<Sconto> getScontiByIdAzienda(@PathVariable("id") Integer id) {
@@ -34,7 +34,7 @@ public class ScontoController {
 
     @PostMapping("/addSconto")
     public Sconto addSconto(@RequestBody Sconto sconto) {
-        validateSconto(sconto);
+        validateEntity(sconto);
         if (getScontoByAziendaAndProdotto(sconto.getQualeAzienda(), sconto.getQualeProdotto()).isPresent())
             throw new IllegalArgumentException("Sconto già presente");
         return this.scontoService.addSconto(sconto);
@@ -42,7 +42,7 @@ public class ScontoController {
 
     @DeleteMapping("/deleteSconto")
     public void deleteSconto(@RequestBody Sconto sconto) {
-        validateSconto(sconto);
+        validateEntity(sconto);
         if(getScontoByAziendaAndProdotto(sconto.getQualeAzienda(), sconto.getQualeProdotto()).isEmpty())
             throw new IllegalArgumentException("ID non validi per la cancellazione dello sconto");
         this.scontoService.deleteSconto(sconto);
@@ -50,17 +50,19 @@ public class ScontoController {
 
     @PutMapping("/updateSconto")
     public void updateSconto(@RequestBody Sconto sconto) {
-        validateSconto(sconto);
+        validateEntity(sconto);
         if (getScontoByAziendaAndProdotto(sconto.getQualeAzienda(), sconto.getQualeProdotto()).isEmpty())
                     throw new IllegalArgumentException("Sconto non presente");
         this.scontoService.updateSconto(sconto);
     }
 
-    private void validateSconto(Sconto sconto)
+    @Override
+    public void validateEntity(Object entity)
     {
+        Sconto sconto = (Sconto) entity;
         if(sconto == null)
             throw new NullPointerException("Lo sconto inserito è nullo");
-        if(sconto.getQualeAzienda() == null || sconto.getQualeProdotto() == null || sconto.getSconto() < 0 || sconto.getEsclusivoVip() == null)
+        if(sconto.getQualeAzienda() <= 0 || sconto.getQualeProdotto() <= 0 || sconto.getSconto() <= 0)
             throw new IllegalArgumentException("Parametri non validi per lo sconto");
     }
 }

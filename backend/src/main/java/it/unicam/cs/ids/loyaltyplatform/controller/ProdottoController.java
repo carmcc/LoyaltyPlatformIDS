@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/prodotto")
 @AllArgsConstructor
-public class ProdottoController
+public class ProdottoController implements ValidateEntity
 {
     private final ProdottoService prodottoService;
 
@@ -29,7 +29,7 @@ public class ProdottoController
     @PostMapping("/addProdotto")
     public Prodotto addProdotto(@RequestBody Prodotto prodotto)
     {
-        controlloValiditaProdotto(prodotto);
+        validateEntity(prodotto);
         if(prodotto.getIdProdotto() != null && getProdottoById(prodotto.getIdProdotto()) != null)
             throw new IllegalArgumentException("il record da aggiungere esiste già");
         return this.prodottoService.addProdotto(prodotto);
@@ -46,17 +46,22 @@ public class ProdottoController
     @PutMapping("/updateProdotto")
     public void updateProdotto(@RequestBody Prodotto prodotto)
     {
-        controlloValiditaProdotto(prodotto);
+        validateEntity(prodotto);
         if(prodotto.getIdProdotto() == null)
             throw new IllegalArgumentException("id prodotto non deve essere nullo per l'update");
         if(getProdottoById(prodotto.getIdProdotto()) == null)
             throw new IllegalArgumentException("il record da aggiornare non esiste");
-
         this.prodottoService.updateProdotto(prodotto);
     }
-
-    private void controlloValiditaProdotto(Prodotto prodotto) {
-        if(prodotto == null) throw new NullPointerException("prodotto è nullo");
-        if(prodotto.getNome() == null) throw new NullPointerException("nome prodotto è nullo");
+    @Override
+    public void validateEntity(Object entity) {
+        Prodotto prodotto = (Prodotto) entity;
+        if(prodotto == null)
+            throw new NullPointerException("prodotto è nullo");
+        if(prodotto.getNome() == null)
+            throw new NullPointerException("nome prodotto è nullo");
+        if(prodotto.getNome().isBlank())
+            throw new IllegalArgumentException("nome prodotto è vuoto");
     }
+
 }
