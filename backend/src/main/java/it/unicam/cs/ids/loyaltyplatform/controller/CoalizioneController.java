@@ -27,7 +27,7 @@ public class CoalizioneController {
     @PostMapping("/addCoalizione")
     public Coalizione addCoalizione(@RequestBody Coalizione coalizione) {
         controlloCoalizione(coalizione);
-        if(getCoalizioneById(coalizione.getIdCoalizione()) != null)
+        if(coalizione.getIdCoalizione() != null && getCoalizioneById(coalizione.getIdCoalizione()) != null)
             throw new IllegalArgumentException("il record da inserire esiste già");
 
         return this.coalizioneService.addCoalizione(coalizione);
@@ -44,6 +44,7 @@ public class CoalizioneController {
     @PutMapping("/updateCoalizione")
     public void updateCoalizione(@RequestBody Coalizione coalizione) {
         controlloCoalizione(coalizione);
+        if(coalizione.getIdCoalizione() == null) throw new NullPointerException("id coalizione non deve essere nullo per l'update");
         if(getCoalizioneById(coalizione.getIdCoalizione()) == null)
             throw new IllegalArgumentException("il record da aggiornare non esiste");
 

@@ -13,7 +13,6 @@ public class Coalizione
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "COALIZIONI_SEQ")
     @SequenceGenerator(name = "COALIZIONI_SEQ", sequenceName = "COALIZIONI_SEQ", allocationSize = 1)
-    @NonNull
     private Integer idCoalizione;
     @Column(nullable = false)
     private Float parametroBuoniSpesa;  //buoni spesa ogni tot euro

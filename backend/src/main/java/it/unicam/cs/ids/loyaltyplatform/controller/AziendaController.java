@@ -28,7 +28,7 @@ public class AziendaController
     @PostMapping(value = "/addAzienda")
     public Azienda addAzienda(@RequestBody Azienda azienda) {
         controlloValiditaAzienda(azienda);
-        if(getAziendaById(azienda.getIdAzienda()) != null)
+        if(azienda.getIdAzienda() != null && getAziendaById(azienda.getIdAzienda()) != null)
             throw new IllegalArgumentException("il record da aggiungere esiste già");
 
         return this.aziendaService.addAzienda(azienda);
@@ -44,6 +44,7 @@ public class AziendaController
     @PutMapping(value = "/updateAzienda")
     public void updateAzienda(@RequestBody Azienda azienda) {
         controlloValiditaAzienda(azienda);
+        if(azienda.getIdAzienda() == null) throw new NullPointerException("id azienda non deve essere nullo per l'update");
         if(getAziendaById(azienda.getIdAzienda()) == null)
             throw new IllegalArgumentException("il record da modificare non esiste");
 

@@ -19,7 +19,7 @@ public class PagamentoController {
     @PostMapping("/addPagamento")
     public Pagamento addPagamento(@RequestBody Pagamento pagamento) {
         controlloPagamento(pagamento);
-        if(getPagamentoById(pagamento.getIdPagamento()) != null)
+        if(pagamento.getIdPagamento() != null && getPagamentoById(pagamento.getIdPagamento()) != null)
             throw new IllegalArgumentException("il record da aggiungere esiste già");
 
         return this.pagamentoService.addPagamento(pagamento);
@@ -34,6 +34,7 @@ public class PagamentoController {
     @PutMapping("/updatePagamento")
     public void updatePagamento(@RequestBody Pagamento pagamento) {
         controlloPagamento(pagamento);
+        if(pagamento.getIdPagamento() == null) throw new NullPointerException("id pagamento non deve essere nullo per l'update");
         if(getPagamentoById(pagamento.getIdPagamento()) == null)
             throw new IllegalArgumentException("il record da aggiornare non esiste");
 
