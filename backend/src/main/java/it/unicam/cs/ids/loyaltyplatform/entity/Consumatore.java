@@ -15,7 +15,7 @@ public class Consumatore
     private Integer idConsumatore;
     @Column(unique = true, nullable = false)
     private String nickname;
-    private String dataDiNascita;
+    private String dataDiNascita; //TODO cambiarla in data
     private Boolean sesso;
     @Column(nullable = false)
     private String email;
