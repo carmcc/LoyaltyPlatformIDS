@@ -30,9 +30,32 @@ public class SpesaController {
     public List<Spesa> getAllSpese() {return this.spesaService.getAllSpese();}
     @PostMapping("/addSpesa")
     public Spesa addSpesa(@RequestBody Spesa spesa) {
-        return this.spesaService.addSpesa(spesa);}
+        controlloValiditaSpesa(spesa);
+        if(getSpesaByPagamentoAndProdotto(spesa.getQualePagamento(),spesa.getQualeProdotto()).isPresent())
+            throw new IllegalArgumentException("il record da aggiungere esiste già");
+
+        return this.spesaService.addSpesa(spesa);
+    }
     @DeleteMapping("/deleteSpesa")
-    public void deleteSpesa(@RequestBody Spesa spesa) {this.spesaService.deleteSpesa(spesa);}
+    public void deleteSpesa(@RequestBody Spesa spesa) {
+        controlloValiditaSpesa(spesa);
+        if(getSpesaByPagamentoAndProdotto(spesa.getQualePagamento(),spesa.getQualeProdotto()).isEmpty())
+            throw new IllegalArgumentException("il record da rimuovere non esiste");
+
+        this.spesaService.deleteSpesa(spesa);
+    }
     @PutMapping("/updateSpesa")
-    public void updateSpesa(@RequestBody Spesa spesa) {this.spesaService.updateSpesa(spesa);}
+    public void updateSpesa(@RequestBody Spesa spesa) {
+        controlloValiditaSpesa(spesa);
+        if(getSpesaByPagamentoAndProdotto(spesa.getQualePagamento(),spesa.getQualeProdotto()).isEmpty())
+            throw new IllegalArgumentException("il record da aggiornare non esiste");
+
+        this.spesaService.updateSpesa(spesa);
+    }
+
+    private void controlloValiditaSpesa(Spesa spesa) {
+        if(spesa == null) throw new NullPointerException("spesa è nulla");
+        if(spesa.getQuantita() == null || spesa.getQuantita() < 1)
+            throw new IllegalArgumentException("quantità spesa non valida");
+    }
 }

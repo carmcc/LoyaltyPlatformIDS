@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/ruolo")
@@ -17,19 +18,47 @@ public class RuoloController {
         return this.ruoloService.getRuoliByIdAzienda(id);
     }
     @GetMapping("/getRuoliByAziendaAndPermesso/{id}&{permesso}")
-    public List<Ruolo> getRuoloByAziendaAndPermesso(@PathVariable("id") Integer id, @PathVariable("permesso") String permesso) {
+    public List<Ruolo> getRuoliByAziendaAndPermesso(@PathVariable("id") Integer id, @PathVariable("permesso") String permesso) {
         return this.ruoloService.getRuoliByAziendaAndPermesso(id, permesso);
     }
     @GetMapping("/getRuoliByAziendaAndSeriale/{id}&{seriale}")
     public List<Ruolo> getRuoliByAziendaAndSeriale(@PathVariable("id") Integer id, @PathVariable("seriale") Integer seriale) {
         return this.ruoloService.getRuoliByAziendaAndSeriale(id, seriale);
     }
+    @GetMapping("/getRuoloByAziendaSerialeAndPermesso/{idAzienda}&{seriale}&{nomePermesso}")
+    public Optional<Ruolo> getRuoloByAziendaSerialeAndPermesso
+            (@PathVariable("idAzienda")Integer idAzienda, @PathVariable("seriale")Integer seriale, @PathVariable("nomePermesso")String nomePermesso) {
+        return this.ruoloService.getRuoloByAziendaSerialeAndPermesso(idAzienda, seriale, nomePermesso);
+    }
     @GetMapping("/getAllRuoli")
     public List<Ruolo> getAllRuoli() {return this.ruoloService.getAllRuoli();}
     @PostMapping("/addRuolo")
-    public Ruolo addruolo(@RequestBody Ruolo ruolo) {return this.ruoloService.addRuolo(ruolo);}
+    public Ruolo addRuolo(@RequestBody Ruolo ruolo) {
+        controlloValiditaRuolo(ruolo);
+        if(getRuoloByAziendaSerialeAndPermesso(ruolo.getQualeAccountAziendale(),ruolo.getQualeSeriale(),ruolo.getQualePermesso()).isPresent())
+            throw new IllegalArgumentException("il record da aggiungere esiste già");
+
+        return this.ruoloService.addRuolo(ruolo);
+    }
     @DeleteMapping("/deleteRuolo")
-    public void deleteRuolo(@RequestBody Ruolo ruolo) {this.ruoloService.deleteRuolo(ruolo);}
+    public void deleteRuolo(@RequestBody Ruolo ruolo) {
+        controlloValiditaRuolo(ruolo);
+        if(getRuoloByAziendaSerialeAndPermesso(ruolo.getQualeAccountAziendale(),ruolo.getQualeSeriale(),ruolo.getQualePermesso()).isEmpty())
+            throw new IllegalArgumentException("il record da rimuovere non esiste");
+
+        this.ruoloService.deleteRuolo(ruolo);
+    }
     @PutMapping("/updateRuolo")
-    public void updateRuolo(@RequestBody Ruolo ruolo) {this.ruoloService.updateRuolo(ruolo);}
+    public void updateRuolo(@RequestBody Ruolo ruolo) {
+        controlloValiditaRuolo(ruolo);
+        if(getRuoloByAziendaSerialeAndPermesso(ruolo.getQualeAccountAziendale(),ruolo.getQualeSeriale(),ruolo.getQualePermesso()).isEmpty())
+            throw new IllegalArgumentException("il record da aggiornare non esiste");
+
+        this.ruoloService.updateRuolo(ruolo);
+    }
+
+    private void controlloValiditaRuolo(Ruolo ruolo) {
+        if(ruolo == null) throw new NullPointerException("ruolo è nullo");
+        if(ruolo.getNome().length() < 2) throw new IllegalArgumentException("nome non valido");
+    }
 }

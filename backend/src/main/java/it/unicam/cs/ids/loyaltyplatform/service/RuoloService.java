@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -19,8 +20,13 @@ public class RuoloService {
     }
     public List<Ruolo> getRuoliByAziendaAndSeriale(Integer id, Integer seriale) {
         return this.ruoloRepository.findAll().stream()
-                .filter(x-> x.getQualeAccountAziendale()==id.intValue() && x.getQualeSeriale()==seriale.intValue())
+                .filter(x->x.getQualeAccountAziendale()==id.intValue() && x.getQualeSeriale()==seriale.intValue())
                 .toList();
+    }
+    public Optional<Ruolo> getRuoloByAziendaSerialeAndPermesso(Integer idAzienda, Integer seriale, String idPermesso) {
+        return this.ruoloRepository.findAll().stream()
+                .filter(x->x.getQualeAccountAziendale()==idAzienda.intValue() && x.getQualeSeriale()==seriale.intValue() &&
+                        x.getQualePermesso().equals(idPermesso)).findAny();
     }
     public List<Ruolo> getAllRuoli() {return this.ruoloRepository.findAll();}
     public Ruolo addRuolo(Ruolo ruolo) {return this.ruoloRepository.save(ruolo);}
