@@ -11,7 +11,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/ruolo")
 @AllArgsConstructor
-public class RuoloController implements ValidateEntity{
+public class RuoloController extends EntityValidator
+{
     private final RuoloService ruoloService;
     @GetMapping("/getRuoliByIdAzienda/{id}")
     public List<Ruolo> getRuoliByIdAzienda(@PathVariable("id") Integer id) {
@@ -52,16 +53,5 @@ public class RuoloController implements ValidateEntity{
         if(getRuoloByAziendaSerialeAndPermesso(ruolo.getQualeAzienda(),ruolo.getQualeSeriale(),ruolo.getQualePermesso()).isEmpty())
             throw new IllegalArgumentException("il record da aggiornare non esiste");
         this.ruoloService.updateRuolo(ruolo);
-    }
-
-    @Override
-    public void validateEntity(Object entity) {
-        Ruolo ruolo = (Ruolo) entity;
-        if(ruolo == null)
-            throw new NullPointerException("ruolo è nullo");
-        if(ruolo.getNome().length() < 2)
-            throw new IllegalArgumentException("nome non valido");
-        if(ruolo.getQualeAzienda() <= 0 || ruolo.getQualeSeriale() <= 0 || ruolo.getQualePermesso().isBlank())
-            throw new IllegalArgumentException("Parametri non validi");
     }
 }

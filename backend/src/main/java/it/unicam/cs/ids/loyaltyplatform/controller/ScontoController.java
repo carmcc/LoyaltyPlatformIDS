@@ -11,7 +11,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/sconto")
 @AllArgsConstructor
-public class ScontoController implements ValidateEntity{
+public class ScontoController extends EntityValidator
+{
     private final ScontoService scontoService;
     @GetMapping("/getScontiByIdAzienda/{id}")
     public List<Sconto> getScontiByIdAzienda(@PathVariable("id") Integer id) {
@@ -54,15 +55,5 @@ public class ScontoController implements ValidateEntity{
         if (getScontoByAziendaAndProdotto(sconto.getQualeAzienda(), sconto.getQualeProdotto()).isEmpty())
                     throw new IllegalArgumentException("Sconto non presente");
         this.scontoService.updateSconto(sconto);
-    }
-
-    @Override
-    public void validateEntity(Object entity)
-    {
-        Sconto sconto = (Sconto) entity;
-        if(sconto == null)
-            throw new NullPointerException("Lo sconto inserito è nullo");
-        if(sconto.getQualeAzienda() <= 0 || sconto.getQualeProdotto() <= 0 || sconto.getSconto() <= 0)
-            throw new IllegalArgumentException("Parametri non validi per lo sconto");
     }
 }

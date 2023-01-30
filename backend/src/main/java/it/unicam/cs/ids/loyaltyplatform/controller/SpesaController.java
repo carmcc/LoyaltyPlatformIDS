@@ -11,7 +11,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/spesa")
 @AllArgsConstructor
-public class SpesaController implements ValidateEntity{
+public class SpesaController extends EntityValidator
+{
     private final SpesaService spesaService;
     @GetMapping("/getSpeseByIdPagamento/{id}")
     public List<Spesa> getSpeseByIdPagamento(@PathVariable("id") Integer id) {
@@ -50,18 +51,5 @@ public class SpesaController implements ValidateEntity{
             throw new IllegalArgumentException("il record da aggiornare non esiste");
 
         this.spesaService.updateSpesa(spesa);
-    }
-
-    @Override
-    public void validateEntity(Object entity) {
-        Spesa spesa = (Spesa) entity;
-        if(spesa == null)
-            throw new NullPointerException("spesa è nulla");
-        if(spesa.getQuantita() == null || spesa.getQuantita() <= 0)
-            throw new IllegalArgumentException("quantità spesa non valida");
-        if(spesa.getQualePagamento() == null || spesa.getQualePagamento() <= 0)
-            throw new IllegalArgumentException("id pagamento non valido");
-        if(spesa.getQualeProdotto() == null || spesa.getQualeProdotto() <= 0)
-            throw new IllegalArgumentException("id prodotto non valido");
     }
 }
