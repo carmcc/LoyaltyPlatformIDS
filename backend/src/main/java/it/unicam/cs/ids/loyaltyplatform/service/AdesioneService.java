@@ -55,7 +55,7 @@ public class AdesioneService
      * @return  True se l'operazione è avvenuta.
      *          False se il consumatore non è aderito all'azienda in cui ha effettuato la spesa.
      */
-    public Adesione incrementoPunti(Pagamento pagamento) {    //TODO rimuovi azienda dai parametri richiesti dopo aver aggiunto "qualeAzienda" a Pagamento
+    public Adesione incrementoPunti(Pagamento pagamento) {
         Consumatore consumatore= this.consumatoreService.getConsumatoreById(pagamento.getQualeConsumatore());
         Azienda azienda = this.aziendaService.getAziendaById(pagamento.getQualeAzienda());
 

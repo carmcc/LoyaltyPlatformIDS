@@ -60,7 +60,7 @@ public class AdesioneController implements ValidateEntity
     }
 
     @PutMapping(value = "/incrementoPunti")
-    public Adesione incrementoPunti(@RequestBody Pagamento pagamento) {   //TODO rimuovere Azienda dopo aver modificato pagamento
+    public Adesione incrementoPunti(@RequestBody Pagamento pagamento) {
         return this.adesioneService.incrementoPunti(pagamento);
     }
 
