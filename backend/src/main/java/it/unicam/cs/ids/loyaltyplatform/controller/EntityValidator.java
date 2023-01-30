@@ -5,6 +5,10 @@ import it.unicam.cs.ids.loyaltyplatform.entity.*;
 import java.util.regex.Pattern;
 
 public abstract class EntityValidator {
+    /**
+     * Controlla che l'entità passata sia valida
+     * @param entity l'entità da controllare
+     */
     public void validateEntity(Object entity) {
         if(entity instanceof AccountAziendale accountAziendale)
             validateAccountAziendale(accountAziendale);
@@ -225,6 +229,50 @@ public abstract class EntityValidator {
             throw new IllegalArgumentException("valore valutazione non compreso tra 1 e 5");
         if(recensione.getQualeConsumatore() <= 0 || recensione.getQualeAzienda() <= 0)
             throw new IllegalArgumentException("id consumatore o azienda non valido");
+    }
+
+    public void validateRuolo(Ruolo ruolo)
+    {
+        if(ruolo == null)
+            throw new NullPointerException("ruolo è nullo");
+        if(ruolo.getNome().length() < 2)
+            throw new IllegalArgumentException("nome non valido");
+        if(ruolo.getQualeAzienda() <= 0 || ruolo.getQualeSeriale() <= 0 || ruolo.getQualePermesso().isBlank())
+            throw new IllegalArgumentException("Parametri non validi");
+    }
+
+    public void validateSconto(Sconto sconto)
+    {
+        if(sconto == null)
+            throw new NullPointerException("Lo sconto inserito è nullo");
+        if(sconto.getQualeAzienda() <= 0 || sconto.getQualeProdotto() <= 0 || sconto.getSconto() <= 0)
+            throw new IllegalArgumentException("Parametri non validi per lo sconto");
+    }
+
+    public void validateSede(Sede sede)
+    {
+        if(sede == null)
+            throw new NullPointerException("La sede inserita è nulla");
+        if (sede.getIdSede() <= 0 || sede.getQualeAzienda() == null || sede.getQualeAzienda() <= 0)
+            throw new IllegalArgumentException("Parametri non validi per la sede");
+        if(sede.getVia() == null || sede.getVia().isEmpty()
+                || sede.getCap() == null || sede.getCap().isEmpty()
+                || sede.getCitta() == null || sede.getCitta().isEmpty()
+                || sede.getRegione() == null || sede.getRegione().isEmpty()
+                || sede.getCivico() == null || sede.getCivico().isEmpty())
+            throw new IllegalArgumentException("Indirizzo non valido per la sede");
+    }
+
+    public void validateSpesa(Spesa spesa)
+    {
+        if(spesa == null)
+            throw new NullPointerException("spesa è nulla");
+        if(spesa.getQuantita() == null || spesa.getQuantita() <= 0)
+            throw new IllegalArgumentException("quantità spesa non valida");
+        if(spesa.getQualePagamento() == null || spesa.getQualePagamento() <= 0)
+            throw new IllegalArgumentException("id pagamento non valido");
+        if(spesa.getQualeProdotto() == null || spesa.getQualeProdotto() <= 0)
+            throw new IllegalArgumentException("id prodotto non valido");
     }
 
 }
