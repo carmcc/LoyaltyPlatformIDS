@@ -16,6 +16,8 @@ public class Pagamento {
     @Column(nullable = false)
     private Integer qualeConsumatore;
     @Column(nullable = false)
+    private Integer qualeAzienda;
+    @Column(nullable = false)
     private Date dataPagamento;
     @Column(nullable = false)
     private Float costoTotale;

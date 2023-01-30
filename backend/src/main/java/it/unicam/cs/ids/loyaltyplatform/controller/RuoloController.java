@@ -35,21 +35,21 @@ public class RuoloController implements ValidateEntity{
     @PostMapping("/addRuolo")
     public Ruolo addRuolo(@RequestBody Ruolo ruolo) {
         validateEntity(ruolo);
-        if(getRuoloByAziendaSerialeAndPermesso(ruolo.getQualeAccountAziendale(),ruolo.getQualeSeriale(),ruolo.getQualePermesso()).isPresent())
+        if(getRuoloByAziendaSerialeAndPermesso(ruolo.getQualeAzienda(),ruolo.getQualeSeriale(),ruolo.getQualePermesso()).isPresent())
             throw new IllegalArgumentException("il record da aggiungere esiste già");
         return this.ruoloService.addRuolo(ruolo);
     }
     @DeleteMapping("/deleteRuolo")
     public void deleteRuolo(@RequestBody Ruolo ruolo) {
         validateEntity(ruolo);
-        if(getRuoloByAziendaSerialeAndPermesso(ruolo.getQualeAccountAziendale(),ruolo.getQualeSeriale(),ruolo.getQualePermesso()).isEmpty())
+        if(getRuoloByAziendaSerialeAndPermesso(ruolo.getQualeAzienda(),ruolo.getQualeSeriale(),ruolo.getQualePermesso()).isEmpty())
             throw new IllegalArgumentException("il record da rimuovere non esiste");
         this.ruoloService.deleteRuolo(ruolo);
     }
     @PutMapping("/updateRuolo")
     public void updateRuolo(@RequestBody Ruolo ruolo) {
         validateEntity(ruolo);
-        if(getRuoloByAziendaSerialeAndPermesso(ruolo.getQualeAccountAziendale(),ruolo.getQualeSeriale(),ruolo.getQualePermesso()).isEmpty())
+        if(getRuoloByAziendaSerialeAndPermesso(ruolo.getQualeAzienda(),ruolo.getQualeSeriale(),ruolo.getQualePermesso()).isEmpty())
             throw new IllegalArgumentException("il record da aggiornare non esiste");
         this.ruoloService.updateRuolo(ruolo);
     }
@@ -61,7 +61,7 @@ public class RuoloController implements ValidateEntity{
             throw new NullPointerException("ruolo è nullo");
         if(ruolo.getNome().length() < 2)
             throw new IllegalArgumentException("nome non valido");
-        if(ruolo.getQualeAccountAziendale() <= 0 || ruolo.getQualeSeriale() <= 0 || ruolo.getQualePermesso().isBlank())
+        if(ruolo.getQualeAzienda() <= 0 || ruolo.getQualeSeriale() <= 0 || ruolo.getQualePermesso().isBlank())
             throw new IllegalArgumentException("Parametri non validi");
     }
 }

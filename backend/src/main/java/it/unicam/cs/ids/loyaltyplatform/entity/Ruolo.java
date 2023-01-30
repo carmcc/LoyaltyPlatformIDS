@@ -11,7 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 public class Ruolo {
     @Id
-    private Integer qualeAccountAziendale;
+    private Integer qualeAzienda;
     @Id
     private Integer qualeSeriale;
     @Id
