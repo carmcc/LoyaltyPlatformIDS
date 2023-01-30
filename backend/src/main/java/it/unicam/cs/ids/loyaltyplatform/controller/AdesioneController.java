@@ -1,5 +1,7 @@
 package it.unicam.cs.ids.loyaltyplatform.controller;
+
 import it.unicam.cs.ids.loyaltyplatform.entity.Adesione;
+import it.unicam.cs.ids.loyaltyplatform.entity.Pagamento;
 import it.unicam.cs.ids.loyaltyplatform.service.AdesioneService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -56,6 +58,12 @@ public class AdesioneController implements ValidateEntity
             throw new IllegalArgumentException("ID del record da modificare non presente");
         this.adesioneService.updateAdesione(adesione);
     }
+
+    @PutMapping(value = "/incrementoPunti")
+    public Adesione incrementoPunti(@RequestBody Pagamento pagamento) {   //TODO rimuovere Azienda dopo aver modificato pagamento
+        return this.adesioneService.incrementoPunti(pagamento);
+    }
+
 
     @Override
     public void validateEntity(Object entity) {
