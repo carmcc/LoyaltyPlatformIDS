@@ -12,7 +12,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/adesione")
 @AllArgsConstructor
-public class AdesioneController implements ValidateEntity
+public class AdesioneController extends EntityValidator
 {
     private final AdesioneService adesioneService;
 
@@ -62,20 +62,5 @@ public class AdesioneController implements ValidateEntity
     @PutMapping(value = "/incrementoPunti")
     public Adesione incrementoPunti(@RequestBody Pagamento pagamento) {
         return this.adesioneService.incrementoPunti(pagamento);
-    }
-
-
-    @Override
-    public void validateEntity(Object entity) {
-        Adesione adesione = (Adesione) entity;
-        if(adesione == null)
-            throw new NullPointerException("L'adesione passata è nulla");
-        if ((adesione.getEsperienzaConsumatore() < 0) || (adesione.getLivelloConsumatore() <= 0) || (adesione.getPuntiConsumatore() < 0)
-                || (adesione.getSalvadanaio() < 0 || adesione.getIsVip()))
-            throw new IllegalArgumentException("Parametri non validi nell'adesione");
-
-        if(adesione.getQualeAzienda() == null || adesione.getQualeAzienda()<=0
-                || adesione.getQualeConsumatore() == null || adesione.getQualeConsumatore()<=0)
-            throw new IllegalArgumentException("ID dell'adesione non validi");
     }
 }

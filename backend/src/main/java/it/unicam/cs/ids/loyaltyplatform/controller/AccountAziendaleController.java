@@ -11,7 +11,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/accountAziendale")
 @AllArgsConstructor
-public class AccountAziendaleController implements ValidateEntity {
+public class AccountAziendaleController extends EntityValidator{
     private final AccountAziendaleService accountAziendaleService;
 
     @GetMapping(value = "/getAccountAziendaliById/{id}")
@@ -39,14 +39,5 @@ public class AccountAziendaleController implements ValidateEntity {
         if(getAccountAziendaleByIdAndSeriale(accountAziendale.getQualeAzienda(), accountAziendale.getSeriale()).isEmpty())
             throw new IllegalArgumentException("ID del record da rimuovere non esiste");
         this.accountAziendaleService.deleteAccountAziendale(accountAziendale);
-    }
-
-    @Override
-    public void validateEntity(Object entity) {
-        AccountAziendale accountAziendale = (AccountAziendale) entity;
-        if (accountAziendale == null)
-            throw new NullPointerException("accountAziendale è vuoto");
-        if (accountAziendale.getQualeAzienda() == null || accountAziendale.getQualeAzienda() < 0)
-            throw new IllegalArgumentException("qualeAzienda non valido");
     }
 }

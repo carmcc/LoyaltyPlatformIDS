@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/consumatore")
 @AllArgsConstructor
-public class ConsumatoreController implements ValidateEntity{    //TODO controlli
+public class ConsumatoreController extends EntityValidator{    //TODO controlli
     private final ConsumatoreService consumatoreService;
 
     @GetMapping(value = "/getConsumatoreById/{id}")
@@ -43,12 +43,4 @@ public class ConsumatoreController implements ValidateEntity{    //TODO controll
             throw new IllegalArgumentException("il record da aggiornare non esiste");
         this.consumatoreService.updateConsumatore(consumatore);
     }
-
-    @Override
-    public void validateEntity(Object entity) {
-        Consumatore consumatore = (Consumatore) entity;
-        if(consumatore == null)
-            throw new NullPointerException("Consumatore è nullo");
-    }
-
 }

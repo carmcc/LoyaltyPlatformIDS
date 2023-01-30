@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/coalizione")
 @AllArgsConstructor
-public class CoalizioneController implements ValidateEntity{
+public class CoalizioneController extends EntityValidator{
 
     private final CoalizioneService coalizioneService;
 
@@ -50,19 +50,5 @@ public class CoalizioneController implements ValidateEntity{
             throw new IllegalArgumentException("il record da aggiornare non esiste");
 
         this.coalizioneService.updateCoalizione(coalizione);
-    }
-
-    @Override
-    public void validateEntity(Object entity) {
-        Coalizione coalizione = (Coalizione) entity;
-        if(coalizione == null)
-            throw new NullPointerException("coalizione è nulla");
-        if(coalizione.getParametroBuoniSpesa() <= 0)
-            throw new IllegalArgumentException("parametro buoni spesa negativo o uguale a zero");
-        if (coalizione.getPenalitaCondivisione() < 1)
-            throw new IllegalArgumentException("penalità condivisione minore di 1");
-        if(coalizione.getPercentualeRitiroPremi() < 0 || coalizione.getPercentualeRitiroPremi() >= 100)
-            throw new IllegalArgumentException("percentuale ritiro premi non valida");
-
     }
 }
