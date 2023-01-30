@@ -187,4 +187,44 @@ public abstract class EntityValidator {
         if(consumatore == null)
             throw new NullPointerException("Consumatore è nullo");
     }
+
+    public void validatePagamento(Pagamento pagamento) {
+        if(pagamento == null)
+            throw new IllegalArgumentException("pagamento è nullo");
+        if(pagamento.getDataPagamento() == null)
+            throw new IllegalArgumentException("data pagamento assente");
+        if(pagamento.getCostoTotale() < 0)
+            throw new IllegalArgumentException("costo minore di zero");
+        if(pagamento.getQualeConsumatore() == null || pagamento.getQualeConsumatore() <= 0)
+            throw new IllegalArgumentException("Id consumatore non valido");
+    }
+    public void validatePermesso(Permesso permesso) {
+        if(permesso == null)
+            throw new NullPointerException("il record da inserire non può essere nullo");
+    }
+
+    public void validatePremio(Premio premio) {
+        if(premio == null)
+            throw new NullPointerException("premio è nullo");
+        if(premio.getCosto() < 0 || premio.getQualeAzienda() <= 0 || premio.getQualeProdotto() <= 0)
+            throw new IllegalArgumentException("parametri non validi");
+    }
+    public void validateProdotto(Prodotto prodotto) {
+        if(prodotto == null)
+            throw new NullPointerException("prodotto è nullo");
+        if(prodotto.getNome() == null)
+            throw new NullPointerException("nome prodotto è nullo");
+        if(prodotto.getNome().isBlank())
+            throw new IllegalArgumentException("nome prodotto è vuoto");
+    }
+    public void validateRecensione(Recensione recensione) {
+        if(recensione == null)
+            throw new NullPointerException("recensione è nullo");
+        Integer valutazione = recensione.getValutazione();
+        if(valutazione == null || valutazione < 1 || valutazione > 5)
+            throw new IllegalArgumentException("valore valutazione non compreso tra 1 e 5");
+        if(recensione.getQualeConsumatore() <= 0 || recensione.getQualeAzienda() <= 0)
+            throw new IllegalArgumentException("id consumatore o azienda non valido");
+    }
+
 }
