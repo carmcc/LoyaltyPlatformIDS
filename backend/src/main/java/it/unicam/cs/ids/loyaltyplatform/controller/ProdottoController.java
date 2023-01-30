@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/prodotto")
 @AllArgsConstructor
-public class ProdottoController implements ValidateEntity
+public class ProdottoController extends EntityValidator
 {
     private final ProdottoService prodottoService;
 
@@ -53,15 +53,4 @@ public class ProdottoController implements ValidateEntity
             throw new IllegalArgumentException("il record da aggiornare non esiste");
         this.prodottoService.updateProdotto(prodotto);
     }
-    @Override
-    public void validateEntity(Object entity) {
-        Prodotto prodotto = (Prodotto) entity;
-        if(prodotto == null)
-            throw new NullPointerException("prodotto è nullo");
-        if(prodotto.getNome() == null)
-            throw new NullPointerException("nome prodotto è nullo");
-        if(prodotto.getNome().isBlank())
-            throw new IllegalArgumentException("nome prodotto è vuoto");
-    }
-
 }

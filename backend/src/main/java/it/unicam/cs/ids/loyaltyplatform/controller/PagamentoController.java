@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/pagamento")
 @AllArgsConstructor
-public class PagamentoController implements ValidateEntity{
+public class PagamentoController extends EntityValidator{
     private final PagamentoService pagamentoService;
     @GetMapping("/getPagamentoById/{id}")
     public Pagamento getPagamentoById(@PathVariable("id") Integer id) {return this.pagamentoService.getPagamentoById(id);}
@@ -40,18 +40,5 @@ public class PagamentoController implements ValidateEntity{
             throw new IllegalArgumentException("il record da aggiornare non esiste");
 
         this.pagamentoService.updatePagamento(pagamento);
-    }
-
-    @Override
-    public void validateEntity(Object entity) {
-        Pagamento pagamento = (Pagamento) entity;
-        if(pagamento == null)
-            throw new IllegalArgumentException("pagamento è nullo");
-        if(pagamento.getDataPagamento() == null)
-            throw new IllegalArgumentException("data pagamento assente");
-        if(pagamento.getCostoTotale() < 0)
-            throw new IllegalArgumentException("costo minore di zero");
-        if(pagamento.getQualeConsumatore() == null || pagamento.getQualeConsumatore() <= 0)
-            throw new IllegalArgumentException("Id consumatore non valido");
     }
 }

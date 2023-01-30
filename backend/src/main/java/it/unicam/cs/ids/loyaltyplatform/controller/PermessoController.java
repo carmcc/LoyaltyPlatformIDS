@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/permesso")
 @AllArgsConstructor
-public class PermessoController implements ValidateEntity
+public class PermessoController extends EntityValidator
 {
     private final PermessoService permessoService;
 
@@ -39,13 +39,6 @@ public class PermessoController implements ValidateEntity
             throw new IllegalArgumentException("il record da rimuovere non esiste");
 
         this.permessoService.deletePermessoById(id);
-    }
-
-    @Override
-    public void validateEntity(Object entity) {
-        Permesso permesso = (Permesso) entity;
-        if(permesso == null)
-            throw new NullPointerException("il record da inserire non può essere nullo");
     }
     //TODO controllare regex nomePermesso
 }

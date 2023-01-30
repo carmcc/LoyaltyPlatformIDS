@@ -11,7 +11,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/premio")
 @AllArgsConstructor
-public class PremioController implements ValidateEntity{
+public class PremioController extends EntityValidator{
     private final PremioService premioService;
     @GetMapping("/getPremiByIdAzienda/{id}")
     public List<Premio> getPremiByIdAzienda(@PathVariable("id") Integer id) {return this.premioService.getPremiByIdAzienda(id);}
@@ -44,13 +44,5 @@ public class PremioController implements ValidateEntity{
         if(getPremioByAziendaAndProdotto(premio.getQualeAzienda(),premio.getQualeProdotto()).isEmpty())
             throw new IllegalArgumentException("il record da aggiornare non esiste");
         this.premioService.updatePremio(premio);
-    }
-    @Override
-    public void validateEntity(Object entity) {
-        Premio premio = (Premio) entity;
-        if(premio == null)
-            throw new NullPointerException("premio è nullo");
-        if(premio.getCosto() < 0 || premio.getQualeAzienda() <= 0 || premio.getQualeProdotto() <= 0)
-            throw new IllegalArgumentException("parametri non validi");
     }
 }

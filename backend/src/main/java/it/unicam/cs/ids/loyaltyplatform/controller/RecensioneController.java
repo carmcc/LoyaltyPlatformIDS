@@ -11,7 +11,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/recensione")
 @AllArgsConstructor
-public class RecensioneController implements ValidateEntity{
+public class RecensioneController extends EntityValidator{
     final RecensioneService recensioneService;
     @GetMapping("/getRecensioniByIdConsumatore/{id}")
     public List<Recensione> getRecensioniByIdConsumatore(@PathVariable("id") Integer id) {
@@ -50,16 +50,5 @@ public class RecensioneController implements ValidateEntity{
             throw new IllegalArgumentException("il record da aggiornare non esiste");
 
         this.recensioneService.updateRecensione(recensione);
-    }
-    @Override
-    public void validateEntity(Object entity) {
-        Recensione recensione = (Recensione) entity;
-        if(recensione == null)
-            throw new NullPointerException("recensione è nullo");
-        Integer valutazione = recensione.getValutazione();
-        if(valutazione == null || valutazione < 1 || valutazione > 5)
-            throw new IllegalArgumentException("valore valutazione non compreso tra 1 e 5");
-        if(recensione.getQualeConsumatore() <= 0 || recensione.getQualeAzienda() <= 0)
-            throw new IllegalArgumentException("id consumatore o azienda non valido");
     }
 }
