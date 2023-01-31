@@ -9,6 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 public class Permesso
 {
-    @Id //questa primary key può essere modificata
-    private String nomePermesso;//TODO impostare lunghezza a 30
+    @Id
+    @Column(length = 30)
+    private String nomePermesso;
 }

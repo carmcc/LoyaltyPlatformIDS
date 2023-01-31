@@ -18,6 +18,7 @@ public class Azienda implements EntityPassword, EntityEmail
     private Integer qualeCoalizione;
     @Column(unique = true,nullable = false)
     private String nomeAzienda;
+    @Column(nullable = false)
     private String email;
     @Column(nullable = false)
     private String password;

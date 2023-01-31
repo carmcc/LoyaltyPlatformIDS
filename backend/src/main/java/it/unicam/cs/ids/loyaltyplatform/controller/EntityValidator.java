@@ -44,13 +44,13 @@ public abstract class EntityValidator {
                 validateSpesa(spesa);
     }
 
-    public void validateAccountAziendale(AccountAziendale accountAziendale) {
+    private void validateAccountAziendale(AccountAziendale accountAziendale) {
         if (accountAziendale == null)
             throw new NullPointerException("accountAziendale è vuoto");
         if (accountAziendale.getQualeAzienda() == null || accountAziendale.getQualeAzienda() < 0)
             throw new IllegalArgumentException("qualeAzienda non valido");
     }
-    public void validateAdesione(Adesione adesione) {
+    private void validateAdesione(Adesione adesione) {
         if(adesione == null)
             throw new NullPointerException("L'adesione passata è nulla");
         if ((adesione.getEsperienzaConsumatore() < 0) || (adesione.getLivelloConsumatore() <= 0) || (adesione.getPuntiConsumatore() < 0)
@@ -62,7 +62,7 @@ public abstract class EntityValidator {
             throw new IllegalArgumentException("ID dell'adesione non validi");
     }
 
-    private void validateAzienda(Azienda azienda) { //TODO discutere se sono stati fatti tutti i controlli necesssari
+    private void validateAzienda(Azienda azienda) {
         if(azienda == null)
             throw new NullPointerException("L'azienda passata è nulla");
         if(azienda.getNomeAzienda().length() < 3)
@@ -79,7 +79,14 @@ public abstract class EntityValidator {
         checkPassword(azienda);
     }
 
-    public void checkEmail(EntityEmail entity) {
+    private void checkNickname(Consumatore consumatore) {
+        String NICKNAME_PATTERN = "^[a-zA-Z0-9_-]+$";
+        String nickname = consumatore.getNickname();
+        if(!Pattern.compile(NICKNAME_PATTERN).matcher(nickname).find())
+            throw new IllegalArgumentException("Il nickname non è valido, può contenere solo lettere, numeri, underscore e trattini");
+    }
+
+    private void checkEmail(EntityEmail entity) {
         String EMAIL_PATTERN =
                 "^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)@"
                         + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)(\\.[A-Za-z]{2,})$";
@@ -194,7 +201,7 @@ public abstract class EntityValidator {
                 || buonoSconto.getQualeConsumatore() == null || buonoSconto.getQualeConsumatore() <= 0)
             throw new IllegalArgumentException("Id azienda o consumatore non validi");
     }
-    public void validateCoalizione(Coalizione coalizione) {
+    private void validateCoalizione(Coalizione coalizione) {
         if(coalizione == null)
             throw new NullPointerException("coalizione è nulla");
         if(coalizione.getParametroBuoniSpesa() <= 0)
@@ -206,14 +213,15 @@ public abstract class EntityValidator {
 
     }
 
-    public void validateConsumatore(Consumatore consumatore) {
+    private void validateConsumatore(Consumatore consumatore) {
         if(consumatore == null)
             throw new NullPointerException("Consumatore è nullo");
+        checkNickname(consumatore);
         checkEmail(consumatore);
         checkPassword(consumatore);
     }
 
-    public void validatePagamento(Pagamento pagamento) {
+    private void validatePagamento(Pagamento pagamento) {
         if(pagamento == null)
             throw new IllegalArgumentException("pagamento è nullo");
         if(pagamento.getDataPagamento() == null)
@@ -223,18 +231,18 @@ public abstract class EntityValidator {
         if(pagamento.getQualeConsumatore() == null || pagamento.getQualeConsumatore() <= 0)
             throw new IllegalArgumentException("Id consumatore non valido");
     }
-    public void validatePermesso(Permesso permesso) {
+    private void validatePermesso(Permesso permesso) {
         if(permesso == null)
             throw new NullPointerException("il record da inserire non può essere nullo");
     }
 
-    public void validatePremio(Premio premio) {
+    private void validatePremio(Premio premio) {
         if(premio == null)
             throw new NullPointerException("premio è nullo");
         if(premio.getCosto() < 0 || premio.getQualeAzienda() <= 0 || premio.getQualeProdotto() <= 0)
             throw new IllegalArgumentException("parametri non validi");
     }
-    public void validateProdotto(Prodotto prodotto) {
+    private void validateProdotto(Prodotto prodotto) {
         if(prodotto == null)
             throw new NullPointerException("prodotto è nullo");
         if(prodotto.getNome() == null)
@@ -242,7 +250,7 @@ public abstract class EntityValidator {
         if(prodotto.getNome().isBlank())
             throw new IllegalArgumentException("nome prodotto è vuoto");
     }
-    public void validateRecensione(Recensione recensione) {
+    private void validateRecensione(Recensione recensione) {
         if(recensione == null)
             throw new NullPointerException("recensione è nullo");
         Integer valutazione = recensione.getValutazione();
@@ -252,7 +260,7 @@ public abstract class EntityValidator {
             throw new IllegalArgumentException("id consumatore o azienda non valido");
     }
 
-    public void validateRuolo(Ruolo ruolo)
+    private void validateRuolo(Ruolo ruolo)
     {
         if(ruolo == null)
             throw new NullPointerException("ruolo è nullo");
@@ -262,7 +270,7 @@ public abstract class EntityValidator {
             throw new IllegalArgumentException("Parametri non validi");
     }
 
-    public void validateSconto(Sconto sconto)
+    private void validateSconto(Sconto sconto)
     {
         if(sconto == null)
             throw new NullPointerException("Lo sconto inserito è nullo");
@@ -270,7 +278,7 @@ public abstract class EntityValidator {
             throw new IllegalArgumentException("Parametri non validi per lo sconto");
     }
 
-    public void validateSede(Sede sede)
+    private void validateSede(Sede sede)
     {
         if(sede == null)
             throw new NullPointerException("La sede inserita è nulla");
@@ -284,7 +292,7 @@ public abstract class EntityValidator {
             throw new IllegalArgumentException("Indirizzo non valido per la sede");
     }
 
-    public void validateSpesa(Spesa spesa)
+    private void validateSpesa(Spesa spesa)
     {
         if(spesa == null)
             throw new NullPointerException("spesa è nulla");

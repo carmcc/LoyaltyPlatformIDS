@@ -3,6 +3,9 @@ import it.unicam.cs.ids.loyaltyplatform.utilities.EntityEmail;
 import it.unicam.cs.ids.loyaltyplatform.utilities.EntityPassword;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.Date;
+
 @Entity
 @Table(name = "Consumatori")
 @Getter(value = AccessLevel.PUBLIC)
@@ -17,7 +20,9 @@ public class Consumatore implements EntityPassword, EntityEmail
     private Integer idConsumatore;
     @Column(unique = true, nullable = false)
     private String nickname;
-    private String dataDiNascita; //TODO cambiarla in data
+    @Column(nullable = false)
+    private Date dataDiNascita;
+    @Column(nullable = false)
     private Boolean sesso;
     @Column(nullable = false)
     private String email;

@@ -40,5 +40,4 @@ public class PermessoController extends EntityValidator
 
         this.permessoService.deletePermessoById(id);
     }
-    //TODO controllare regex nomePermesso
 }

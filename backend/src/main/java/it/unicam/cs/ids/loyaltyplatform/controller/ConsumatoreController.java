@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/consumatore")
 @AllArgsConstructor
-public class ConsumatoreController extends EntityValidator{    //TODO controlli
+public class ConsumatoreController extends EntityValidator{
     private final ConsumatoreService consumatoreService;
 
     @GetMapping(value = "/getConsumatoreById/{id}")
@@ -23,7 +23,7 @@ public class ConsumatoreController extends EntityValidator{    //TODO controlli
         return this.consumatoreService.getAllConsumatori();
     }
 
-    @PostMapping(value = "/addConsumatore")//TODO regex for password, nickname and email
+    @PostMapping(value = "/addConsumatore")
     public Consumatore addConsumatore(@RequestBody Consumatore consumatore) {
         validateEntity(consumatore);
         return this.consumatoreService.addConsumatore(consumatore);
@@ -36,7 +36,7 @@ public class ConsumatoreController extends EntityValidator{    //TODO controlli
         this.consumatoreService.deleteConsumatoreById(id);
     }
 
-    @PutMapping(value = "/updateConsumatore")//TODO regex for password, nickname and email
+    @PutMapping(value = "/updateConsumatore")
     public void updateConsumatore(@RequestBody Consumatore consumatore) {
         validateEntity(consumatore);
         if(getConsumatoreById(consumatore.getIdConsumatore())==null)
