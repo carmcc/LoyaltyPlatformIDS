@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.loyaltyplatform.controller;
 
 import it.unicam.cs.ids.loyaltyplatform.entity.*;
+import it.unicam.cs.ids.loyaltyplatform.utilities.EntityPassword;
 
 import java.util.regex.Pattern;
 
@@ -145,14 +146,14 @@ public abstract class EntityValidator {
     /**
      * Questo metodo controlla se la password rispetta le regole di linguaggio
      *
-     * @param azienda   L'oggetto da cui estrarre "password"
+     * @param entity    L'oggetto da cui estrarre "password"
      */
-    private void controlloPassword(Azienda azienda) {
+    private void controlloPassword(EntityPassword entity) {
         String minuscola = "[a-z]";
         String maiuscola = "[A-Z]";
         String specialiONumeri = "[\\W|\\d]";
         short lunghezzaMin = 8;
-        String password = azienda.getPassword();
+        String password = entity.getPassword();
 
         if(!Pattern.compile(minuscola).matcher(password).find())
             throw new IllegalArgumentException("La password deve contenere almeno una lettera minuscola");

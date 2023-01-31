@@ -1,4 +1,5 @@
 package it.unicam.cs.ids.loyaltyplatform.entity;
+import it.unicam.cs.ids.loyaltyplatform.utilities.EntityPassword;
 import jakarta.persistence.*;
 import lombok.*;
 @Entity
@@ -7,7 +8,7 @@ import lombok.*;
 @Setter(value = AccessLevel.PUBLIC)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Azienda
+public class Azienda implements EntityPassword
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "AZIENDE_SEQ")
