@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.loyaltyplatform.controller;
 
 import it.unicam.cs.ids.loyaltyplatform.entity.*;
+import it.unicam.cs.ids.loyaltyplatform.utilities.EntityEmail;
 import it.unicam.cs.ids.loyaltyplatform.utilities.EntityPassword;
 
 import java.util.regex.Pattern;
@@ -72,9 +73,26 @@ public abstract class EntityValidator {
             throw new IllegalArgumentException("Moltiplicatore VIP minore di 1");
         if(azienda.getQualeCoalizione() <= 0)
             throw new IllegalArgumentException("Coalizione non può essere minore di 0");
-        //todo creare regex per email e IVA
+        checkEmail(azienda);
+        checkIVA(azienda);
         controlloMoltSistemaLivelli(azienda);
-        controlloPassword(azienda);
+        checkPassword(azienda);
+    }
+
+    public void checkEmail(EntityEmail entity) {
+        String EMAIL_PATTERN =
+                "^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)@"
+                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)(\\.[A-Za-z]{2,})$";
+        String email = entity.getEmail();
+        if(!Pattern.compile(EMAIL_PATTERN).matcher(email).find())
+            throw new IllegalArgumentException("L'email non è valida, deve essere nel formato: example@gmail.com");
+    }
+
+    private void checkIVA(Azienda azienda) {
+        String IVA_PATTERN = "^IT[0-9]{11}$";
+        String iva = azienda.getIVA();
+        if(!Pattern.compile(IVA_PATTERN).matcher(iva).find())
+            throw new IllegalArgumentException("La partita IVA non è valida, deve cominciare con IT e avere 11 cifre");
     }
 
     private enum State {
@@ -148,7 +166,7 @@ public abstract class EntityValidator {
      *
      * @param entity    L'oggetto da cui estrarre "password"
      */
-    private void controlloPassword(EntityPassword entity) {
+    private void checkPassword(EntityPassword entity) {
         String minuscola = "[a-z]";
         String maiuscola = "[A-Z]";
         String specialiONumeri = "[\\W|\\d]";
@@ -191,6 +209,8 @@ public abstract class EntityValidator {
     public void validateConsumatore(Consumatore consumatore) {
         if(consumatore == null)
             throw new NullPointerException("Consumatore è nullo");
+        checkEmail(consumatore);
+        checkPassword(consumatore);
     }
 
     public void validatePagamento(Pagamento pagamento) {
