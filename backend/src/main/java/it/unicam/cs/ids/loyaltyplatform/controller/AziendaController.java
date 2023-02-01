@@ -1,11 +1,13 @@
 package it.unicam.cs.ids.loyaltyplatform.controller;
 import it.unicam.cs.ids.loyaltyplatform.entity.Azienda;
 import it.unicam.cs.ids.loyaltyplatform.service.AziendaService;
+import it.unicam.cs.ids.loyaltyplatform.utilities.QRCodeService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.image.BufferedImage;
 import java.util.List;
-import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/azienda")
@@ -13,6 +15,7 @@ import java.util.regex.Pattern;
 public class AziendaController extends EntityValidator
 {
     private final AziendaService aziendaService;
+    private final QRCodeService qrCodeService;
 
     @GetMapping(value = "/getAziendaById/{id}")
     public Azienda getAziendaById(@PathVariable("id") Integer id) {
@@ -49,4 +52,11 @@ public class AziendaController extends EntityValidator
             throw new IllegalArgumentException("ID del record da modificare non esiste");
         this.aziendaService.updateAzienda(azienda);
     }
+
+    @GetMapping(value = "qrcode/{id}")
+    public ResponseEntity<BufferedImage> referral(@PathVariable("id") String id) throws Exception {
+        //TODO far generare il qr con il link referral
+        return qrCodeService.qrCodeGenerator(id);
+    }
+
 }
