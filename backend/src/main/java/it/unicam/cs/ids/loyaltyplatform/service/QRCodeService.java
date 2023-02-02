@@ -1,5 +1,6 @@
-package it.unicam.cs.ids.loyaltyplatform.utilities;
+package it.unicam.cs.ids.loyaltyplatform.service;
 
+import it.unicam.cs.ids.loyaltyplatform.utilities.QRCodeGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.BufferedImageHttpMessageConverter;
