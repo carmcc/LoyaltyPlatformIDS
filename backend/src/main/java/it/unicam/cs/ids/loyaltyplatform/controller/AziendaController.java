@@ -1,7 +1,7 @@
 package it.unicam.cs.ids.loyaltyplatform.controller;
 import it.unicam.cs.ids.loyaltyplatform.entity.Azienda;
 import it.unicam.cs.ids.loyaltyplatform.service.AziendaService;
-import it.unicam.cs.ids.loyaltyplatform.utilities.QRCodeService;
+import it.unicam.cs.ids.loyaltyplatform.service.QRCodeService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -53,9 +53,10 @@ public class AziendaController extends EntityValidator
         this.aziendaService.updateAzienda(azienda);
     }
 
-    @GetMapping(value = "qrcode/{id}")
-    public ResponseEntity<BufferedImage> referral(@PathVariable("id") String id) throws Exception { //TODO far generare il qr con il link referral
-        return qrCodeService.qrCodeGenerator(id);
+    @GetMapping(value = "/qrcode/{id}")
+    public ResponseEntity<BufferedImage> referral(@PathVariable("id") Integer id) throws Exception {
+        Azienda azienda = getAziendaById(id);
+        return qrCodeService.qrCodeGenerator(azienda.getReferral());
     }
 
 }
