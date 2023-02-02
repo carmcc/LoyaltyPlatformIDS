@@ -54,8 +54,7 @@ public class AziendaController extends EntityValidator
     }
 
     @GetMapping(value = "qrcode/{id}")
-    public ResponseEntity<BufferedImage> referral(@PathVariable("id") String id) throws Exception {
-        //TODO far generare il qr con il link referral
+    public ResponseEntity<BufferedImage> referral(@PathVariable("id") String id) throws Exception { //TODO far generare il qr con il link referral
         return qrCodeService.qrCodeGenerator(id);
     }
 

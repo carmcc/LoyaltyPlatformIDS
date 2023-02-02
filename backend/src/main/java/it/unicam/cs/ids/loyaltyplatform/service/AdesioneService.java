@@ -1,9 +1,6 @@
 package it.unicam.cs.ids.loyaltyplatform.service;
 
-import it.unicam.cs.ids.loyaltyplatform.entity.Adesione;
-import it.unicam.cs.ids.loyaltyplatform.entity.Azienda;
-import it.unicam.cs.ids.loyaltyplatform.entity.Consumatore;
-import it.unicam.cs.ids.loyaltyplatform.entity.Pagamento;
+import it.unicam.cs.ids.loyaltyplatform.entity.*;
 import it.unicam.cs.ids.loyaltyplatform.repository.AdesioneRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +16,7 @@ public class AdesioneService
     private final AdesioneRepository adesioneRepository;
     private final AziendaService aziendaService;
     private final ConsumatoreService consumatoreService;
+    private final PremioService premioService;
 
 
     public List<Adesione> getAdesioniByIdConsumatore(Integer id) {
@@ -92,5 +90,8 @@ public class AdesioneService
             listaValoriNumerici.add(Float.valueOf(valore)); //convergo le stringhe in Float e le inserisco nella lista
         }
         return listaValoriNumerici;
+    }
+    public Adesione sottrazionePuntiPremio(Consumatore consumatore, Premio premio) {    //TODO implementare
+        return null;
     }
 }

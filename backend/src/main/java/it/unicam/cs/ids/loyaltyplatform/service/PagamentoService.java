@@ -14,6 +14,6 @@ public class PagamentoService {
     public Pagamento getPagamentoById(Integer id) {return this.pagamentoRepository.findById(id).orElse(null);}
     public List<Pagamento> getAllPagamenti() {return this.pagamentoRepository.findAll();}
     public Pagamento addPagamento(Pagamento pagamento) {return this.pagamentoRepository.save(pagamento);}
-    public void removePagamentoById(Integer id) {this.pagamentoRepository.deleteById(id);}
+    public void deletePagamentoById(Integer id) {this.pagamentoRepository.deleteById(id);}
     public void updatePagamento(Pagamento pagamento) {this.pagamentoRepository.saveAndFlush(pagamento);}
 }

@@ -29,7 +29,7 @@ public class PagamentoController extends EntityValidator{
         if(getPagamentoById(id) == null)
             throw new IllegalArgumentException("il record da rimuovere non esiste");
 
-        this.pagamentoService.removePagamentoById(id);
+        this.pagamentoService.deletePagamentoById(id);
     }
     @PutMapping("/updatePagamento")
     public void updatePagamento(@RequestBody Pagamento pagamento) {

@@ -1,7 +1,9 @@
 package it.unicam.cs.ids.loyaltyplatform.controller;
 
 import it.unicam.cs.ids.loyaltyplatform.entity.Adesione;
+import it.unicam.cs.ids.loyaltyplatform.entity.Consumatore;
 import it.unicam.cs.ids.loyaltyplatform.entity.Pagamento;
+import it.unicam.cs.ids.loyaltyplatform.entity.Premio;
 import it.unicam.cs.ids.loyaltyplatform.service.AdesioneService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -62,5 +64,9 @@ public class AdesioneController extends EntityValidator
     @PutMapping(value = "/incrementoPunti")
     public Adesione incrementoPunti(@RequestBody Pagamento pagamento) {
         return this.adesioneService.incrementoPunti(pagamento);
+    }
+
+    public Adesione sottrazionePuntiPremio(Consumatore consumatore, Premio premio) {    //TODO impostare il mapping
+        return this.adesioneService.sottrazionePuntiPremio(consumatore, premio);
     }
 }
