@@ -51,4 +51,15 @@ public class RecensioneController extends EntityValidator{
 
         this.recensioneService.updateRecensione(recensione);
     }
+
+    @PutMapping("/writeRewiew")
+    public Recensione writeRewiew(@RequestBody Recensione recensione) {
+        validateEntity(recensione);
+        if(getRecensioneByConsumatoreAndAzienda(recensione.getQualeConsumatore(),recensione.getQualeAzienda()).isEmpty())
+            addRecensione(this.recensioneService.writeRewiew(recensione));
+        else
+            updateRecensione(this.recensioneService.writeRewiew(recensione));
+        return this.recensioneService.writeRewiew(recensione);
+    }
+
 }

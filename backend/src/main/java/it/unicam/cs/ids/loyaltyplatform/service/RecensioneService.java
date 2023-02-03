@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.loyaltyplatform.service;
 
+import it.unicam.cs.ids.loyaltyplatform.entity.Adesione;
 import it.unicam.cs.ids.loyaltyplatform.entity.Recensione;
 import it.unicam.cs.ids.loyaltyplatform.repository.RecensioneRepository;
 import lombok.AllArgsConstructor;
@@ -11,7 +12,8 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class RecensioneService {
-    final RecensioneRepository recensioneRepository;
+    private final RecensioneRepository recensioneRepository;
+    private final AdesioneService adesioneService;
     public List<Recensione> getRecensioniByIdConsumatore(Integer id) {
         return this.recensioneRepository.findAll().stream().filter(x->x.getQualeConsumatore()==id.intValue()).toList();
     }
@@ -27,4 +29,12 @@ public class RecensioneService {
     public Recensione AddRecensione(Recensione recensione) {return this.recensioneRepository.save(recensione);}
     public void deleteRecensione(Recensione recensione) {this.recensioneRepository.delete(recensione);}
     public void updateRecensione(Recensione recensione) {this.recensioneRepository.saveAndFlush(recensione);}
+
+    public Recensione writeRewiew(Recensione recensione)
+    {
+        Optional<Adesione> adesioneOptional = this.adesioneService.getAdesioneByConsumatoreAndAzienda(recensione.getQualeConsumatore(), recensione.getQualeAzienda());
+        if(adesioneOptional.isEmpty())
+            throw new IllegalArgumentException("Utente non risulta registrato come cliente dell'azienda");
+        return recensione;
+    }
 }
