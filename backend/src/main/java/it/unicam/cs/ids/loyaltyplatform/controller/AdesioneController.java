@@ -4,7 +4,7 @@ import it.unicam.cs.ids.loyaltyplatform.entity.Adesione;
 import it.unicam.cs.ids.loyaltyplatform.entity.Consumatore;
 import it.unicam.cs.ids.loyaltyplatform.entity.Pagamento;
 import it.unicam.cs.ids.loyaltyplatform.entity.Premio;
-import it.unicam.cs.ids.loyaltyplatform.service.AdesioneService;
+import it.unicam.cs.ids.loyaltyplatform.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +17,9 @@ import java.util.Optional;
 public class AdesioneController extends EntityValidator
 {
     private final AdesioneService adesioneService;
+    private final PagamentoService pagamentoService;
+    private final PremioService premioService;
+    private final ConsumatoreService consumatoreService;
 
     @GetMapping(value = "/getAdesioniByIdConsumatore/{id}")
     public List<Adesione> getAdesioniByIdConsumatore(@PathVariable("id") Integer id) {
@@ -63,10 +66,22 @@ public class AdesioneController extends EntityValidator
 
     @PutMapping(value = "/incrementoPunti")
     public Adesione incrementoPunti(@RequestBody Pagamento pagamento) {
+        validateEntity(pagamento);
+        if(this.pagamentoService.getPagamentoById(pagamento.getIdPagamento()) == null)
+            throw new IllegalArgumentException("ID del record da modificare non presente");
         return this.adesioneService.incrementoPunti(pagamento);
     }
 
-    public Adesione sottrazionePuntiPremio(Consumatore consumatore, Premio premio) {    //TODO impostare il mapping
-        return this.adesioneService.sottrazionePuntiPremio(consumatore, premio);
+    @PutMapping(value = "/sottrazionePuntiPremio/{qualeAzienda}&{qualeProdotto}")
+    public List<Adesione> sottrazionePuntiPremio(@RequestBody Consumatore consumatore,    //TODO discutere se mettere come PathVariable il premio o il consumatore
+                                           @PathVariable("qualeAzienda") Integer qualeAzienda,
+                                           @PathVariable("qualeProdotto") Integer qualeProdotto) {
+        validateEntity(consumatore);
+        if(this.consumatoreService.getConsumatoreById(consumatore.getIdConsumatore()) == null)
+            throw new IllegalArgumentException("ID del record da modificare non presente");
+        Optional<Premio> premio = this.premioService.getPremioByAziendaAndProdotto(qualeAzienda, qualeProdotto);
+        if(premio.isEmpty())    //validazione degli ID
+            throw new IllegalArgumentException("premio non esistente");
+        return this.adesioneService.sottrazionePuntiPremio(consumatore, premio.get());
     }
 }
