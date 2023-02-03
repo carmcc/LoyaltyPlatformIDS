@@ -22,12 +22,16 @@ public class AziendaController extends EntityValidator
         return this.aziendaService.getAziendaById(id);
     }
 
+    @GetMapping(value = "/getAziendeByIdCoalizione/{id}")
+    public List<Azienda> getAziendeByIdCoalizione(@PathVariable("id") Integer id) {
+        return this.aziendaService.getAziendeByIdCoalizione(id);
+    }
+
     @GetMapping(value = "/getAllAziende")
     public List<Azienda> getAllAziende() {
         return this.aziendaService.getAllAziende();
     }
 
-    //crea un azienda con metodo POST
     @PostMapping(value = "/addAzienda")
     public Azienda addAzienda(@RequestBody Azienda azienda) {
         validateEntity(azienda);

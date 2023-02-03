@@ -12,6 +12,9 @@ public class AziendaService {
     public Azienda getAziendaById(Integer id) {
             return this.aziendaRepository.findById(id).orElse(null);
         }
+    public List<Azienda> getAziendeByIdCoalizione(Integer id) {
+        return this.aziendaRepository.findAll().stream().filter(x->id.equals(x.getQualeCoalizione())).toList();
+    }
     public List<Azienda> getAllAziende() {
             return this.aziendaRepository.findAll();
         }
