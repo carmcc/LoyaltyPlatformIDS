@@ -50,6 +50,8 @@ public class ConsumatoreController extends EntityValidator {
     @GetMapping(value = "/qrcode/{id}")
     public ResponseEntity<BufferedImage> getCartaFedelta(@PathVariable("id") Integer id) throws Exception {
         Consumatore consumatore = getConsumatoreById(id);
+        if(consumatore == null)
+            throw new IllegalArgumentException("Consumatore non trovato");
         return qrCodeService.qrCodeGenerator(consumatore.getIdConsumatore().toString());
     }
 }
