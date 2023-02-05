@@ -61,7 +61,7 @@ public class AziendaController extends EntityValidator
     public ResponseEntity<BufferedImage> referral(@PathVariable("id") Integer id) throws Exception {
         Azienda azienda = getAziendaById(id);
         if(azienda == null)
-            throw new NullPointerException("Azienda non trovata");
+            throw new IllegalArgumentException("Azienda non trovata");
         return qrCodeService.qrCodeGenerator(azienda.getReferral());
     }
 
