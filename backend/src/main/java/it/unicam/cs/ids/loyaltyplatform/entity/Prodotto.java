@@ -2,7 +2,7 @@ package it.unicam.cs.ids.loyaltyplatform.entity;
 import jakarta.persistence.*;
 import lombok.*;
 @Entity
-@Table(name = "Prodotti")
+@Table(name = "PRODOTTI")
 @Getter(value = AccessLevel.PUBLIC)
 @Setter(value = AccessLevel.PUBLIC)
 @NoArgsConstructor

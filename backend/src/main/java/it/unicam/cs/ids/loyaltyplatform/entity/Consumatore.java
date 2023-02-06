@@ -7,7 +7,7 @@ import lombok.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "Consumatori")
+@Table(name = "CONSUMATORI")
 @Getter(value = AccessLevel.PUBLIC)
 @Setter(value = AccessLevel.PUBLIC)
 @NoArgsConstructor

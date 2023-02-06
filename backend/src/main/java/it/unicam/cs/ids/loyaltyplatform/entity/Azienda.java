@@ -4,7 +4,7 @@ import it.unicam.cs.ids.loyaltyplatform.utilities.EntityPassword;
 import jakarta.persistence.*;
 import lombok.*;
 @Entity
-@Table(name = "Aziende")
+@Table(name = "AZIENDE")
 @Getter(value = AccessLevel.PUBLIC)
 @Setter(value = AccessLevel.PUBLIC)
 @NoArgsConstructor

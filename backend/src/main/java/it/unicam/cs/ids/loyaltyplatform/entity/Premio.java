@@ -3,7 +3,7 @@ import jakarta.persistence.*;
 import it.unicam.cs.ids.loyaltyplatform.primaryKeys.PKPremio;
 import lombok.*;
 @Entity
-@Table(name = "Premi")
+@Table(name = "PREMI")
 @IdClass(PKPremio.class)
 @Getter(value = AccessLevel.PUBLIC)
 @Setter(value = AccessLevel.PUBLIC)

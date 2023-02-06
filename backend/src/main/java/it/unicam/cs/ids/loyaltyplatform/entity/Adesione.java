@@ -4,7 +4,7 @@ import it.unicam.cs.ids.loyaltyplatform.primaryKeys.PKAdesione;
 import lombok.*;
 import java.util.Date;
 @Entity
-@Table(name = "Adesioni")
+@Table(name = "ADESIONI")
 @IdClass(PKAdesione.class)
 @Getter(value = AccessLevel.PUBLIC)
 @Setter(value = AccessLevel.PUBLIC)

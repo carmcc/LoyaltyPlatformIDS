@@ -3,7 +3,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.util.Date;
 @Entity
-@Table (name = "BuoniSconto")
+@Table (name = "BUONI_SCONTO")
 @Getter(value = AccessLevel.PUBLIC)
 @Setter(value = AccessLevel.PUBLIC)
 @NoArgsConstructor
