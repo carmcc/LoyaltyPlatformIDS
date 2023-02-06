@@ -87,9 +87,7 @@ public abstract class EntityValidator {
     }
 
     private void checkEmail(EntityEmail entity) {
-        String EMAIL_PATTERN =
-                "^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)@"
-                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)(\\.[A-Za-z]{2,})$";
+        String EMAIL_PATTERN = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$";
         String email = entity.getEmail();
         if(!Pattern.compile(EMAIL_PATTERN).matcher(email).find())
             throw new IllegalArgumentException("L'email non è valida, deve essere nel formato: example@gmail.com");
