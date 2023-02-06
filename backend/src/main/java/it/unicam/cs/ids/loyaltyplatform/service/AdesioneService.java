@@ -182,20 +182,20 @@ public class AdesioneService
             if(resto==0)    //se non c'è resto allora è stato pagato tutto
                 return listaAdesioni;
             //le adesioni col valore più alto si prenderanno carico del resto
-            int valoreMAssimo = getValoreMassimo(listaAdesioni);
-            if(valoreMAssimo >= resto)  //esiste un'adesione in grado di prendersi carico del resto
+            int valoreMassimo = getValoreMassimo(listaAdesioni);
+            if(valoreMassimo >= resto)  //esiste un'adesione in grado di prendersi carico del resto
             {
-                Adesione adesioneDaModificare = listaAdesioni.stream().filter(x -> x.getPuntiConsumatore() == valoreMAssimo)
+                Adesione adesioneDaModificare = listaAdesioni.stream().filter(x -> x.getPuntiConsumatore() == valoreMassimo)
                                                     .findAny().get();    //seleziono l'adesione...
                 int finalResto = resto;
                 listaAdesioni = listaAdesioni.stream()
                                 .peek(x->{if(x.equals(adesioneDaModificare))
-                                                x.setPuntiConsumatore(valoreMAssimo - finalResto);}).toList();    //...la modifico...
+                                                x.setPuntiConsumatore(valoreMassimo - finalResto);}).toList();    //...la modifico...
                 return listaAdesioni;   //... e restituisco la lista modificata
             }
             else   //se non vi è una singola adesione che più prendersi carico del resto, allora esso verrà pagato solo in parte per poi ricominciare il metodo
             {
-                Adesione adesioneDaModificare = listaAdesioni.stream().filter(x -> x.getPuntiConsumatore() == valoreMAssimo)
+                Adesione adesioneDaModificare = listaAdesioni.stream().filter(x -> x.getPuntiConsumatore() == valoreMassimo)
                                                 .findAny().get();
                 resto = resto - adesioneDaModificare.getPuntiConsumatore(); //parte del resto è stata pagata
                 listaAdesioni = listaAdesioni.stream()
