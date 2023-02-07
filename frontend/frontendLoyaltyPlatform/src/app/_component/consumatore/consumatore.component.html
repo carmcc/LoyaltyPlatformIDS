@@ -1,0 +1,26 @@
+<div class = "container">
+  <div class = "card">
+    <div class = "card-body">
+      <div class = "table table-striped">
+        <thead>
+        <th>ID Consumatore</th>
+        <th>Nickname</th>
+        <th>Data di nascita</th>
+        <th>Sesso</th>
+        <th>Email</th>
+        <th>Password</th>
+        </thead>
+        <tbody>
+        <tr *ngFor="let consumatore of consumatori">
+          <td>{{consumatore.idConsumatore}}</td>
+          <td>{{consumatore.nickname}}</td>
+          <td>{{consumatore.dataDiNascita}}</td>
+          <td>{{consumatore.sesso}}</td>
+          <td>{{consumatore.email}}</td>
+          <td>{{consumatore.password}}</td>
+        </tr>
+        </tbody>
+      </div>
+    </div>
+  </div>
+</div>
