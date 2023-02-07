@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.loyaltyplatform.controller;
 
+import it.unicam.cs.ids.loyaltyplatform.entity.Adesione;
 import it.unicam.cs.ids.loyaltyplatform.entity.Azienda;
 import it.unicam.cs.ids.loyaltyplatform.entity.BuonoSconto;
 import it.unicam.cs.ids.loyaltyplatform.entity.Pagamento;
@@ -10,7 +11,10 @@ import it.unicam.cs.ids.loyaltyplatform.service.PagamentoService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/pagamento")
@@ -33,17 +37,29 @@ public class PagamentoController extends EntityValidator{
 
         Integer idAzienda = pagamento.getQualeAzienda();
         Integer idConsumatore = pagamento.getQualeConsumatore();
-        if(this.adesioneService.getAdesioneByConsumatoreAndAzienda(idConsumatore, idAzienda).isPresent())   //se il consumatore ha un'adesione con l'azienda, allora si applicano i vantaggi
+        Optional<Adesione> adesioneOptional = this.adesioneService.getAdesioneByConsumatoreAndAzienda(idConsumatore, idAzienda);
+        if(adesioneOptional.isPresent())   //se il consumatore ha un'adesione con l'azienda, allora si applicano i vantaggi
         {
+            Adesione adesione = adesioneOptional.get();
             Azienda azienda = this.aziendaService.getAziendaById(idAzienda);
+            Float spesa = pagamento.getCostoTotale();
+
+            //aggiungo un buono sconto
             if (azienda.getQualeCoalizione() != null)   //se esiste una coalizione allora creo un buono sconto
             {
-                Float spesa = pagamento.getCostoTotale();
                 BuonoSconto buonoSconto = this.buonoScontoService.createNewBuonoSconto(idConsumatore, azienda, spesa);
                 this.buonoScontoService.addBuonoSconto(buonoSconto);
             }
 
-            //TODO implementare il cashback
+            //incremento il salvadanaio
+            float incrementoCashBack = spesa / azienda.getDivisoreCashback();
+            incrementoCashBack = new BigDecimal(incrementoCashBack)
+                                            .setScale(2, RoundingMode.HALF_UP).floatValue();
+            adesione.setSalvadanaio(adesione.getSalvadanaio() + incrementoCashBack);
+            this.adesioneService.updateAdesione(adesione);
+
+            //incremento punti
+            this.adesioneService.incrementoPunti(pagamento);
         }
         return this.pagamentoService.addPagamento(pagamento);   //Ma che cazzo!? Invocare "pagamentoService.addPagamento(pagamento)" casusa un errore in "buonoScontoService.addBuonoSconto(buonoSconto)"
     }

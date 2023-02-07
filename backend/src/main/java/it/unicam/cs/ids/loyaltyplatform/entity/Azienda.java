@@ -26,7 +26,7 @@ public class Azienda implements EntityPassword, EntityEmail
     private String IVA;
     @Column(nullable = false)
     private String referral;
-    private String moltSistemaLivelli;
-    private Float divisoreCashback;
-    private Float moltiplicatoreVip;
+    private String moltSistemaLivelli;  //lista numeri compresi tra 0 e 9.9
+    private Float divisoreCashback;     //numero maggiore di 0
+    private Float moltiplicatoreVip;    //numero maggiore di 1
 }
