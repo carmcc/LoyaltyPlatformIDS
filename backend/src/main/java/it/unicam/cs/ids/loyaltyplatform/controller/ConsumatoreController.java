@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/consumatore")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class ConsumatoreController extends EntityValidator {
     private final ConsumatoreService consumatoreService;
     private final QRCodeService qrCodeService;
