@@ -47,5 +47,4 @@ public class BuonoScontoController extends EntityValidator{
             throw new IllegalArgumentException("il record da aggiornare non esiste");
         this.buonoScontoService.updateBuonoSconto(buonoSconto);
     }
-    //TODO implementare il metodo che genera un buono sconto dopo un pagamento
 }

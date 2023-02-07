@@ -1,6 +1,11 @@
 package it.unicam.cs.ids.loyaltyplatform.controller;
 
+import it.unicam.cs.ids.loyaltyplatform.entity.Azienda;
+import it.unicam.cs.ids.loyaltyplatform.entity.BuonoSconto;
 import it.unicam.cs.ids.loyaltyplatform.entity.Pagamento;
+import it.unicam.cs.ids.loyaltyplatform.service.AdesioneService;
+import it.unicam.cs.ids.loyaltyplatform.service.AziendaService;
+import it.unicam.cs.ids.loyaltyplatform.service.BuonoScontoService;
 import it.unicam.cs.ids.loyaltyplatform.service.PagamentoService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +17,10 @@ import java.util.List;
 @AllArgsConstructor
 public class PagamentoController extends EntityValidator{
     private final PagamentoService pagamentoService;
+    private final AdesioneService adesioneService;
+    private final AziendaService aziendaService;
+    private final BuonoScontoService buonoScontoService;
+
     @GetMapping("/getPagamentoById/{id}")
     public Pagamento getPagamentoById(@PathVariable("id") Integer id) {return this.pagamentoService.getPagamentoById(id);}
     @GetMapping("/getAllPagamenti")
@@ -22,7 +31,21 @@ public class PagamentoController extends EntityValidator{
         if(pagamento.getIdPagamento() != null && getPagamentoById(pagamento.getIdPagamento()) != null)
             throw new IllegalArgumentException("il record da aggiungere esiste già");
 
-        return this.pagamentoService.addPagamento(pagamento);
+        Integer idAzienda = pagamento.getQualeAzienda();
+        Integer idConsumatore = pagamento.getQualeConsumatore();
+        if(this.adesioneService.getAdesioneByConsumatoreAndAzienda(idConsumatore, idAzienda).isPresent())   //se il consumatore ha un'adesione con l'azienda, allora si applicano i vantaggi
+        {
+            Azienda azienda = this.aziendaService.getAziendaById(idAzienda);
+            if (azienda.getQualeCoalizione() != null)   //se esiste una coalizione allora creo un buono sconto
+            {
+                Float spesa = pagamento.getCostoTotale();
+                BuonoSconto buonoSconto = this.buonoScontoService.createNewBuonoSconto(idConsumatore, azienda, spesa);
+                this.buonoScontoService.addBuonoSconto(buonoSconto);
+            }
+
+            //TODO implementare il cashback
+        }
+        return this.pagamentoService.addPagamento(pagamento);   //Ma che cazzo!? Invocare "pagamentoService.addPagamento(pagamento)" casusa un errore in "buonoScontoService.addBuonoSconto(buonoSconto)"
     }
     @DeleteMapping("/deletePagamentoById/{id}")
     public void deletePagamentoById(@PathVariable("id") Integer id) {
