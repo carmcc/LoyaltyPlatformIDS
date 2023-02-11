@@ -45,6 +45,9 @@ public class RuoloController extends EntityValidator
         validateEntity(ruolo);
         if(getRuoloByAziendaSerialeAndPermesso(ruolo.getQualeAzienda(),ruolo.getQualeSeriale(),ruolo.getQualePermesso()).isEmpty())
             throw new IllegalArgumentException("il record da rimuovere non esiste");
+        if(this.getRuoliByAziendaAndSeriale(ruolo.getQualeAzienda(),ruolo.getQualeSeriale()).size()==1)
+            throw new IllegalStateException("Ogni account aziendale deve avere almeno un ruolo");
+
         this.ruoloService.deleteRuolo(ruolo);
     }
     @PutMapping("/updateRuolo")

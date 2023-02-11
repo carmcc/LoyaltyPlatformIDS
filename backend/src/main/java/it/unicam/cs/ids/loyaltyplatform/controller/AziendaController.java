@@ -12,8 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/azienda")
 @AllArgsConstructor
-public class AziendaController extends EntityValidator
-{
+public class AziendaController extends EntityValidator {    //TODO implementare l'invio della richiesta di coalizione (tramite una tabella inviti)
     private final AziendaService aziendaService;
     private final QRCodeService qrCodeService;
 
