@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @RestController
@@ -32,8 +34,7 @@ public class PagamentoController extends EntityValidator{
     @PostMapping("/addPagamento")
     public Pagamento addPagamento(@RequestBody Pagamento pagamento) {
         validateEntity(pagamento);
-        if(pagamento.getIdPagamento() != null && getPagamentoById(pagamento.getIdPagamento()) != null)
-            throw new IllegalArgumentException("il record da aggiungere esiste già");
+        pagamento.setIdPagamento(null);
 
         Integer idAzienda = pagamento.getQualeAzienda();
         Integer idConsumatore = pagamento.getQualeConsumatore();
@@ -51,17 +52,20 @@ public class PagamentoController extends EntityValidator{
                 this.buonoScontoService.addBuonoSconto(buonoSconto);
             }
 
-            //incremento il salvadanaio
+            //aggiornamento data "ultimaSpesa"
+            adesione.setUltimaSpesa(Calendar.getInstance(Locale.ITALY).getTime());
+
+            //incremento il salvadanaio (cashBack)
             float incrementoCashBack = spesa / azienda.getDivisoreCashback();
             incrementoCashBack = new BigDecimal(incrementoCashBack)
                                             .setScale(2, RoundingMode.HALF_UP).floatValue();
             adesione.setSalvadanaio(adesione.getSalvadanaio() + incrementoCashBack);
             this.adesioneService.updateAdesione(adesione);
 
-            //incremento punti
-            this.adesioneService.incrementoPunti(pagamento);
+            //incremento punti ed esperienza
+            this.adesioneService.incrementoPuntiEdEsperienza(pagamento);
         }
-        return this.pagamentoService.addPagamento(pagamento);   //Ma che cazzo!? Invocare "pagamentoService.addPagamento(pagamento)" casusa un errore in "buonoScontoService.addBuonoSconto(buonoSconto)"
+        return this.pagamentoService.addPagamento(pagamento);
     }
     @DeleteMapping("/deletePagamentoById/{id}")
     public void deletePagamentoById(@PathVariable("id") Integer id) {

@@ -7,8 +7,9 @@ import it.unicam.cs.ids.loyaltyplatform.repository.BuonoScontoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 @AllArgsConstructor
@@ -42,8 +43,11 @@ public class BuonoScontoService {
      * @param spesa La spesa effettuata, da cui si ricaveranno i punti
      */
     public BuonoSconto createNewBuonoSconto(Integer idConsumatore, Azienda azienda, Float spesa) {
-        Date dataCreazione = new Date();
-        Date dataScadenza = incrementoData(dataCreazione);
+        Calendar dataCreazione = Calendar.getInstance(Locale.ITALY);
+        Calendar dataScadenza = Calendar.getInstance(Locale.ITALY);
+        dataScadenza.set(dataScadenza.get(Calendar.YEAR),dataScadenza.get(Calendar.MONTH),
+                    dataScadenza.get(Calendar.DAY_OF_MONTH)+7); //tutti i buoni sconto durano 7 giorni
+
         Coalizione coalizione = this.coalizioneService.getCoalizioneById(azienda.getQualeCoalizione());
 
         List<Azienda> listaAziendeCoalizzate = this.aziendaService.getAziendeByIdCoalizione(coalizione.getIdCoalizione());
@@ -52,56 +56,6 @@ public class BuonoScontoService {
 
         float valore = spesa/coalizione.getParametroBuoniSpesa();
 
-        return new BuonoSconto(null,idConsumatore,aziendaBersaglio.getIdAzienda(),dataCreazione,dataScadenza,valore);
-    }
-
-    /**
-     * Questo metodo prende in input un oggetto di tipo Date e trasla la data di 7 giorni
-     *
-     * @param dataDaModificare Data di partenza
-     * @return La data dopo il dato quantitativo di giorni
-     */
-    private Date incrementoData(Date dataDaModificare) {    //TODO trova un'alternativa a Date
-        int intGiorno = dataDaModificare.getDate();
-        int intMese = dataDaModificare.getMonth();     //il mese è decrementato di 1
-        int intAnno = dataDaModificare.getYear();  //l'anno è decrementato di 1900
-        intGiorno += 7; //eseguo la traslazione di 7 giorni
-        switch (intMese)    //correggo un eventuale giorno inesistente
-        {
-            case 3, 5, 8, 10 -> {
-                if (intGiorno > 30) {
-                    intGiorno -= 30;
-                    intMese += 1;
-                }
-            }
-            case 1 -> { //la durata di Febbraio dipende dal bisestile
-                if (intAnno % 4 == 0) {
-                    if (intGiorno > 29) {
-                        intGiorno -= 29;
-                        intMese += 1;
-                    }
-                } else {
-                    if (intGiorno > 28) {
-                        intGiorno -= 28;
-                        intMese += 1;
-                    }
-                }
-            }
-            default -> {
-                if (intGiorno > 31) {
-                    intGiorno -= 31;
-                    intMese += 1;
-                }
-            }
-        }
-        if(intMese > 11)    //correggo un eventuale mese inesistente
-        {
-            intMese -= 12;
-            intAnno += 1;
-        }
-        dataDaModificare.setDate(intGiorno);
-        dataDaModificare.setMonth(intMese);
-        dataDaModificare.setYear(intAnno);
-        return dataDaModificare;
+        return new BuonoSconto(null,idConsumatore,aziendaBersaglio.getIdAzienda(),dataCreazione.getTime(),dataScadenza.getTime(),valore);
     }
 }

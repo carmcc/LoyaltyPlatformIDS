@@ -45,7 +45,7 @@ public class AdesioneService
 
 
     /**
-     * Questo metodo incrementa i punti presenti nell'adesione del cliente aggiornando il database tramite la repository.
+     * Questo metodo incrementa i punti presenti e l'esperienza nell'adesione del cliente aggiornando il database tramite la repository.
      *      Il metodo richiede al database i dati del consumatore, dell'azienda e dell'adesione.
      *
      * @param pagamento     Pagamento su cui si basa l'incremento dei punti
@@ -53,7 +53,7 @@ public class AdesioneService
      * @return  L'adesione aggiornata se l'operazione è avvenuta.
      *          Null se il consumatore non è aderito all'azienda in cui ha effettuato la spesa.
      */
-    public Adesione incrementoPunti(Pagamento pagamento) {
+    public Adesione incrementoPuntiEdEsperienza(Pagamento pagamento) {
         Consumatore consumatore= this.consumatoreService.getConsumatoreById(pagamento.getQualeConsumatore());
         Azienda azienda = this.aziendaService.getAziendaById(pagamento.getQualeAzienda());
 
@@ -68,8 +68,15 @@ public class AdesioneService
         if (adesione.getIsVip())
             incremento += pagamento.getCostoTotale() * azienda.getMoltiplicatoreVip();  //se il consumatore è VIP, aumento il valore dell'incremento
         int incrementoArrotondato = Math.round(incremento); //arrotondo i punti per poterli aggiungere
+        int esperienzaRichiestaLvlUp = 250 * adesione.getLivelloConsumatore();
 
-        adesione.setPuntiConsumatore(adesione.getPuntiConsumatore()+incrementoArrotondato);    //addiziono i punti al consumatore nell'adesione copia
+        adesione.setPuntiConsumatore(adesione.getPuntiConsumatore() + incrementoArrotondato);    //addiziono i punti al consumatore nell'adesione copia
+        adesione.setEsperienzaConsumatore(adesione.getEsperienzaConsumatore() + incrementoArrotondato);
+        if(adesione.getEsperienzaConsumatore() >= esperienzaRichiestaLvlUp) //controllo se il consumatore può salire di livello
+        {
+            adesione.setEsperienzaConsumatore(adesione.getEsperienzaConsumatore()-esperienzaRichiestaLvlUp);
+            adesione.setLivelloConsumatore(adesione.getLivelloConsumatore()+1);
+        }
         this.updateAdesione(adesione);   //sovrascrivo l'adesione nel database con quella aggiornata
         return adesione;
     }
