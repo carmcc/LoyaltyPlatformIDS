@@ -31,6 +31,7 @@ public class AccountAziendaleController extends EntityValidator{
        validateEntity(accountAziendale);
         if(getAccountAziendaleByIdAndSeriale(accountAziendale.getQualeAzienda(),accountAziendale.getSeriale()).isPresent())
             throw new IllegalArgumentException("ID del record da aggiungere già presente");
+        //TODO aggiungi un ruolo
         return this.accountAziendaleService.addAccountAziendale(accountAziendale);
     }
     @DeleteMapping(value = "/deleteAccountAziendale")

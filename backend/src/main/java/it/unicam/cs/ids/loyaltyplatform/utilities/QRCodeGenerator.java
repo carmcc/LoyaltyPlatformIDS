@@ -7,9 +7,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 
 import java.awt.image.BufferedImage;
 
-public class QRCodeGenerator
-{
-
+public class QRCodeGenerator {  //TODO discutere se rendere "QRCodeGenerator" astratto
     public static BufferedImage generateQRCodeImage(String barcodeText) throws Exception {
         QRCodeWriter toConvertImage = new QRCodeWriter();
         BitMatrix bitMatrix = toConvertImage.encode(barcodeText, BarcodeFormat.QR_CODE, 300, 300);
