@@ -27,9 +27,7 @@ public class CoalizioneController extends EntityValidator{
     @PostMapping("/addCoalizione")
     public Coalizione addCoalizione(@RequestBody Coalizione coalizione) {
         validateEntity(coalizione);
-        if(coalizione.getIdCoalizione() != null && getCoalizioneById(coalizione.getIdCoalizione()) != null)
-            throw new IllegalArgumentException("il record da inserire esiste già");
-
+        coalizione.setIdCoalizione(null);
         return this.coalizioneService.addCoalizione(coalizione);
     }
 

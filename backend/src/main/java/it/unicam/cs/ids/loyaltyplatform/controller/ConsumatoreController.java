@@ -30,20 +30,21 @@ public class ConsumatoreController extends EntityValidator {
     @PostMapping(value = "/addConsumatore")
     public Consumatore addConsumatore(@RequestBody Consumatore consumatore) {
         validateEntity(consumatore);
+        consumatore.setIdConsumatore(null);
         return this.consumatoreService.addConsumatore(consumatore);
     }
 
     @DeleteMapping(value = "/deleteConsumatoreById/{id}")
     public void deleteConsumatoreById(@PathVariable("id") Integer id) {
         if(getConsumatoreById(id)==null)
-            throw new IllegalArgumentException("Consumatore non esiste");
+            throw new IllegalArgumentException("il Consumatore da eliminare non esiste");
         this.consumatoreService.deleteConsumatoreById(id);
     }
 
     @PutMapping(value = "/updateConsumatore")
     public void updateConsumatore(@RequestBody Consumatore consumatore) {
         validateEntity(consumatore);
-        if(getConsumatoreById(consumatore.getIdConsumatore())==null)
+        if(consumatore.getIdConsumatore()!=null && getConsumatoreById(consumatore.getIdConsumatore())==null)
             throw new IllegalArgumentException("il record da aggiornare non esiste");
         this.consumatoreService.updateConsumatore(consumatore);
     }

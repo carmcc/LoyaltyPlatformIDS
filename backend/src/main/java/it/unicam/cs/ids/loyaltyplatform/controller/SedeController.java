@@ -25,8 +25,7 @@ public class SedeController extends EntityValidator
     @PostMapping(value = "/addSede")
     public Sede addSede(@RequestBody Sede sede) {
         validateEntity(sede);
-        if (getSedeById(sede.getIdSede()) != null)
-            throw new IllegalArgumentException("La sede inserita è già presente nel database");
+        sede.setIdSede(null);
         return this.sedeService.addSede(sede);
     }
 

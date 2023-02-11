@@ -27,7 +27,7 @@ public class PermessoController extends EntityValidator
     @PostMapping(value = "/addPermesso")
     public Permesso addPermesso(@RequestBody Permesso permesso) {
         validateEntity(permesso);
-        if(getPermessoById(permesso.getNomePermesso()) != null)
+        if(getPermessoById(permesso.getNomePermesso()) != null)     //L'id non deve essere null perché è l'unica variabile che lo identifica
             throw new IllegalArgumentException("il record da inserire esiste già");
 
         return this.permessoService.addPermesso(permesso);

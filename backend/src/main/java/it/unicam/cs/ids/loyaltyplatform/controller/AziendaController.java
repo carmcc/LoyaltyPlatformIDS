@@ -35,8 +35,7 @@ public class AziendaController extends EntityValidator
     @PostMapping(value = "/addAzienda")
     public Azienda addAzienda(@RequestBody Azienda azienda) {
         validateEntity(azienda);
-        if(azienda.getIdAzienda() != null && getAziendaById(azienda.getIdAzienda()) != null)
-            throw new IllegalArgumentException("Il record da aggiungere esiste già");
+        azienda.setIdAzienda(null);
         return this.aziendaService.addAzienda(azienda);
     }
 

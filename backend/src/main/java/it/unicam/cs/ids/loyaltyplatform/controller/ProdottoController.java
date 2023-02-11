@@ -30,8 +30,7 @@ public class ProdottoController extends EntityValidator
     public Prodotto addProdotto(@RequestBody Prodotto prodotto)
     {
         validateEntity(prodotto);
-        if(prodotto.getIdProdotto() != null && getProdottoById(prodotto.getIdProdotto()) != null)
-            throw new IllegalArgumentException("il record da aggiungere esiste già");
+        prodotto.setIdProdotto(null);
         return this.prodottoService.addProdotto(prodotto);
     }
 

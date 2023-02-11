@@ -36,8 +36,7 @@ public class ScontoController extends EntityValidator
     @PostMapping("/addSconto")
     public Sconto addSconto(@RequestBody Sconto sconto) {
         validateEntity(sconto);
-        if (getScontoByAziendaAndProdotto(sconto.getQualeAzienda(), sconto.getQualeProdotto()).isPresent())
-            throw new IllegalArgumentException("Sconto già presente");
+        sconto.setSconto(null);
         return this.scontoService.addSconto(sconto);
     }
 

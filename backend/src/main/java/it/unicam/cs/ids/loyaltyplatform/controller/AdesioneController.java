@@ -69,11 +69,11 @@ public class AdesioneController extends EntityValidator
         validateEntity(pagamento);
         if(this.pagamentoService.getPagamentoById(pagamento.getIdPagamento()) == null)
             throw new IllegalArgumentException("ID del record da modificare non presente");
-        return this.adesioneService.incrementoPunti(pagamento);
+        return this.adesioneService.incrementoPuntiEdEsperienza(pagamento);
     }
 
     @PutMapping(value = "/sottrazionePuntiPremio/{qualeAzienda}&{qualeProdotto}")
-    public List<Adesione> sottrazionePuntiPremio(@RequestBody Consumatore consumatore,    //TODO discutere se mettere come PathVariable il premio o il consumatore
+    public List<Adesione> sottrazionePuntiPremio(@RequestBody Consumatore consumatore,
                                            @PathVariable("qualeAzienda") Integer qualeAzienda,
                                            @PathVariable("qualeProdotto") Integer qualeProdotto) {
         validateEntity(consumatore);
