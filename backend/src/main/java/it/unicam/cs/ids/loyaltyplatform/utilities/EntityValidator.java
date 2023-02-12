@@ -1,8 +1,6 @@
-package it.unicam.cs.ids.loyaltyplatform.controller;
+package it.unicam.cs.ids.loyaltyplatform.utilities;
 
 import it.unicam.cs.ids.loyaltyplatform.entity.*;
-import it.unicam.cs.ids.loyaltyplatform.utilities.EntityEmail;
-import it.unicam.cs.ids.loyaltyplatform.utilities.EntityPassword;
 
 import java.util.regex.Pattern;
 
