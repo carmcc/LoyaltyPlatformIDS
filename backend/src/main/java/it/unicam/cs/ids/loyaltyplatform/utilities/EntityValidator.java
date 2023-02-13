@@ -40,6 +40,8 @@ public abstract class EntityValidator {
                 validateSede(sede);
         if(entity instanceof Spesa spesa)
                 validateSpesa(spesa);
+        if(entity instanceof Invito invito)
+                validateInvito(invito);
     }
 
     private void validateAccountAziendale(AccountAziendale accountAziendale) {
@@ -298,6 +300,16 @@ public abstract class EntityValidator {
             throw new IllegalArgumentException("id pagamento non valido");
         if(spesa.getQualeProdotto() == null || spesa.getQualeProdotto() <= 0)
             throw new IllegalArgumentException("id prodotto non valido");
+    }
+
+    private void validateInvito(Invito invito)
+    {
+        if(invito == null)
+            throw new NullPointerException("invito è nullo");
+        if(invito.getQualeAziendaInvitante() == null || invito.getQualeAziendaInvitante() <= 0)
+            throw new IllegalArgumentException("id azienda invitante non valido");
+        if(invito.getQualeAziendaInvitata() == null || invito.getQualeAziendaInvitata() <= 0)
+            throw new IllegalArgumentException("id azienda invitata non valido");
     }
 
 }
