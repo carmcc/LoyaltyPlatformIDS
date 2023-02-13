@@ -8,6 +8,7 @@ import it.unicam.cs.ids.loyaltyplatform.service.AdesioneService;
 import it.unicam.cs.ids.loyaltyplatform.service.AziendaService;
 import it.unicam.cs.ids.loyaltyplatform.service.BuonoScontoService;
 import it.unicam.cs.ids.loyaltyplatform.service.PagamentoService;
+import it.unicam.cs.ids.loyaltyplatform.utilities.EntityValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +22,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/pagamento")
 @AllArgsConstructor
-public class PagamentoController extends EntityValidator{
+public class PagamentoController extends EntityValidator {
     private final PagamentoService pagamentoService;
     private final AdesioneService adesioneService;
     private final AziendaService aziendaService;

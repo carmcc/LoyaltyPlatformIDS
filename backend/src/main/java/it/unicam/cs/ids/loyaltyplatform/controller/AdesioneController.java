@@ -5,6 +5,7 @@ import it.unicam.cs.ids.loyaltyplatform.entity.Consumatore;
 import it.unicam.cs.ids.loyaltyplatform.entity.Pagamento;
 import it.unicam.cs.ids.loyaltyplatform.entity.Premio;
 import it.unicam.cs.ids.loyaltyplatform.service.*;
+import it.unicam.cs.ids.loyaltyplatform.utilities.EntityValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

@@ -3,6 +3,7 @@ package it.unicam.cs.ids.loyaltyplatform.controller;
 import it.unicam.cs.ids.loyaltyplatform.entity.Consumatore;
 import it.unicam.cs.ids.loyaltyplatform.service.ConsumatoreService;
 import it.unicam.cs.ids.loyaltyplatform.service.QRCodeService;
+import it.unicam.cs.ids.loyaltyplatform.utilities.EntityValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

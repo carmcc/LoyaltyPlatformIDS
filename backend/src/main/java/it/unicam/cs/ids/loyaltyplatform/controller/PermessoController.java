@@ -2,6 +2,7 @@ package it.unicam.cs.ids.loyaltyplatform.controller;
 
 import it.unicam.cs.ids.loyaltyplatform.entity.Permesso;
 import it.unicam.cs.ids.loyaltyplatform.service.PermessoService;
+import it.unicam.cs.ids.loyaltyplatform.utilities.EntityValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

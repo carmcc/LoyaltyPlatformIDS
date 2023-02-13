@@ -2,6 +2,7 @@ package it.unicam.cs.ids.loyaltyplatform.controller;
 
 import it.unicam.cs.ids.loyaltyplatform.entity.Coalizione;
 import it.unicam.cs.ids.loyaltyplatform.service.CoalizioneService;
+import it.unicam.cs.ids.loyaltyplatform.utilities.EntityValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/coalizione")
 @AllArgsConstructor
-public class CoalizioneController extends EntityValidator{
+public class CoalizioneController extends EntityValidator {
 
     private final CoalizioneService coalizioneService;
 
@@ -49,4 +50,8 @@ public class CoalizioneController extends EntityValidator{
 
         this.coalizioneService.updateCoalizione(coalizione);
     }
+
+
+
+
 }

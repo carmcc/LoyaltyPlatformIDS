@@ -2,6 +2,7 @@ package it.unicam.cs.ids.loyaltyplatform.controller;
 
 import it.unicam.cs.ids.loyaltyplatform.entity.Recensione;
 import it.unicam.cs.ids.loyaltyplatform.service.RecensioneService;
+import it.unicam.cs.ids.loyaltyplatform.utilities.EntityValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +12,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/recensione")
 @AllArgsConstructor
-public class RecensioneController extends EntityValidator{
+public class RecensioneController extends EntityValidator {
     final RecensioneService recensioneService;
     @GetMapping("/getRecensioniByIdConsumatore/{id}")
     public List<Recensione> getRecensioniByIdConsumatore(@PathVariable("id") Integer id) {

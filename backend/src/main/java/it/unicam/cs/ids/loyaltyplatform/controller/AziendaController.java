@@ -1,7 +1,13 @@
 package it.unicam.cs.ids.loyaltyplatform.controller;
 import it.unicam.cs.ids.loyaltyplatform.entity.Azienda;
+import it.unicam.cs.ids.loyaltyplatform.entity.Coalizione;
+import it.unicam.cs.ids.loyaltyplatform.entity.Invito;
+import it.unicam.cs.ids.loyaltyplatform.primaryKeys.PKInvito;
 import it.unicam.cs.ids.loyaltyplatform.service.AziendaService;
+import it.unicam.cs.ids.loyaltyplatform.service.CoalizioneService;
+import it.unicam.cs.ids.loyaltyplatform.service.InvitoService;
 import it.unicam.cs.ids.loyaltyplatform.service.QRCodeService;
+import it.unicam.cs.ids.loyaltyplatform.utilities.EntityValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +21,8 @@ import java.util.List;
 public class AziendaController extends EntityValidator {    //TODO implementare l'invio della richiesta di coalizione (tramite una tabella inviti)
     private final AziendaService aziendaService;
     private final QRCodeService qrCodeService;
+    private final InvitoService invitoService;
+    private final CoalizioneService coalizioneService;
 
     @GetMapping(value = "/getAziendaById/{id}")
     public Azienda getAziendaById(@PathVariable("id") Integer id) {
@@ -24,6 +32,11 @@ public class AziendaController extends EntityValidator {    //TODO implementare 
     @GetMapping(value = "/getAziendeByIdCoalizione/{id}")
     public List<Azienda> getAziendeByIdCoalizione(@PathVariable("id") Integer id) {
         return this.aziendaService.getAziendeByIdCoalizione(id);
+    }
+
+    @GetMapping(value = "/getAziendeCoalizzate/{id_coalizione}")
+    public List<Azienda> getAziendeCoalizzate(@PathVariable("id_coalizione") Integer id) {
+        return this.aziendaService.getAziendeCoalizzate(id);
     }
 
     @GetMapping(value = "/getAllAziende")
@@ -61,6 +74,42 @@ public class AziendaController extends EntityValidator {    //TODO implementare 
         if(azienda == null)
             throw new IllegalArgumentException("Azienda non trovata");
         return qrCodeService.qrCodeGenerator(azienda.getReferral());
+    }
+
+    /**
+        Un azienda crea la coalizione ed invita un'altra azienda
+        @param coalizione Coalizione da creare
+        @param idAziendaInvitante ID dell'azienda che invita
+        @param idAziendaInvitata ID dell'azienda invitata
+     **/
+    @PostMapping(value = "/createCoalizione/{idAziendaInvitante}&{idAziendaInvitata}")
+    public void createCoalizione(@RequestBody Coalizione coalizione,
+                                 @PathVariable("idAziendaInvitante") Integer idAziendaInvitante,
+                                 @PathVariable("idAziendaInvitata") Integer idAziendaInvitata)
+    {
+        validateEntity(coalizione);
+        coalizioneService.addCoalizione(coalizione);
+        invitoService.addInvito(new Invito(idAziendaInvitante, idAziendaInvitata, coalizione.getIdCoalizione(), null));
+    }
+
+    @PostMapping(value = "/invitaAzienda/{idCoalizione}&{idAziendaInvitante}&{idAziendaInvitata}")
+    public void createInvito(@PathVariable("idCoalizione") Integer idCoalizione,
+                                 @PathVariable("idAziendaInvitante") Integer idAziendaInvitante,
+                                 @PathVariable("idAziendaInvitata") Integer idAziendaInvitata)
+    {
+        invitoService.addInvito(new Invito(idAziendaInvitante, idAziendaInvitata, idCoalizione, null));
+    }
+
+    @PutMapping(value = "/responseInvito/{idAziendaInvitante}&{idAziendaInvitata}&{stato}")
+    public void responseInvito(@PathVariable("idAziendaInvitante") Integer idAziendaInvitante,
+                               @PathVariable("idAziendaInvitata") Integer idAziendaInvitata,
+                               @PathVariable("stato") Boolean response)
+    {
+        Invito invito = invitoService.getInvitoByIdAziendaInvitanteAndIdAziendaInvitata(new PKInvito(idAziendaInvitante, idAziendaInvitata));
+        if(invito == null)
+            throw new IllegalArgumentException("Invito non trovato");
+        invito.setStato(response);
+        invitoService.updateInvito(invito);
     }
 
 }

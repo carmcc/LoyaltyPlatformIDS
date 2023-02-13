@@ -2,6 +2,7 @@ package it.unicam.cs.ids.loyaltyplatform.controller;
 
 import it.unicam.cs.ids.loyaltyplatform.entity.BuonoSconto;
 import it.unicam.cs.ids.loyaltyplatform.service.BuonoScontoService;
+import it.unicam.cs.ids.loyaltyplatform.utilities.EntityValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/buonoSconto")
 @AllArgsConstructor
-public class BuonoScontoController extends EntityValidator{
+public class BuonoScontoController extends EntityValidator {
     private final BuonoScontoService buonoScontoService;
 
     @GetMapping(value = "/getBuonoScontoById/{id}")

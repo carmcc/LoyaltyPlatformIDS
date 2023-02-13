@@ -4,6 +4,7 @@ import it.unicam.cs.ids.loyaltyplatform.entity.AccountAziendale;
 import it.unicam.cs.ids.loyaltyplatform.entity.Ruolo;
 import it.unicam.cs.ids.loyaltyplatform.service.AccountAziendaleService;
 import it.unicam.cs.ids.loyaltyplatform.service.RuoloService;
+import it.unicam.cs.ids.loyaltyplatform.utilities.EntityValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +14,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/accountAziendale")
 @AllArgsConstructor
-public class AccountAziendaleController extends EntityValidator{
+public class AccountAziendaleController extends EntityValidator {
     private final AccountAziendaleService accountAziendaleService;
     private final RuoloService ruoloService;
 
