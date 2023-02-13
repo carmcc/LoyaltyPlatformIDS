@@ -3,6 +3,8 @@ import it.unicam.cs.ids.loyaltyplatform.entity.Azienda;
 import it.unicam.cs.ids.loyaltyplatform.repository.AziendaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -27,6 +29,10 @@ public class AziendaService {
     public void updateAzienda(Azienda azienda) {
             this.aziendaRepository.saveAndFlush(azienda);
         }
+
+    public List<Azienda> getAziendeCoalizzate(Integer id) {
+        return this.aziendaRepository.findByQualeCoalizione(id);
+    }
 
 }
 
