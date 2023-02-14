@@ -1,11 +1,9 @@
 package it.unicam.cs.ids.loyaltyplatform.entity;
 
 import it.unicam.cs.ids.loyaltyplatform.primaryKeys.PKInvito;
-import it.unicam.cs.ids.loyaltyplatform.trigger.InvitoListener;
 import jakarta.persistence.*;
 import lombok.*;
 
-@EntityListeners(InvitoListener.class)
 @Entity
 @Table(name = "INVITI")
 @IdClass(PKInvito.class)
