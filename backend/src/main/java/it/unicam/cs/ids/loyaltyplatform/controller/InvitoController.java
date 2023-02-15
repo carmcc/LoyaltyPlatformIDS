@@ -37,7 +37,7 @@ public class InvitoController extends EntityValidator {
         return this.invitoService.addInvito(invito);
     }
 
-    @DeleteMapping(value = "/deleteByInvitoId//{idAziendaInvitante}&{idAziendaInvitata}")
+    @DeleteMapping(value = "/deleteByInvitoId/{idAziendaInvitante}&{idAziendaInvitata}")
     public void deleteByInvitoId(@PathVariable("idAziendaInvitante") Integer idAziendaInvitante,
                                  @PathVariable("idAziendaInvitata") Integer idAziendaInvitata) {
         if(getInvitoByIdAziendaInvitanteAndIdAziendaInvitata(idAziendaInvitante,idAziendaInvitata)==null)
