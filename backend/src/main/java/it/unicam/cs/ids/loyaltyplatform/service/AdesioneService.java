@@ -141,6 +141,9 @@ public class AdesioneService
             throw new IllegalArgumentException("punti insufficienti per pagare il premio (nessuna coalizione rilevata)");
         if(!coalizione.getCondivisionePunti())  //la condivisione punti non è abilitata
             throw new IllegalArgumentException("punti insufficienti per pagare il premio (condivisione punti non abilitata)");
+        if(adesionePrincipale.getPuntiConsumatore() == 0)   //gestisco il problema del parametro uguale a zero causando del code smell
+            if(coalizione.getPercentualeRitiroPremi() != 0)
+                throw new IllegalArgumentException("rapporto costoPremio/puntiDisponibili troppo basso per abilitare la condivisione punti");
         if( (100 / (costo / adesionePrincipale.getPuntiConsumatore())) < coalizione.getPercentualeRitiroPremi())    //è necessario che si abbia almeno una certa percentuale del prezzo del premio per utilizzare la condivisione punti
             throw new IllegalArgumentException("rapporto costoPremio/puntiDisponibili troppo basso per abilitare la condivisione punti");
 
@@ -156,7 +159,11 @@ public class AdesioneService
         if(costo > this.getSommaPuntiAdesioni(listaAdesioniCoalizzate))
             throw new IllegalArgumentException("punti insufficienti per pagare il premio (anche considerando i punti delle adesioni del cliente con altre aziende coalizzate)");
 
-        return getListaAdesioniConSottrazioneDistribuita(costo, listaAdesioniCoalizzate);
+        SottrazioneDistribuitaListaAdesioni(costo, listaAdesioniCoalizzate);
+        for (Adesione a : listaAdesioniCoalizzate) {
+            this.adesioneRepository.saveAndFlush(a);
+        }
+        return listaAdesioniCoalizzate;
     }
 
     private List<Adesione> getListaAdesioniByCoalizioneAndIdConsumatore(Coalizione coalizione, Integer idConsumatore) {
@@ -172,7 +179,7 @@ public class AdesioneService
         }
         return somma;
     }
-    private List<Adesione> getListaAdesioniConSottrazioneDistribuita(int costo, List<Adesione> listaAdesioni) {
+    private List<Adesione> SottrazioneDistribuitaListaAdesioni(int costo, List<Adesione> listaAdesioni) {
         if(costo == 0)
             return listaAdesioni; //esco dal metodo senza apportare nessuna modifica alla lista
         int cardinalitaValoriMaggioriDiZero = getCardinalitaValoriMaggioriDiZero(listaAdesioni);
@@ -208,7 +215,7 @@ public class AdesioneService
                 listaAdesioni = listaAdesioni.stream()
                                 .peek(x->{if(x.equals(adesioneDaModificare))
                                                 x.setPuntiConsumatore(0);}).toList();    //l'adesione finisce il credito
-                return getListaAdesioniConSottrazioneDistribuita(resto,listaAdesioni); //il costo è diminuito al di sotto del valore cardinalitaValoriMaggioriDiZero; il prossimo ciclo è l'ultimo
+                return SottrazioneDistribuitaListaAdesioni(resto,listaAdesioni); //il costo è diminuito al di sotto del valore cardinalitaValoriMaggioriDiZero; il prossimo ciclo è l'ultimo
             }
         }
         else    //vi è almeno un'adesione che andrebbe in negativo con la sottrazione
@@ -217,7 +224,7 @@ public class AdesioneService
                             .peek(x->{if(x.getPuntiConsumatore()>0) //seleziono tutte le adesioni con punteggio maggiore di zero (quindi >= valoreMinimo)...
                                         x.setPuntiConsumatore(x.getPuntiConsumatore()-valoreMinimo);}).toList();  //... ed eseguo la sottrazione del valore minimo su ognuno di loro
             costo -= valoreMinimo * cardinalitaValoriMaggioriDiZero; //"n" adesioni hanno perso "x" punti, quindi il costo deve perdere "n*x" punti (avrà comunque un valore maggiore di cardinalitaValoriMaggioriDiZero)
-            return getListaAdesioniConSottrazioneDistribuita(costo, listaAdesioni); //il costo è diminuito, si esegue un altro ciclo per ridurlo ancora
+            return SottrazioneDistribuitaListaAdesioni(costo, listaAdesioni); //il costo è diminuito, si esegue un altro ciclo per ridurlo ancora
         }
     }
 
