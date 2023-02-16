@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.awt.image.BufferedImage;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/azienda")
@@ -97,6 +98,9 @@ public class AziendaController extends EntityValidator {
                                  @PathVariable("idAziendaInvitante") Integer idAziendaInvitante,
                                  @PathVariable("idAziendaInvitata") Integer idAziendaInvitata)
     {
+        if(aziendaService.getAziendaById(idAziendaInvitante).getQualeCoalizione() != null)
+            if(Objects.equals(aziendaService.getAziendaById(idAziendaInvitante).getQualeCoalizione(), idCoalizione))
+                throw new IllegalArgumentException("Non puoi invitare in coalizione di cui non fai parte");
         invitoService.addInvito(new Invito(idAziendaInvitante, idAziendaInvitata, idCoalizione, null));
     }
 
@@ -108,8 +112,16 @@ public class AziendaController extends EntityValidator {
         Invito invito = invitoService.getInvitoByIdAziendaInvitanteAndIdAziendaInvitata(new PKInvito(idAziendaInvitante, idAziendaInvitata));
         if(invito == null)
             throw new IllegalArgumentException("Invito non trovato");
-        invito.setStato(response);
-        invitoService.updateInvito(invito);
+        if(aziendaService.getAziendaById(idAziendaInvitata).getQualeCoalizione() != null)
+            throw new IllegalArgumentException("L'azienda è già in coalizione, non vuoi accettere l'invito");
+        if(response) {
+            aziendaService.getAziendaById(idAziendaInvitata).setQualeCoalizione(invito.getQualeCoalizione());
+            aziendaService.getAziendaById(idAziendaInvitante).setQualeCoalizione(invito.getQualeCoalizione());
+        }
+        else{
+            if(aziendaService.getAziendeByIdCoalizione(invito.getQualeCoalizione()).size()< 2)
+                coalizioneService.deleteCoalizioneById(invito.getQualeCoalizione());
+        }
     }
 
 }
