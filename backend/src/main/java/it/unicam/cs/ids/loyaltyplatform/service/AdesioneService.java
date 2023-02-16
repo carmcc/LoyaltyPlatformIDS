@@ -179,6 +179,14 @@ public class AdesioneService
         }
         return somma;
     }
+
+    /**
+     * Metodo che sottrae il costo da distribuire tra le adesioni,
+     * in modo da non lasciare alcuna adesione con un valore negativo
+     * @param costo Costo da distribuire
+     * @param listaAdesioni Lista di adesioni da modificare
+     * @return Lista di adesioni con i valori aggiornati
+     */
     private List<Adesione> SottrazioneDistribuitaListaAdesioni(int costo, List<Adesione> listaAdesioni) {
         if(costo == 0)
             return listaAdesioni; //esco dal metodo senza apportare nessuna modifica alla lista

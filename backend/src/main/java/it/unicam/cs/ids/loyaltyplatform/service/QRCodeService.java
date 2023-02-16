@@ -12,10 +12,20 @@ import java.awt.image.BufferedImage;
 @Service
 public class QRCodeService
 {
+    /**
+     * Genera un QRCode
+     * @param qrcode Stringa da codificare
+     * @return ResponseEntity<BufferedImage> Immagine del QRCode
+     * @throws Exception
+     */
     public ResponseEntity<BufferedImage> qrCodeGenerator(String qrcode) throws Exception {
         return ResponseEntity.ok(QRCodeGenerator.generateQRCodeImage(qrcode));
     }
 
+    /**
+     * Permette di convertire l'immagine in un formato leggibile
+     * @return BufferedImageHttpMessageConverter
+     */
     @Bean
     public HttpMessageConverter<BufferedImage> createImageHttpMessageConverter() {
         return new BufferedImageHttpMessageConverter();

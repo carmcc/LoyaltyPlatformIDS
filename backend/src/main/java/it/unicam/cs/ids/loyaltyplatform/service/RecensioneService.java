@@ -30,6 +30,12 @@ public class RecensioneService {
     public void deleteRecensione(Recensione recensione) {this.recensioneRepository.delete(recensione);}
     public void updateRecensione(Recensione recensione) {this.recensioneRepository.saveAndFlush(recensione);}
 
+    /**
+     * Metodo che permette di scrivere una recensione
+     * @param recensione Recensione da scrivere
+     * @return Recensione scritta
+     * @throws IllegalArgumentException
+     */
     public Recensione writeRewiew(Recensione recensione)
     {
         Optional<Adesione> adesioneOptional = this.adesioneService.getAdesioneByConsumatoreAndAzienda(recensione.getQualeConsumatore(), recensione.getQualeAzienda());
