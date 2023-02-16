@@ -71,8 +71,6 @@ public abstract class EntityValidator {
             throw new IllegalArgumentException("Il divisore cashback è negativo");
         if(azienda.getMoltiplicatoreVip() < 1)
             throw new IllegalArgumentException("Moltiplicatore VIP minore di 1");
-        if(azienda.getQualeCoalizione() <= 0)
-            throw new IllegalArgumentException("Coalizione non può essere minore di 0");
         checkEmail(azienda);
         checkIVA(azienda);
         controlloMoltSistemaLivelli(azienda);
