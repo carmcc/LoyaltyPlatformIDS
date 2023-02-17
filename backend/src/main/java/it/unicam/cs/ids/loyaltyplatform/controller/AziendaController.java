@@ -69,7 +69,7 @@ public class AziendaController extends EntityValidator {
         this.aziendaService.updateAzienda(azienda);
     }
 
-    @GetMapping(value = "/qrcode/{id}")
+    @GetMapping(value = "/referral/{id}")
     public ResponseEntity<BufferedImage> referral(@PathVariable("id") Integer id) throws Exception {
         Azienda azienda = getAziendaById(id);
         if(azienda == null)
@@ -83,8 +83,8 @@ public class AziendaController extends EntityValidator {
         @param idAziendaInvitante ID dell'azienda che invita
         @param idAziendaInvitata ID dell'azienda invitata
      **/
-    @PostMapping(value = "/createCoalizione/{idAziendaInvitante}&{idAziendaInvitata}")
-    public void createCoalizione(@RequestBody Coalizione coalizione,
+    @PostMapping(value = "/createCoalizioneAndInvito/{idAziendaInvitante}&{idAziendaInvitata}")
+    public void createCoalizioneAndInvito(@RequestBody Coalizione coalizione,
                                  @PathVariable("idAziendaInvitante") Integer idAziendaInvitante,
                                  @PathVariable("idAziendaInvitata") Integer idAziendaInvitata)
     {
@@ -93,7 +93,7 @@ public class AziendaController extends EntityValidator {
         invitoService.addInvito(new Invito(idAziendaInvitante, idAziendaInvitata, coalizione.getIdCoalizione(), null));
     }
 
-    @PostMapping(value = "/invitaAzienda/{idCoalizione}&{idAziendaInvitante}&{idAziendaInvitata}")
+    @PostMapping(value = "/createInvito/{idCoalizione}&{idAziendaInvitante}&{idAziendaInvitata}")
     public void createInvito(@PathVariable("idCoalizione") Integer idCoalizione,
                                  @PathVariable("idAziendaInvitante") Integer idAziendaInvitante,
                                  @PathVariable("idAziendaInvitata") Integer idAziendaInvitata)
