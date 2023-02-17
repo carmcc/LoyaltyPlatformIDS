@@ -28,7 +28,6 @@ public class CoalizioneController extends EntityValidator {
     @PostMapping("/addCoalizione")
     public Coalizione addCoalizione(@RequestBody Coalizione coalizione) {
         validateEntity(coalizione);
-        coalizione.setIdCoalizione(null);
         return this.coalizioneService.addCoalizione(coalizione);
     }
 

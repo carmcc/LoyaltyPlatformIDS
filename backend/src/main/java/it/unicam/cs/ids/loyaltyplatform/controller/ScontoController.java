@@ -37,7 +37,6 @@ public class ScontoController extends EntityValidator
     @PostMapping("/addSconto")
     public Sconto addSconto(@RequestBody Sconto sconto) {
         validateEntity(sconto);
-        sconto.setSconto(null);
         return this.scontoService.addSconto(sconto);
     }
 

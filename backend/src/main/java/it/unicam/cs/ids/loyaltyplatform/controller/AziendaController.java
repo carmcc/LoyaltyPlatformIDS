@@ -48,7 +48,6 @@ public class AziendaController extends EntityValidator {
     @PostMapping(value = "/addAzienda")
     public Azienda addAzienda(@RequestBody Azienda azienda) {
         validateEntity(azienda);
-        azienda.setIdAzienda(null);
         return this.aziendaService.addAzienda(azienda);
     }
 
@@ -79,14 +78,15 @@ public class AziendaController extends EntityValidator {
 
     /**
         Un azienda crea la coalizione ed invita un'altra azienda
+
         @param coalizione Coalizione da creare
         @param idAziendaInvitante ID dell'azienda che invita
         @param idAziendaInvitata ID dell'azienda invitata
      **/
     @PostMapping(value = "/createCoalizioneAndInvito/{idAziendaInvitante}&{idAziendaInvitata}")
     public void createCoalizioneAndInvito(@RequestBody Coalizione coalizione,
-                                 @PathVariable("idAziendaInvitante") Integer idAziendaInvitante,
-                                 @PathVariable("idAziendaInvitata") Integer idAziendaInvitata)
+                                          @PathVariable("idAziendaInvitante") Integer idAziendaInvitante,
+                                          @PathVariable("idAziendaInvitata") Integer idAziendaInvitata)
     {
         validateEntity(coalizione);
         coalizioneService.addCoalizione(coalizione);
@@ -95,8 +95,8 @@ public class AziendaController extends EntityValidator {
 
     @PostMapping(value = "/createInvito/{idCoalizione}&{idAziendaInvitante}&{idAziendaInvitata}")
     public void createInvito(@PathVariable("idCoalizione") Integer idCoalizione,
-                                 @PathVariable("idAziendaInvitante") Integer idAziendaInvitante,
-                                 @PathVariable("idAziendaInvitata") Integer idAziendaInvitata)
+                             @PathVariable("idAziendaInvitante") Integer idAziendaInvitante,
+                             @PathVariable("idAziendaInvitata") Integer idAziendaInvitata)
     {
         if(aziendaService.getAziendaById(idAziendaInvitante).getQualeCoalizione() != null)
             if(Objects.equals(aziendaService.getAziendaById(idAziendaInvitante).getQualeCoalizione(), idCoalizione))

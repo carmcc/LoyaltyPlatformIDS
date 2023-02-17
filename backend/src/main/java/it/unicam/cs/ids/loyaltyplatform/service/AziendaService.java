@@ -4,7 +4,6 @@ import it.unicam.cs.ids.loyaltyplatform.repository.AziendaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -21,6 +20,7 @@ public class AziendaService {
             return this.aziendaRepository.findAll();
         }
     public Azienda addAzienda(Azienda azienda) {
+        azienda.setIdAzienda(0);
             return this.aziendaRepository.save(azienda);
         }
     public void deleteAziendaById(Integer id) {

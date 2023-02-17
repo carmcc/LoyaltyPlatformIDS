@@ -22,6 +22,7 @@ public class ConsumatoreService {
         return this.consumatoreRepository.findAll();
     }
     public Consumatore addConsumatore(Consumatore consumatore) {
+        consumatore.setIdConsumatore(null);
         return this.consumatoreRepository.save(consumatore);
     }
     public void deleteConsumatoreById(Integer id) {

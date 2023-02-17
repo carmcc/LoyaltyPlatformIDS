@@ -21,6 +21,7 @@ public class SedeService
     }
 
     public Sede addSede(Sede sede) {
+        sede.setIdSede(null);
         return this.sedeRepository.save(sede);
     }
 

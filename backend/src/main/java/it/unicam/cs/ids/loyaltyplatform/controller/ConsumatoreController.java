@@ -31,7 +31,6 @@ public class ConsumatoreController extends EntityValidator {
     @PostMapping(value = "/addConsumatore")
     public Consumatore addConsumatore(@RequestBody Consumatore consumatore) {
         validateEntity(consumatore);
-        consumatore.setIdConsumatore(null);
         return this.consumatoreService.addConsumatore(consumatore);
     }
 

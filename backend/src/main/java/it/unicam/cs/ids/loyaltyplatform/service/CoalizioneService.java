@@ -21,6 +21,7 @@ public class CoalizioneService {
     }
 
     public Coalizione addCoalizione(Coalizione coalizione) {
+        coalizione.setIdCoalizione(null);
         return coalizioneRepository.save(coalizione);
     }
 

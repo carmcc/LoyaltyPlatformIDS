@@ -25,6 +25,7 @@ public class BuonoScontoService {
         return this.buonoScontoRepository.findAll();
     }
     public BuonoSconto addBuonoSconto(BuonoSconto buonoSconto) {
+        buonoSconto.setIdBuono(null);
         return this.buonoScontoRepository.save(buonoSconto);
     }
     public void deleteBuonoScontoById(Integer id) {

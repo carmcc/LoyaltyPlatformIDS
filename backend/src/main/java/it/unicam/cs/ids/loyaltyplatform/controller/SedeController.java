@@ -26,7 +26,6 @@ public class SedeController extends EntityValidator
     @PostMapping(value = "/addSede")
     public Sede addSede(@RequestBody Sede sede) {
         validateEntity(sede);
-        sede.setIdSede(null);
         return this.sedeService.addSede(sede);
     }
 

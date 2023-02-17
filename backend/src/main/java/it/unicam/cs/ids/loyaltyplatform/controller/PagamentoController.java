@@ -35,7 +35,6 @@ public class PagamentoController extends EntityValidator {
     @PostMapping("/addPagamento")
     public Pagamento addPagamento(@RequestBody Pagamento pagamento) {
         validateEntity(pagamento);
-        pagamento.setIdPagamento(null);
 
         Integer idAzienda = pagamento.getQualeAzienda();
         Integer idConsumatore = pagamento.getQualeConsumatore();

@@ -22,8 +22,8 @@ public class ProdottoService
         return this.prodottoRepository.findAll();
     }
 
-    public Prodotto addProdotto(Prodotto prodotto)
-    {
+    public Prodotto addProdotto(Prodotto prodotto) {
+        prodotto.setIdProdotto(null);
         return this.prodottoRepository.save(prodotto);
     }
 

@@ -31,7 +31,6 @@ public class ProdottoController extends EntityValidator
     public Prodotto addProdotto(@RequestBody Prodotto prodotto)
     {
         validateEntity(prodotto);
-        prodotto.setIdProdotto(null);
         return this.prodottoService.addProdotto(prodotto);
     }
 

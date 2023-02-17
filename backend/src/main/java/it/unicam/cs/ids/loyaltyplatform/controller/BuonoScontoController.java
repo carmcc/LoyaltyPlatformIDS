@@ -27,8 +27,6 @@ public class BuonoScontoController extends EntityValidator {
     @PostMapping(value = "/addBuonoSconto")
     public BuonoSconto addBuonoSconto(@RequestBody BuonoSconto buonoSconto) {
         validateEntity(buonoSconto);
-        if(buonoSconto.getIdBuono() != null && getBuonoScontoById(buonoSconto.getIdBuono()) != null)
-            throw new IllegalArgumentException("il record da aggiungere esiste già");
         return this.buonoScontoService.addBuonoSconto(buonoSconto);
     }
 
