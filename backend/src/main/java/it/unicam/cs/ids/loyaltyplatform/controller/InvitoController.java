@@ -4,12 +4,14 @@ import it.unicam.cs.ids.loyaltyplatform.entity.Invito;
 import it.unicam.cs.ids.loyaltyplatform.primaryKeys.PKInvito;
 import it.unicam.cs.ids.loyaltyplatform.service.InvitoService;
 import it.unicam.cs.ids.loyaltyplatform.utilities.EntityValidator;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @RestController
 @RequestMapping("/invito")
+@AllArgsConstructor
 public class InvitoController extends EntityValidator {
-    InvitoService invitoService;
+    private final InvitoService invitoService;
     @GetMapping(value = "/getInvitiByIdAziendaInvitante/{id}")
     public List<Invito> getInvitiByIdAziendaInvitante(@PathVariable("id") Integer id) {
         return this.invitoService.getInvitiByIdAziendaInvitante(id);
