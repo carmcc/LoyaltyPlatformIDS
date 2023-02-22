@@ -37,7 +37,7 @@ public class AccountAziendaleController extends EntityValidator {
         AccountAziendale accountAziendaleAggiunto = this.accountAziendaleService.addAccountAziendale(accountAziendale);
 
         //dopo aver aggiunto l'account aziendale gli aggiungo il ruolo di default nominandolo "nuovoImpiegato"
-        this.ruoloService.addRuolo(new Ruolo(accountAziendaleAggiunto.getQualeAzienda(), accountAziendaleAggiunto.getSeriale(), "accessoTerminale", "nuovoImpiegato"));
+        this.ruoloService.addRuolo(new Ruolo(accountAziendaleAggiunto.getQualeAzienda(), accountAziendaleAggiunto.getSeriale(), "select", "nuovoImpiegato"));
 
         return accountAziendaleAggiunto;
     }
@@ -47,11 +47,11 @@ public class AccountAziendaleController extends EntityValidator {
         if(getAccountAziendaleByIdAndSeriale(accountAziendale.getQualeAzienda(), accountAziendale.getSeriale()).isEmpty())
             throw new IllegalArgumentException("ID del record da rimuovere non esiste");
 
-        List<Ruolo> listaRuoliAccountAziendale = this.ruoloService.getRuoliByAziendaAndSeriale(accountAziendale.getQualeAzienda(),
-                                                                                                accountAziendale.getSeriale());
-        for (Ruolo r: listaRuoliAccountAziendale) { //elimino tutti i ruoli dell'account aziendale
-            this.ruoloService.deleteRuolo(r);
-        }
+//        List<Ruolo> listaRuoliAccountAziendale = this.ruoloService.getRuoliByAziendaAndSeriale(accountAziendale.getQualeAzienda(),
+//                                                                                                accountAziendale.getSeriale());
+//        for (Ruolo r: listaRuoliAccountAziendale) { //elimino tutti i ruoli dell'account aziendale
+//            this.ruoloService.deleteRuolo(r);
+//        }
 
         this.accountAziendaleService.deleteAccountAziendale(accountAziendale);
     }

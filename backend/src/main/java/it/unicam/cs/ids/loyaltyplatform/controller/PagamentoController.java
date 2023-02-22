@@ -54,6 +54,7 @@ public class PagamentoController extends EntityValidator {
 
             //aggiornamento data "ultimaSpesa"
             adesione.setUltimaSpesa(Calendar.getInstance(Locale.ITALY).getTime());
+            pagamento.setDataPagamento(Calendar.getInstance(Locale.ITALY).getTime());
 
             //incremento il salvadanaio (cashBack)
             float incrementoCashBack = spesa / azienda.getDivisoreCashback();

@@ -20,7 +20,8 @@ public class AziendaService {
             return this.aziendaRepository.findAll();
         }
     public Azienda addAzienda(Azienda azienda) {
-        azienda.setIdAzienda(0);
+        //azienda.setIdAzienda(0);
+        azienda.setQualeCoalizione(null);
             return this.aziendaRepository.save(azienda);
         }
     public void deleteAziendaById(Integer id) {

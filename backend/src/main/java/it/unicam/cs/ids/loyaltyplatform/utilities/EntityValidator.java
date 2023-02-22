@@ -220,8 +220,6 @@ public abstract class EntityValidator {
     private void validatePagamento(Pagamento pagamento) {
         if(pagamento == null)
             throw new IllegalArgumentException("pagamento è nullo");
-        if(pagamento.getDataPagamento() == null)
-            throw new IllegalArgumentException("data pagamento assente");
         if(pagamento.getCostoTotale() < 0)
             throw new IllegalArgumentException("costo minore di zero");
         if(pagamento.getQualeConsumatore() == null || pagamento.getQualeConsumatore() <= 0)
@@ -278,7 +276,7 @@ public abstract class EntityValidator {
     {
         if(sede == null)
             throw new NullPointerException("La sede inserita è nulla");
-        if (sede.getIdSede() <= 0 || sede.getQualeAzienda() == null || sede.getQualeAzienda() <= 0)
+        if (sede.getQualeAzienda() == null || sede.getQualeAzienda() <= 0)
             throw new IllegalArgumentException("Parametri non validi per la sede");
         if(sede.getVia() == null || sede.getVia().isEmpty()
                 || sede.getCap() == null || sede.getCap().isEmpty()
